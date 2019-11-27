@@ -3,7 +3,7 @@
 ## Table of Contents
 
 * Foreword
-* Preface
+* Prefacio
 * Chapter 1: What Is JavaScript?
     * Name
     * Many Faces

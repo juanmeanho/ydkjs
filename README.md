@@ -8,11 +8,11 @@ El repositorio con la versión original se encuentra [acá](https://github.com/g
 
 ## Títulos
 
-El autor recomienda leer los libros en este ordem.
+El autor recomienda leer los libros en este orden.
 
-* [Get Started](get-started/README.md)
-* [Scope & Closures](scope-closures/README.md)
-* [Objects & Classes](objects-classes/README.md)
-* [Types & Grammar](types-grammar/README.md)
-* [Sync & Async](sync-async/README.md)
-* [ES.Next & Beyond](es-next-beyond/README.md)
+* [Get Started](1.get-started/README.md)
+* [Scope & Closures](2.scope-closures/README.md)
+* [Objects & Classes](3.objects-classes/README.md)
+* [Types & Grammar](4.types-grammar/README.md)
+* [Sync & Async](5.sync-async/README.md)
+* [ES.Next & Beyond](6.es-next-beyond/README.md)

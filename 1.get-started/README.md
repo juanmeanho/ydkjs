@@ -7,7 +7,7 @@
 [Table of Contents](toc.md)
 
 * [Foreword](foreword.md) (by [Brian Holt](https://twitter.com/holtbt))
-* [Preface](../preface.md)
+* [Prefacio](../prefacio.md)
 * [Chapter 1: What Is JavaScript?](ch1.md)
 * [Chapter 2: Getting To Know JS](ch2.md)
 * [Chapter 3: Exploring Deeper](ch3.md)

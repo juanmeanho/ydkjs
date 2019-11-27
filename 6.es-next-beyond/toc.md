@@ -7,7 +7,7 @@
 ## Table of Contents
 
 * Foreword
-* Preface
+* Prefacio
 * Chapter 1: ES? Now & Future
     * Versioning
     * Transpiling

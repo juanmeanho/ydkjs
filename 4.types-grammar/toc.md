@@ -7,7 +7,7 @@
 ## Table of Contents
 
 * Foreword
-* Preface
+* Prefacio
 * Chapter 1: Types
 	* A Type By Any Other Name...
 	* Built-in Types

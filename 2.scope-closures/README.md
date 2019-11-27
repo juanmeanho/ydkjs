@@ -7,7 +7,7 @@
 [Table of Contents](toc.md)
 
 * [Foreword](foreword.md) (by TBA)
-* [Preface](../preface.md)
+* [Prefacio](../prefacio.md)
 * [Chapter 1: How Is Scope Compiled?](ch1.md)
 * [Chapter 2: Understanding Lexical Scope](ch2.md)
 * [Chapter 3: Working With Scope](ch3.md)

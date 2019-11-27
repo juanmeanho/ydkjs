@@ -7,7 +7,7 @@
 ## Table of Contents
 
 * Foreword
-* Preface
+* Prefacio
 * Chapter 1: How Is Scope Compiled?
     * About This Book
     * Compiling Code

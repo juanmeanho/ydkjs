@@ -1,10 +1,7 @@
 # You Don't Know JS Yet: Get Started - 2nd Edition
 
-| NOTE: |
-| :--- |
-| Work in progress |
 
-[Table of Contents](toc.md)
+[Tabla de Contenidos](toc.md)
 
 * [Prefacio de La Serie](../prefacio.md) por Kyle Simpson
 

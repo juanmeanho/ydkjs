@@ -1,22 +1,25 @@
 # You Don't Know JS Yet: Get Started - 2nd Edition
-# Foreword
+# Prefacio
 
-The first time I saw a tweet advertising the crowdfunding campaign for the original book series *You Don't Know JS*, I thought to myself that whoever the hell this Kyle Simpson is can get bent. Of course I know JavaScript! At the time I had been working in JavaScript for some years with some of tech's biggest names so I felt justified in looking down my nose at this sweeping claim.
+La primera vez que vi un tweet que anunciaba la campaña de crowdfunding para la serie de libros original * You Don't Know JS *, pensé para mí mismo que quienquiera que sea este Kyle Simpson puede doblarse. ¡Por supuesto que sé JavaScript! En ese momento, había estado trabajando en JavaScript durante algunos años con algunos de los nombres más importantes de la tecnología, por lo que me sentí justificado al mirar de frente a esta afirmación radical.
 
-Once the funding for the book completed, I observed that a lot of people were really excited to read this book series and I decided to go ahead and give it a shot, you know, just to show everyone that I *do know* JavaScript. Once I dug in and poured over the texts, I experienced a profound mix of learning, surprise, and even a little anger. Kyle has a knack for saying something that challenges my world-view and making me think about it until I realize what he said was actually true (I'll never admit this to him though!).
+Una vez que se completó la financiación del libro, observé que mucha gente estaba realmente emocionada de leer esta serie de libros y decidí seguir adelante y darle una oportunidad, ya sabes, solo para mostrarles a todos que * sé * JavaScript. Una vez que busqué y leí los textos, experimenté una profunda mezcla de aprendizaje, sorpresa e incluso un poco de ira. Kyle tiene una habilidad especial para decir algo que desafía mi visión del mundo y me hace pensar en eso hasta que me doy cuenta de que lo que dijo es realmente cierto (¡aunque nunca lo admitiré!).
 
-So it turned out I didn't know JavaScript. I didn't know why I had adopted certain patterns; I didn't know why JavaScript behaves the way it does in certain situations, and I didn't know much of the nuance of the languages that I assumed I did. Many were things I didn't know I didn't know, and I was a worse-off as a developer for it.
+Entonces resultó que no conocía JavaScript. No sabía por qué había adoptado ciertos patrones; No sabía por qué JavaScript se comporta como lo hace en ciertas situaciones, y no sabía mucho sobre el matiz de los lenguajes que supuse que sí. Muchas eran cosas que no sabía que no sabía, y estaba peor como desarrollador por ello.
 
-This is what this book series is great for. It's not just for someone picking up the language for the first time (though it's for them, too); it's for all software craftspeople who want to master their tools, who want to understand the ins-and-outs of their trade, and who want to select the proper methods for solving problems.
+Para esto es genial esta serie de libros. No es solo para alguien que está aprendiendo el lenguaje por primera vez (aunque también es para ellos); es para todos los artesanos del software que desean dominar sus herramientas, que desean comprender los entresijos de su oficio y que desean seleccionar los métodos adecuados para resolver problemas.
 
-The thing I appreciate about Kyle and his work is that he is delightfully uninfluenced by the zeitgeist of the programming world around him. That isn't to say he isn't aware of what's happening in the community but that it doesn't sway his pursuit of the best answers to the correct questions. This often has put him at odds with what's the latest "best practices", but in reality this is exactly what you need: a perspective removed from temporal influence and simply speaking to the underlying truth. That's why this series is so good. The first edition of *You Don't Know JS* is still accurate, years later! Not many things stand this test of time given the shifting sands of the JavaScript landscape.
+Lo que aprecio de Kyle y su trabajo es que el espíritu del mundo de la programación que lo rodea no le influye deliciosamente. Eso no quiere decir que no esté al tanto de lo que está sucediendo en la comunidad, pero que no influye en su búsqueda de las mejores respuestas a las preguntas correctas. Esto a menudo lo ha puesto en desacuerdo con las últimas "mejores prácticas", pero en realidad esto es exactamente lo que necesita: una perspectiva alejada de la influencia temporal y simplemente hablando de la verdad subyacente. Por eso esta serie es tan buena. ¡La primera edición de * You Don't Know JS * sigue siendo precisa, años después! No hay muchas cosas que soporten esta prueba de tiempo dadas las arenas movedizas del paisaje JavaScript.
 
-Let's talk a moment about this first book itself, *Get Started*. You may be tempted to skip it as you may think that you already have "gotten started", but it's worth reading this one anyway! You'd be surprised how much depth, nuance, and oddity there is in the underlying building blocks of JavaScript, and it's quite essential for you to grapple with these underpinnings before venturing forward into the constructs of the language. It's exactly the sort of foundation you need, to really know JavaScript.
+Hablemos un momento sobre este primer libro, * Comenzando *. Puede sentirse tentado a omitirlo, ya que puede pensar que ya ha "comenzado", ¡pero vale la pena leerlo de todos modos! Te sorprendería la profundidad, los matices y la rareza que hay en los bloques de construcción subyacentes de JavaScript, y es bastante esencial para ti lidiar con estos fundamentos antes de aventurarte en las construcciones del lenguaje. Es exactamente el tipo de base que necesita, realmente saber JavaScript.
 
-So, do your future self a favor and dig into this book and unlock the knowledge within. These solid foundations will serve you better than any framework ever will; those come and go but we'll still be writing JavaScript itself for decades to come. Keep an open mind and challenge your preconceived notions.
+Entonces, hazte un favor a ti mismo en el futuro y profundiza en este libro y desbloquea el conocimiento interno. Estas bases sólidas le servirán mejor que cualquier marco; esos van y vienen, pero seguiremos escribiendo JavaScript en las próximas décadas. Mantenga una mente abierta y desafíe sus nociones preconcebidasS.
 
-Because, as I found out myself, you probably don't know JavaScript (yet).
+Entonces, hazte un favor a ti mismo en el futuro y profundiza en este libro y desbloquea el conocimiento interno. Estas bases sólidas le servirán mejor que cualquier marco; esos van y vienen, pero seguiremos escribiendo JavaScript en las próximas décadas. Mantenga una mente abierta y desafíe sus nociones preconcebidas.
 
-Brian Holt<br>
-Senior Program Manager on Visual Studio Code and Node.js on Azure<br>
+
+Porque, como descubrí yo mismo, probablemente no conozcas JavaScript (todavía).
+
+Brian Holt <br>
+Senior Program Manager en Visual Studio Code y Node.js en Azure <br>
 Microsoft

@@ -2,7 +2,6 @@
 
 ## Table of Contents
 
-* Foreword
 * Prefacio
 * Chapter 1: What Is JavaScript?
     * Name

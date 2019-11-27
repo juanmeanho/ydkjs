@@ -10,7 +10,7 @@ El repositorio con la versión original se encuentra [acá](https://github.com/g
 
 El autor recomienda leer los libros en este orden.
 
-* [Get Started](1.comenzando/README.md)
+* [Comenzando](1.comenzando/README.md)
 * [Scope & Closures](2.scope-closures/README.md)
 * [Objects & Classes](3.objects-classes/README.md)
 * [Types & Grammar](4.types-grammar/README.md)

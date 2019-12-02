@@ -292,8 +292,6 @@ Una vez que cualquier programa fuente ha sido parseado por completo, es muy com�
 
 En otras palabras, los lenguajes parseados generalmente también tienen generación de código antes de la ejecución, por lo que no es tan difícil decir que, en espíritu, es un lenguaje compilado.
 
-JS source code is parsed before it is executed. The specification requires as much, because it calls for "early errors" -- statically determined errors in code, such as a duplicate parameter name -- to be reported before the code starts executing. Those errors cannot be recognized without the code having been parsed.
-
 El código fuente de JS se analiza antes de ejecutarse. La especificación requiere tanto, porque requiere que se informen "errores tempranos" (errores determinados estáticamente en el código, como un nombre de parámetro duplicado) antes de que el código comience a ejecutarse. Esos errores no pueden reconocerse sin haber analizado el código.
 
 Entonces JS es un lenguaje parseado, pero ¿está compilado?

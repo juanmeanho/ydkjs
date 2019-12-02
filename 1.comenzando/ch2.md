@@ -1,56 +1,58 @@
-# You Don't Know JS Yet: Get Started - 2nd Edition
-# Chapter 2: Getting To Know JS
+# Aún no conoces JS: Comenzando - 2da Edición
+# Capítulo 2: Conociendo a JS
 
-| NOTE: |
+| NOTA DEL AUTOR: |
 | :--- |
-| Work in progress |
+| Trabajo en progreso |
 
-There's no substitute in learning JS other than to just start writing JS. To do that, you need to know how the language works. So, let's get more familiar with its syntax.
+No hay sustituto en el aprendizaje de JS que no sea simplemente comenzar a escribir JS. Para hacer eso, necesitas saber cómo funciona el lenguaje. Entonces, familiaricémonos con su sintaxis.
 
-This chapter is not an exhaustive reference on every bit of syntax of the JS language. It's also not intended to be an "intro to JS" primer.
+Este capítulo no es una referencia exhaustiva sobre cada bit de sintaxis del lenguaje JS. Tampoco pretende ser una introducción a "JS".
 
-Instead, we're just going to survey some of the major topic-areas of the language. Our goal is to get a better *feel* for it, so that we can move forward writing our own programs with more confidence.
+En cambio, solo vamos a examinar algunas de las principales áreas temáticas del lenguaje. Nuestro objetivo es obtener una mejor *sensación* para que podamos avanzar escribiendo nuestros propios programas con más confianza.
 
-However, don't expect this chapter to be a quick read. It's long and there's plenty of detail to chew on. Take your time.
+Sin embargo, no esperes que este capítulo sea una lectura rápida. Es largo y hay muchos detalles para masticar. Tómate tu tiempo.
 
 | TIP: |
 | :--- |
-| If you're still getting familiar with JS, I suggest you reserve plenty of extra time to work through this chapter. Take each section and ponder and explore the topic for awhile. Look through existing JS programs and compare what you see in them to the code and explanations (and opinions!) presented here. You will get a lot more out of the rest of the book and series with a solid foundation of JS's *nature*. |
+| Si aún te estás familiarizando con JS, te sugiero que reserves mucho tiempo extra para trabajar en este capítulo. Toma cada sección, reflexiona y explora el tema por un tiempo. Mira a través de los programas JS existentes y compara lo que ves en ellos con el código y las explicaciones (¡y opiniones!) presentadas aquí. Obtendráa mucho más del resto del libro y la serie con una base sólida de la *naturaleza* de JS. |
 
-## Files As Programs
+## Archivos Como Programas
 
-Almost every website (web application) you use is comprised of many different JS files (typically with the .js file extension). It's tempting to think of the whole thing (the application) as one program. But JS sees it differently.
+Casi todos los sitios web (aplicaciones web) que usas se componen de muchos archivos JS diferentes (generalmente con la extensión de archivo .js). Es tentador pensar en toda (la aplicación) como un solo programa. Pero JS lo ve de manera diferente.
 
-In JS, each standalone file is its own separate program.
+En JS, cada archivo independiente es su propio programa separado.
 
-The reason this matters is primarily around error handling. Since JS treats files as programs, one file may fail (during parse/compile or execution) and that will not necessarily prevent the next file from being processed. Obviously, if your application depends on five .js files, and one of them fails, the overall application will probably only partially operate, at best. It's important to ensure that each file works properly, and that to whatever extent possible, they handle failure in other files as gracefully as possible.
+La razón por la que esto importa se debe principalmente al manejo de errores. Dado que JS trata los archivos como programas, un archivo puede fallar (durante el análisis / compilación o ejecución) y eso no impedirá necesariamente que se procese el siguiente archivo. Obviamente, si su aplicación depende de cinco archivos .js, y uno de ellos falla, la aplicación general probablemente solo operará parcialmente, en el mejor de los casos. Es importante asegurarse de que cada archivo funcione correctamente y que, en la medida de lo posible, manejen las fallas en otros archivos de la manera más elegante posible.
 
-It may surprise you to consider separate .js files as separate JS programs. From the perspective of your usage of an application, it sure seems like one big program. That's because the execution of the application allows these individual *programs* to cooperate and act as one program.
+Puede sorprenderte considerar archivos .js separados como programas JS separados. Desde la perspectiva de su uso de una aplicación, seguramente parece un gran programa. Esto se debe a que la ejecución de la aplicación permite que estos *programas* individuales cooperen y actúen como un solo programa.
 
-The only way multiple standalone .js files act as a single program is by sharing their state (and access to their public functionality) via the "global scope". They mix together in this global scope namespace, so at runtime they act as as whole.
+La única forma en que múltiples archivos .js independientes actúen como un solo programa es compartiendo su estado (y acceso a su funcionalidad pública) a través del "alcance global". Se mezclan en este espacio de nombres de alcance global, por lo que en tiempo de ejecución actúan como un todo.
 
-Since ES6, JS has also supported a module format in addition to the typical standalone JS program format. Modules are also file-based. If a file is loaded via module-loading mechanism such as an `import` statement or a `<script type=module>` tag, all its code is treated as a single module.
+Desde ES6, JS también ha admitido un formato de módulo además del formato típico de programa JS independiente. Los módulos también están basados ​​en archivos. Si un archivo se carga mediante un mecanismo de carga de módulos, como una declaración `import` o una etiqueta `<script type=module>`, todo su código se trata como un solo módulo.
 
-Though you wouldn't typically think about a module -- basically, a collection of state and publicly-exposed methods to operate on that state -- as a standalone program, JS does in fact still treat each module separately. Similiar to how "global scope" allows standalone files to mix together at runtime, importing a module into another allows runtime interoperation between them.
+Aunque normalmente no pensarías en un módulo -- básicamente, una colección del estado y métodos públicos para operar en ese estado -- como un programa independiente, JS de hecho todavía trata cada módulo por separado. De forma similar a cómo el "alcance global" permite que los archivos independientes se mezclen en tiempo de ejecución, la importación de un módulo en otro permite la interoperación de tiempo de ejecución entre ellos.
 
-Regardless of which code organization pattern (and loading mechanism) is used for a file -- standalone or module -- you should still think of each file as its own (mini) program, which may then cooperate with other (mini) programs to perform the functions of your overall application.
+Independientemente de qué patrón de organización de código (y mecanismo de carga) se use para un archivo, independiente o módulo, aún debes considerar cada archivo como su propio (mini) programa, que luego puede cooperar con otros (mini) programas para realizar Las funciones de tu aplicación general.
 
-## Values
+## Valores
 
-The most fundamental unit of information in a program is a value. Values are data. They're how the program maintains state. Values come in two forms in JS: **primitive** and **object**.
+La unidad de información más fundamental en un programa es un valor. Los valores son datos. Son cómo el programa mantiene el estado. Los valores vienen en dos formas en JS: **primitivo** y **objeto**.
 
-Values are embedded in our programs using *literals*. For example:
+Los valores están incrustados en nuestros programas usando *literales*. Por ejemplo:
 
 ```js
 console.log("My name is Kyle.");
 // My name is Kyle.
 ```
 
-In this program, the value `"My name is Kyle."` is a primitive string literal; strings are ordered collections of characters, usually used to represent words and sentences.
+En este programa, el valor `"Mi nombre es Kyle"` es un literal de cadena primitivo; Las cadenas son colecciones ordenadas de caracteres, generalmente utilizadas para representar palabras y oraciones.
 
-I used the double-quote `"` character to *delimit* (surround, separate, define) the string value. But I could have used the single-quote `'` character as well. The choice of which quote character is entirely stylistic. The important thing, for code readability and maintainability sake, is to pick one and to use it consistently throughout the program.
+Utilicé el carácter de comillas dobles `"` para *delimitar* (rodear, separar, definir) el valor de la cadena. Pero también podría haber utilizado el carácter de comillas simples `'` La elección de qué carácter de comillas usar es completamente estilística. Lo importante, en aras de la legibilidad del código y el mantenimiento, es elegir uno y usarlo de manera consistente a lo largo del programa.
 
-Another option to delimit a string literal is to use the back-tick `` ` `` character. However, this choice is not merely stylistic; there's a behavioral difference as well. Consider:
+Otra opción para delimitar un literal de cadena es utilizar el carácter de retroceso (backtick) `` ` ``. Sin embargo, esta elección no es meramente estilística; También hay una diferencia de comportamiento. 
+
+Considerar:
 
 ```js
 console.log("My name is ${firstName}.");
@@ -63,18 +65,19 @@ console.log(`My name is ${firstName}.`);
 // My name is Kyle.
 ```
 
-Assuming this program has already defined a variable `firstName` with the string value `"Kyle"`, the `` ` ``-delimited string then resolves the variable expression (indicated with `${ .. }`) to its current value. This is called **interpolation**.
+Suponiendo que este programa ya haya definido una variable `firstName` con el valor de cadena `"Kyle"`, el `` ` `` -delimita  la cadena y luego resuelve la expresión variable (indicada con `${..}`) a su valor actual. Esto se llama **interpolación**.
 
-The back-tick `` ` ``-delimited string can be used without including interpolated expressions, but that defeats the whole purpose of that additional syntax.
+La cadena delimitada por el backtick `` ` `` se puede usar sin incluir expresiones interpoladas, pero eso anula todo el propósito de esa sintaxis adicional.
+
 
 ```js
 console.log(`Am I confusing you by omitting interpolation?`);
 // Am I confusing you by omitting interpolation?
 ```
 
-The better approach is to use `"` or `'` (again, pick one and stick to it!) for strings *unless you need* interpolation; reserve `` ` `` only for strings that will include interpolated expressions.
+El mejor enfoque es usar `"` o `'` (de nuevo, ¡elija uno y manténgalo!) Para cadenas *a menos que necesite* interpolación; reserve `` ` `` solo para cadenas que incluirán expresiones interpoladas.
 
-Other than strings, JS programs often contain other primitive literal values such as booleans and numbers.
+Además de las cadenas, los programas JS a menudo contienen otros valores literales primitivos, como booleanos y números.
 
 ```js
 while (false) {
@@ -82,49 +85,51 @@ while (false) {
 }
 ```
 
-`while` represents a loop type, a way to repeat operations *while* its condition is true.
+`while` representa un tipo de bucle, una forma de repetir operaciones *mientras* su condición sea verdadera.
 
-In this case, the loop will never run (and nothing will be printed), because we used the `false` boolean value as the loop conditional. `true` would have resulted in a loop that keeps going forever, so be careful!
+En este caso, el bucle nunca se ejecutará (y no se imprimirá nada), porque utilizamos el valor booleano `false` como condicional del bucle. `verdadero` habría resultado en un bucle que continúa para siempre, ¡así que ten cuidado!
 
-The number `3.141592` is, as you may know, an approximation of mathematical PI to the first six digits. Rather than embed such a value, however, you would typically use the predefined `Math.PI` value for that purpose. Another variation on numbers is the `bigint` (big-integer) primitive type, which is used for storing arbitrarily large numbers.
+El número `3.141592` es, como ya sabrá, una aproximación matemática de PI a los primeros seis dígitos. Sin embargo, en lugar de incrustar dicho valor, normalmente usaría el valor predefinido `Math.PI` para ese propósito. Otra variación en los números es el tipo primitivo 'bigint' (entero grande), que se utiliza para almacenar números arbitrariamente grandes.
 
-Numbers are most often used in programs for counting steps, such as loop iterations, and accessing information in numeric positions (ie, an array index). Object values represent a collection of any various values. Arrays are a special subset where the collection is ordered, thus the position of an element (index) is numeric.
+Los números se usan con mayor frecuencia en programas para contar pasos, como iteraciones de bucle y acceder a información en posiciones numéricas (es decir, un índice de matriz). Los valores de los objetos representan una colección de varios valores. Las matrices son un subconjunto especial donde se ordena la colección, por lo tanto, la posición de un elemento (índice) es numérica.
 
-For example, if there was an array called `names`, we could access the element in the second position like this:
+Por ejemplo, si hubiera una matriz llamada `names`, podríamos acceder al elemento en la segunda posición así:
 
 ```js
 console.log(`My name is ${ names[1] }.`);
 // My name is Kyle.
 ```
 
-We used `1` for the element in the second position, instead of `2`, because like in most programming languages, JS array indices are 0-based (`0` is the first position).
+Utilizamos `1` para el elemento en la segunda posición, en lugar de` 2`, porque como en la mayoría de los lenguajes de programación, los índices de matriz JS están basados ​​en 0 (`0` es la primera posición).
 
-By contrast, regular objects are unordered and keyed collections of values; in other words, you access the element by a string location name (aka "key" or "property") rather than by its numeric position (as with arrays). For example:
+Por el contrario, los objetos regulares son colecciones de valores desordenados y codificados; en otras palabras, accede al elemento por un nombre de ubicación de cadena (también conocido como "clave" o "propiedad") en lugar de por su posición numérica (como con las matrices. 
+
+Por ejemplo:
+
 
 ```js
 console.log(`My name is ${ name.first }.`);
 ```
 
-Here, `name` represents an object, and `first` represents the name of a location of information in that object (value collection). Another syntax option that accesses information in an object by its property/key uses the square-brackets `[ ]`, such as  `name["first"]`.
+Aquí, `name` representa un objeto, y `first` representa el nombre de una ubicación de información en ese objeto (colección de valores). Otra opción de sintaxis que accede a la información en un objeto por su propiedad / clave utiliza los corchetes `[ ]`, como `name["first"]`.
 
-In addition to strings, numbers, and booleans, two other *primitive* values in JS programs are `null` and `undefined`. While there are differences between them (some historic and some contemporary), for the most part both values serve the purpose of indicating *emptiness* (or absence) of a value.
+Además de las cadenas, los números y los valores booleanos, otros dos valores *primitivos* en los programas JS son `null` y `undefined`. Si bien existen diferencias entre ellos (algunos históricos y otros contemporáneos), en su mayor parte ambos valores sirven para indicar *vacío* (o ausencia) de un valor.
 
-Many developers prefer to treat them both consistently in this fashion, which is to say that the values are assumed to be indistinguishable. If care is taken, this is often possible. However, it's safest and best to use only `undefined` as the single empty value, even though `null` seems attractive in that it's shorter to type!
+Muchos desarrolladores prefieren tratarlos a ambos de manera consistente, es decir, se supone que los valores son indistinguibles. Si se tiene cuidado, esto a menudo es posible. Sin embargo, es más seguro y mejor usar solo `undefined` como el único valor vacío, a pesar de que `null` parece atractivo porque es más corto de escribir.
 
 ```js
 while (value != undefined) {
     console.log("Still got something!");
 }
 ```
-
-The final primitive value to be aware of is a symbol, which is a special-purpose value that behaves as a hidden unguessable value. Symbols are almost exclusively used as special keys on objects.
+El valor primitivo final a tener en cuenta es `Symbol`, que es un valor de propósito especial que se comporta como un valor oculto no cuestionable. Los símbolos se usan casi exclusivamente como teclas especiales en los objetos.
 
 ```js
 hitchhikersGuide[ Symbol("meaning of life") ];
 // 42
 ```
 
-For distinguishing values, the `typeof` operator tells you its built-in type, if primitive, or `"object"` otherwise:
+Para distinguir los valores, el operador `typeof` le dice su tipo incorporado, si es primitivo, o de lo contrario `"objeto"`:
 
 ```js
 typeof 42;                // "number"
@@ -137,35 +142,36 @@ typeof [1,2,3];           // "object"
 typeof function foo(){};  // "function"
 ```
 
-| NOTE: |
+| NOTA: |
 | :--- |
-| `typeof null` unfortunately returns `"object"` instead of the expected `"null"`. Also, `typeof` returns `"function"` for functions, but not an expected `"array"` for arrays. |
+| `typeof null` desafortunadamente devuelve `"object" `en lugar del esperado" `"null"`. Además, `typeof` devuelve` "function"` para funciones,pero no devuelve un `"array"` esperado para arrays. |
+
 
 ## Variables
 
-To be explicit about something that may not have been obvious in the previous section: in JS programs, values can either appear as literal values (as many of the above examples illustrate), or they can be held in variables; think of variables as just containers for values.
+Para ser explícito sobre algo que puede no haber sido obvio en la sección anterior: en los programas JS, los valores pueden aparecer como valores literales (como ilustran muchos de los ejemplos anteriores), o pueden mantenerse en variables; Piense en las variables como solo contenedores de valores.
 
-Variables have to be declared (created) to be used. There are various syntax forms that declare variables (aka, "identifiers"), and each form has different implied behaviors.
+Las variables tienen que ser declaradas (creadas) para ser utilizadas. Hay varias formas de sintaxis que declaran variables (también conocidas como "identificadores"), y cada forma tiene comportamientos implícitos diferentes.
 
-For example, consider the `var` statement:
+Por ejemplo, considere la declaración `var`:
 
 ```js
 var name = "Kyle";
 var age;
 ```
 
-The `var` keyword declares a variable to be used in that part of the program, and optionally allows an initial assignment of a value.
+La palabra clave `var` declara que una variable se usará en esa parte del programa, y ​​opcionalmente permite una asignación inicial de un valor.
 
-Another similar keyword is `let`:
+Otra palabra clave similar es `let`:
 
 ```js
 let name = "Kyle";
 let age;
 ```
 
-The `let` keyword has some differences to `var`, with the most obvious being that `let` allows a more limited access to the variable than `var`. This is called "block scoping" as opposed to regular or function scoping.
+La palabra clave `let` tiene algunas diferencias con `var`, siendo la más obvia que `let` permite un acceso más limitado a la variable que `var`. Esto se denomina "alcance de bloque" en lugar de alcance normal o de función.
 
-Consider:
+Considere:
 
 ```js
 var adult = true;
@@ -183,19 +189,19 @@ console.log(age);
 // Error!
 ```
 
-The attempt to access `age` outside of the `if` statement results in an error, because `age` was block-scoped to the `if`, whereas `name` was not.
+El intento de acceder a `age` fuera de la instrucción `if` da como resultado un error, porque `age` tenía un alcance de bloque a `if`, mientras que `name` no.
 
-Block-scoping is very useful for limiting how widespread variable declarations are in our programs, which helps prevent accidental overlap of their names.
+El alcance de bloque es muy útil para limitar la extensión de las declaraciones de variables en nuestros programas, lo que ayuda a evitar la superposición accidental de sus nombres.
 
-But `var` is still useful in that it communicates "this variable will be seen by a wider scope". Both declaration forms can be appropriate in any given part of a program, depending on the circumstances.
+Pero `var` sigue siendo útil porque comunica "esta variable será vista por un alcance más amplio". Ambas formas de declaración pueden ser apropiadas en cualquier parte de un programa, dependiendo de las circunstancias.
 
-| NOTE: |
+| NOTA: |
 | :--- |
-| It's very common to suggest that `var` should be avoided in favor of `let` (or `const`!), generally because of perceived confusion over how the scoping behavior of `var` has worked since the beginning of JS. I believe this to be overly restrictive advice and ultimately unhelpful. It's assuming you are unable to learn and use a feature properly in combination with other features. I belive you *can* and *should* learn any features available, and use them where appropriate! |
+| Es muy común sugerir que `var` debe evitarse a favor de `let` (o `const`!), generalmente debido a la confusión percibida sobre cómo ha funcionado el comportamiento de alcance de `var` desde el comienzo de JS. Creo que esto es un consejo demasiado restrictivo y, en última instancia, inútil. Se supone que no puede aprender y usar una función correctamente en combinación con otras funciones. ¡Creo que *puedes* y *debes* aprender cualquier función disponible, y usarla cuando sea apropiado! |
 
-A third declaration form is `const`. It's like `let` but has an additional limitation that it must be given a value at the moment it's declared, and cannot be re-assigned a different value later.
+Un tercera forma de declaración es `const`. Es como `let` pero tiene una limitación adicional de que se le debe dar un valor en el momento en que se declara, y no se le puede reasignar un valor diferente más adelante.
 
-Consider:
+Considere:
 
 ```js
 const myBirthday = true;
@@ -207,9 +213,9 @@ if (myBirthday) {
 }
 ```
 
-The `myBirthday` constant is not allowed to be re-assigned.
+No se permite reasignar la constante `myBirthday`.
 
-`const` declared variables are not "unchangeable", they just cannot be re-assigned. It's ill-advised to use `const` with object values, because those values can still be changed even though the variable can't be re-assigned. This leads to potential confusion down the line, so I think it's wise to avoid situations like:
+Las variables declaradas `const` no son" inmutables ", simplemente no pueden reasignarse. No es aconsejable usar `const` con valores de objeto, porque esos valores aún se pueden cambiar a pesar de que la variable no se puede reasignar. Esto lleva a una posible confusión en el futuro, por lo que creo que es aconsejable evitar situaciones como:
 
 ```js
 const actors = [ "Morgan Freeman", "Jennifer Anniston" ];

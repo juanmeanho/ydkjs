@@ -103,8 +103,6 @@ En su mayor parte, el JS definido en la especificación y el JS que se ejecuta e
 
 A veces, la especificación JS dictará un comportamiento nuevo o refinado, y sin embargo, eso no coincidirá exactamente con cómo funciona en los motores JS basados ​​en navegador. Tal desajuste es histórico: los motores JS han tenido más de 20 años de comportamientos observables en torno a casos de características en las que el contenido web se ha basado. Como tal, a veces los motores JS se negarán a ajustarse a un cambio dictado por la especificación porque rompería ese contenido web.
 
-In these cases, often TC39 will backtrack and simply choose to conform the specification to the reality of the web. For example, TC39 planned to add a `contains(..)` method for Arrays, but it was found that this name conflicted with old JS frameworks still in use on some sites, so they changed the name to a non-conflicting `includes(..)`. The same happened with a comedic/tragic JS *community crisis* dubbed "smooshgate", where the planned `flatten(..)` method was eventually renamed `flat(..)`.
-
 En estos casos, a menudo TC39 retrocederá y simplemente elegirá adaptar la especificación a la realidad de la web. Por ejemplo, TC39 planeó agregar un método `contains (..)` para matrices, pero se descubrió que este nombre entraba en conflicto con los marcos JS antiguos que todavía se usaban en algunos sitios, por lo que cambiaron el nombre a uno no conflictivo  `includes(..)`. Lo mismo sucedió con una tragicómica *crisis en la comunidad de JS* llamada "smooshgate", donde el método planificado `flatten (..)` fue finalmente renombrado como `flat (..)`.
 
 Pero ocasionalmente, TC39 decidirá que la especificación debe mantenerse firme en algún punto, aunque es poco probable que los motores JS basados ​​en navegador alguna vez se ajusten.
@@ -194,10 +192,6 @@ Si la característica es una nueva sintaxis, el programa en general no podrá co
 
 Pero sí significa que los desarrolladores de JS deben tener especial cuidado para abordar esta brecha.
 
-For new and incompatible syntax, the solution is transpiling. Transpiling is a contrived and community-invented term to describe using a tool to convert the source code of a program from one form to another (but still as textual source code). Typically, forwards-compatibility problems related to syntax are solved by using a transpiler -- the most common one being Babel (https://babeljs.io) -- to convert from that newer JS syntax version to an equivalent of code that uses an older syntax.
-
-For example, a developer may write a snippet of code like:
-
 Para una sintaxis nueva e incompatible, la solución es la transpilación. La transpilación es un término inventado por la comunidad para describir el uso de una herramienta para convertir el código fuente de un programa de una forma a otra (pero aún como código fuente textual). Por lo general,los problemas de compatibilidad hacia adelante relacionados con la sintaxis se resuelven mediante el uso de un transpilador, el más común es Babel (https://babeljs.io), para convertir de esa nueva versión de sintaxis JS a un equivalente de código que usa un sintaxis anterior
 
 Por ejemplo, un desarrollador puede escribir un fragmento de código como:
@@ -233,8 +227,6 @@ El fragmento original dependía de `let` para crear variables `x` con ámbito de
 | NOTE: |
 | :--- |
 | La palabra clave `let` se agregó en ES6 (en 2015). El ejemplo anterior de transpilación solo necesitaría aplicarse si una aplicación necesita ejecutarse en un entorno JS compatible con versiones anteriores a ES6. El ejemplo aquí es solo por simplicidad de ilustración. Cuando el ES6 era nuevo, la necesidad de tal transpilación era bastante frecuente, pero en 2019 es mucho menos común tener que soportar entornos anteriores al ES6. El "objetivo" utilizado para la transpiración es, por lo tanto, una ventana deslizante que se mueve hacia arriba solo cuando se toman decisiones para que un sitio / aplicación deje de admitir algún navegador / motor antiguo. |
-
-You may wonder: why go to the trouble of using a tool to convert from a newer syntax version to an older one? Couldn't we just write the two variables and skip using the `let` keyword? The reason is, it's strongly recommended that developers use the latest version of JS so that their code is clean and communicates its ideas most effectively.
 
 Developers should focus on writing the clean, new syntax forms, and let the tools take care of producing a forwards-compatible version of that code that is suitable to deploy and run on the oldest supported JS engine environments.
 
@@ -278,15 +270,13 @@ Los transpiladores como Babel generalmente detectan qué polyfills necesita su c
 
 Siempre escriba el código utilizando las características más apropiadas para comunicar sus ideas e intenciones de manera efectiva. En general, esto significa usar la versión estable más reciente de JS. Evite afectar negativamente la legibilidad del código al intentar ajustar manualmente las brechas de sintaxis / API. ¡Para eso están las herramientas!
 
-Transpilation y polyfilling son dos técnicas altamente efectivas para abordar esa brecha entre el código que usa las últimas características estables en el lenguaje y los entornos antiguos que un sitio o aplicación aún necesita soportar. Como JS no va a dejar de mejorar, la brecha nunca desaparecerá. Ambas técnicas deben adoptarse como parte estándar de la cadena de producción de cada proyecto JS en el futuro.
+La Transpilación y el polyfills son dos técnicas altamente efectivas para abordar esa brecha entre el código que usa las últimas características estables en el lenguaje y los entornos antiguos que un sitio o aplicación aún necesita soportar. Como JS no va a dejar de mejorar, la brecha nunca desaparecerá. Ambas técnicas deben adoptarse como parte estándar de la cadena de producción de cada proyecto JS en el futuro.
 
 ## ¿Qué hay en una interpretación?
 
 Una pregunta largamente debatida para el código escrito en JS: ¿es un script interpretado o un programa compilado? La opinión mayoritaria parece ser que JS es un lenguaje interpretado (scripting). Pero la verdad es más complicada que eso.
 
 Consideremos la pregunta con más detalle. Para empezar, ¿por qué la gente incluso debate o se preocupa por esto? ¿Por qué eso importa?
-
-For much of the history of programming languages, "interpreted" languages and "scripting" languages have been looked down on as inferior compared to their compiled counterparts. The reasons for this acrimony are numerous, including a perception of lack of performance optimization, as well as dislike of certain language characteristics, such as scripting languages generally using dynamic typing instead of the "more mature" statically typed languages.
 
 Durante gran parte de la historia de los lenguajes de programación, los lenguajes "interpretados" y los "scripts" han sido menospreciados en comparación con sus homólogos compilados. Las razones de esta acritud son numerosas, incluida la percepción de falta de optimización del rendimiento, así como el disgusto de ciertas características del lenguaje,como los lenguajes de secuencias de comandos que generalmente usan el tipeo dinámico en lugar de los lenguajes tipeados estáticamente "más maduros".
 

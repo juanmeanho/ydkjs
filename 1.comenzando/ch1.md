@@ -37,7 +37,7 @@ Para distanciar el lenguaje de la marca registrada propiedad de Oracle, el nombr
 
 En otras palabras, JavaScript (en su navegador o en Node.js) es *una* implementación del estándar ES2019.
 
-| NOTE: |
+| NOTA: |
 | :--- |
 | No utilice términos como "JS6" o "ES8" para referirse al lenguaje. Algunos lo hacen, pero esos términos solo sirven para perpetuar la confusión. "ES20xx" o simplemente "JS" son los que se deben seguir. |
 
@@ -228,8 +228,6 @@ El fragmento original dependía de `let` para crear variables `x` con ámbito de
 | :--- |
 | La palabra clave `let` se agregó en ES6 (en 2015). El ejemplo anterior de transpilación solo necesitaría aplicarse si una aplicación necesita ejecutarse en un entorno JS compatible con versiones anteriores a ES6. El ejemplo aquí es solo por simplicidad de ilustración. Cuando el ES6 era nuevo, la necesidad de tal transpilación era bastante frecuente, pero en 2019 es mucho menos común tener que soportar entornos anteriores al ES6. El "objetivo" utilizado para la transpiración es, por lo tanto, una ventana deslizante que se mueve hacia arriba solo cuando se toman decisiones para que un sitio / aplicación deje de admitir algún navegador / motor antiguo. |
 
-Developers should focus on writing the clean, new syntax forms, and let the tools take care of producing a forwards-compatible version of that code that is suitable to deploy and run on the oldest supported JS engine environments.
-
 Los desarrolladores deben centrarse en escribir codigo con una sintaxis nueva y limpia, y dejar que las herramientas se encarguen de producir una versión de ese código compatible con versiones posteriores que sea adecuada para implementar y ejecutar en los entornos de motores JS compatibles más antiguos.
 
 ### Llenando los espacios vacios
@@ -262,7 +260,7 @@ if (!Promise.prototype.finally) {
     };
 }
 ```
-| NOTE: |
+| NOTA: |
 | :--- |
 | Esta es solo una ilustración simple de un ingenuo polyfill para `finally(..)`. No use este enfoque en su código; use un polyfill oficial y robusto siempre que sea posible, como la colección de polyfills / shims en ES-Shim. |
 

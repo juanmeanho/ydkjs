@@ -138,7 +138,7 @@ Si bien esto puede parecer lógico (imprimir "¡One!"), La realidad es mucho má
 
 El mejor consejo para navegar por este tipo de *gotchas* del Apéndice B es evitar el uso de las construcciones. Nunca declare funciones en ámbitos de bloque (como sentencias `if`), solo en ámbitos de función.
 
-### No todo (Web) JS ...
+### No todo (Web) es JS...
 
 ¿Es este código un programa JS?
 

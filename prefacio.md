@@ -1,4 +1,5 @@
-# You Don't Know JS Yet - 2nd Edition
+# Aún no conoces JS - 2da Edición
+
 # Prefacio
 
 Bienvenido a la segunda edición de la muy aclamada serie de libros "*No conoces JS*" (**YDKJS**): "***Aún**  no conoces JS*" (**YDKJSY**).

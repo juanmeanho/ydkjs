@@ -1,5 +1,5 @@
-# You Don't Know JS Yet: Get Started - 2nd Edition
-# Chapter 1: Qué *Es* JavaScript?
+# Aún no conoces JS: Comenzando - 2da Edición
+# Capítulo 1: Qué *Es* JavaScript?
 
 Aún no conoces a JavaScript. Yo tampoco, no del todo. Ninguno de nosotros lo hace. ¡Ese es el objetivo de esta serie de libros!
 

@@ -5,7 +5,7 @@ Aún no conoces a JavaScript. Yo tampoco, no del todo. Ninguno de nosotros lo ha
 
 Pero aquí es donde comienzas ese *viaje* de conocer un poco mejor el lenguaje. Enfatizo la palabra viaje porque *saber JavaScript* no es un destino, es una dirección. No importa cuánto tiempo pases con el lenguaje,siempre podrás encontrar algo más para aprender y comprender un poco mejor.
 
-Tenga en cuenta que aunque este libro se titula "Comenzando", no pretende ser un libro para principiantes. El trabajo de este libro es prepararte para el resto de la serie, pero está escrito asumiendo que ya tienes al menos varios meses de experiencia en programación en JS.
+Ten en cuenta que aunque este libro se titula "Comenzando", no pretende ser un libro para principiantes. El trabajo de este libro es prepararte para el resto de la serie, pero está escrito asumiendo que ya tienes al menos varios meses de experiencia en programación en JS.
 
 Incluso si tienes mucha experiencia en JS, este libro no debe pasarse por alto ni omitirse. Te Recomiendo tomarte tu tiempo para procesar completamente el material. **Un buen comienzo siempre se basa en una buena base.**
 
@@ -21,19 +21,19 @@ El nombre JavaScript es probablemente el nombre del lenguaje de programación m�
 
 La verdad es que el nombre JavaScript es un artefacto de travesuras de marketing. Cuando Brendan Eich concibió el lenguaje por primera vez, lo llamó en clave Mocha. Internamente en Netscape, se utilizó la marca LiveScript. Pero cuando llegó el momento de nombrar públicamente el lenguaje, "JavaScript" ganó la votación.
 
-¿Por qué? Porque este lenguaje fue originalmente diseñado para atraer a una audiencia de programadores en su mayoría de Java, y porque la palabra "script" era popular en ese momento para referirse a programas livianos. ¡Estos "scripts" livianos serían los primeros en incrustar dentro de las páginas en esta nueva cosa llamada web!
+¿Por qué? Porque este lenguaje fue originalmente diseñado para atraer a una audiencia de programadores en su mayoría de Java, y porque la palabra "script" era popular en ese momento para referirse a programas livianos. ¡Estos "scripts" livianos serían los primeros en incrustarse dentro de las páginas en esta nueva cosa llamada web!
 
-En otras palabras, JavaScript fue una estratagema de marketing para tratar de posicionar este lenguaje como una alternativa aceptable para escribir el Java más pesado y más conocido del día. Podría haberse llamado fácilmente "WebJava", para el caso.
+En otras palabras, JavaScript fue una estratagema de marketing para tratar de posicionar este lenguaje como una alternativa aceptable para escribir el Java más pesado y más conocido del momento. Podría haberse llamado fácilmente "WebJava", para el caso.
 
-Hay algunas semejanzas superficiales entre el código de JavaScript y el código de Java. Pero en realidad son principalmente de una raíz común: C (y hasta cierto punto, C ++).
+Hay algunas semejanzas superficiales entre el código de JavaScript y el código de Java. Pero en realidad son principalmente de una raíz común: C (y hasta cierto punto, C++).
 
-Por ejemplo, usamos el `{` para comenzar un bloque de código y el `}` para terminar ese bloque de código, al igual que C / C ++ y Java. También usamos el `;` para puntuar el final de una declaración.
+Por ejemplo, usamos el `{` para comenzar un bloque de código y el `}` para terminar ese bloque de código, al igual que C / C++ y Java. También usamos el `;` para puntuar el final de una declaración.
 
 De hecho, las relaciones son aún más profundas que las superficiales. Oracle (a través de Sun), la compañía que aún posee y ejecuta Java, también posee la marca comercial oficial del nombre "JavaScript" (a través de Netscape). Esta marca registrada casi nunca se aplica, y probablemente no podría hacerse en estos tiempos.
 
-Algunos han sugerido que usemos JS en lugar de JavaScript. Esa es una abreviatura muy común y un buena candidata para una marca del lenguaje oficial.
+Algunos han sugerido que usemos JS en lugar de JavaScript. Esa es una abreviatura muy común y una buena candidata para una marca del lenguaje oficial.
 
-Para distanciar el idioma de la marca registrada propiedad de Oracle, el nombre oficial del idioma especificado por TC39 y formalizado por el organismo de estándares ECMA es: ECMAScript. Y, de hecho, desde 2016, el nombre oficial del idioma también ha sido sufijado por el año de revisión;a partir de este escrito, ese es ECMAScript 2019, o abreviado ES2019.
+Para distanciar el lenguaje de la marca registrada propiedad de Oracle, el nombre oficial del lenguaje especificado por TC39 y formalizado por el organismo de estándares ECMA es: ECMAScript. Y, de hecho, desde 2016, el nombre oficial del lenguaje también ha sido sufijado por el año de revisión; al momento de este escrito, ese es ECMAScript 2019, o abreviado ES2019.
 
 En otras palabras, JavaScript (en su navegador o en Node.js) es *una* implementación del estándar ES2019.
 
@@ -81,7 +81,7 @@ Todas las propuestas TC39 avanzan a través de un proceso de cinco etapas, por s
 
 La etapa 0 significa, más o menos, que alguien en TC39 cree que tiene una buena idea y planea defenderla y trabajar en ella. Eso significa que muchas ideas que los "miembros" que no son miembros del TC39 "proponen", a través de medios informales como las redes sociales o publicaciones en blogs, son realmente "pre-etapa 0". Tienes que conseguir que un miembro de TC39 defienda una propuesta para que se considere oficialmente "Etapa 0".
 
-Una vez que una propuesta alcanza el estado de "Etapa 4", es elegible para ser incluida en la próxima revisión anual del idioma. Puede tomar desde varios meses hasta algunos años para que una propuesta funcione en estas etapas.
+Una vez que una propuesta alcanza el estado de "Etapa 4", es elegible para ser incluida en la próxima revisión anual del lenguaje. Puede tomar desde varios meses hasta algunos años para que una propuesta funcione en estas etapas.
 
 Todas las propuestas se gestionan de forma abierta, en el repositorio Github de TC39: https://github.com/tc39/proposals
 

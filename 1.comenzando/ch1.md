@@ -178,9 +178,9 @@ Hay algunas pequeñas excepciones a esta regla. JS ha tenido algunos cambios inc
 
 Este tipo de cambios son raros y casi siempre se producen en casos extremos de uso que es poco probable que se rompan de manera observable en muchos sitios.
 
-Compare *compatibilidad con versiones anteriores* con su contraparte, *compatibilidad con versiones proximas*. Ser compatible con versiones anteriores significa que incluir una nueva adición al lenguaje en un programa no causaría que el programa se rompa si se ejecuta en un motor JS anterior. **JS no es compatible con versiones proximas**, a pesar de que muchos lo deseen, e incluso creen incorrectamente el mito de que sí lo es.
+Compare *compatibilidad con versiones anteriores* con su contraparte, *compatibilidad con versiones posteriores*. Ser compatible con versiones anteriores significa que incluir una nueva adición al lenguaje en un programa no causaría que el programa se rompa si se ejecuta en un motor JS anterior. **JS no es compatible con versiones posteriores**, a pesar de que muchos lo deseen, e incluso creen incorrectamente el mito de que sí lo es.
 
-HTML y CSS son, por el contrario, son compatibles con versiones proximas, pero no son compatibles con versiones anteriores. Si encuentro algo de HTML o CSS de 1995, es muy posible que hoy no funcione (o funcione igual). Pero, si usa una nueva función CSS de 2019 y se ejecuta en un motor CSS de 2010, el CSS no se rompe; el motor de estilo simplemente pasa por alto cualquier cosa que no reconoce.
+HTML y CSS son, por el contrario, son compatibles con versiones posteriores, pero no son compatibles con versiones anteriores. Si encuentro algo de HTML o CSS de 1995, es muy posible que hoy no funcione (o funcione igual). Pero, si usa una nueva función CSS de 2019 y se ejecuta en un motor CSS de 2010, el CSS no se rompe; el motor de estilo simplemente pasa por alto cualquier cosa que no reconoce.
 
 ### Saltando la brecha
 
@@ -224,11 +224,13 @@ else {
 
 El fragmento original dependía de `let` para crear variables `x` con ámbito de bloque en las cláusulas `if` y` else` que no interferían entre sí. Un programa equivalente (con un mínimo de reelaboración) que Babel puede producir simplemente elige nombrar dos variables diferentes con nombres únicos, produciendo el mismo resultado sin interferencia.
 
-| NOTE: |
+| NOTA: |
 | :--- |
 | La palabra clave `let` se agregó en ES6 (en 2015). El ejemplo anterior de transpilación solo necesitaría aplicarse si una aplicación necesita ejecutarse en un entorno JS compatible con versiones anteriores a ES6. El ejemplo aquí es solo por simplicidad de ilustración. Cuando el ES6 era nuevo, la necesidad de tal transpilación era bastante frecuente, pero en 2019 es mucho menos común tener que soportar entornos anteriores al ES6. El "objetivo" utilizado para la transpiración es, por lo tanto, una ventana deslizante que se mueve hacia arriba solo cuando se toman decisiones para que un sitio / aplicación deje de admitir algún navegador / motor antiguo. |
 
 Developers should focus on writing the clean, new syntax forms, and let the tools take care of producing a forwards-compatible version of that code that is suitable to deploy and run on the oldest supported JS engine environments.
+
+Los desarrolladores deben centrarse en escribir codigo con una sintaxis nueva y limpia, y dejar que las herramientas se encarguen de producir una versión de ese código compatible con versiones posteriores que sea adecuada para implementar y ejecutar en los entornos de motores JS compatibles más antiguos.
 
 ### Llenando los espacios vacios
 

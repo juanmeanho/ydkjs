@@ -1,29 +1,29 @@
-# You Don't Know JS Yet: Get Started - 2nd Edition
-# Chapter 3: Exploring Deeper
+# Aún no conoces JS: Comenzando - 2da Edición
+# Chapter 3: Explorando más profundo
 
-| NOTE: |
+| NOTA DEL AUTOR: |
 | :--- |
-| Work in progress |
+| Trabajo en progreso |
 
-If you've read Chapters 1 and 2, and taken the time to digest and percolate, you're hopefully starting to *get* JS a little more. If you skipped them (especially Chapter 2), I recommend you re-consider and spend some time with that material.
+Si has leído los capítulos 1 y 2, y te has tomado el tiempo de digerir y filtrar, con suerte comenzarás a *obtener* un poco más de JS. Si los omitiste (especialmente el Capítulo 2), te recomiendo que lo reconsideres y pases algún tiempo con ese material.
 
-In Chapter 2, our focus was on syntax, patterns, and behaviors. Here, our attention shifts to some of the lower-level characteristics of JS that underpin virtually every line of code we write.
+En el Capítulo 2, nuestro enfoque estaba en la sintaxis, los patrones y los comportamientos. Aquí, nuestra atención se desplaza a algunas de las características de nivel inferior de JS que sustentan prácticamente todas las líneas de código que escribimos.
 
-It should be noted that this material is still not an exhaustive exposition of JS; that's what the rest of the book series is for! Here, our goal is still just to *get started*, and more comfortable with, the *feel* of JS, how it ebbs and flows.
+Cabe señalar que este material todavía no es una exposición exhaustiva de JS; ¡para eso es el resto de la serie de libros! Aquí, nuestro objetivo sigue siendo solo *comenzar* y sentirnos más cómodos con la *sensación* de JS, cómo fluye y refluye.
 
-This chapter should begin to answer some of the "Why?" questions that are likely cropping up as you explore JS.
+Este capítulo debería comenzar a responder algunos de los "¿Por qué?" preguntas que probablemente surjan a medida que explora JS.
 
 ## Closure
 
-What is Closure?
+¿Qué es un Closure?
 
-> Closure is the ability of a function to remember and continue to access variables defined outside its scope, even when that function is executed in a different scope.
+> Un Closure es la capacidad de una función de recordar y continuar accediendo a variables definidas fuera de su alcance, incluso cuando esa función se ejecuta en un alcance diferente.
 
-Perhaps without realizing it, almost every JS developer has made use of closure. It's important to be able to recognize where it's in use in your programs, as the presence or lack of closure is sometimes the cause of bugs (or even performance impairments).
+Quizás sin darse cuenta, casi todos los desarrolladores de JS han hecho uso del closure. Es importante poder reconocer dónde está en uso en sus programas, ya que la presencia o falta de closures es a veces la causa de errores (o incluso deficiencias en el rendimiento).
 
-From the definition above, we see two parts that are critical. First, closure is a characteristic of a function. Objects don't get closures, functions do. Second, to observe a closure, you must execute a function in a different scope than where that function was originally defined.
+De la definición anterior, vemos dos partes que son críticas. Primero, el closure es una característica de una función. Los objetos no tienen closures, las funciones sí. En segundo lugar, para observar un closure, debe ejecutar una función en un ámbito diferente al que se definió originalmente.
 
-Consider:
+Considere:
 
 ```js
 function greeting(msg) {
@@ -45,11 +45,11 @@ howdy("Grant");
 // Howdy, Grant!
 ```
 
-First, the `greeting(..)` outer function is executed, creating an instance of the inner function `who(..)`; that function closes over the variable `msg`, the parameter from the outer scope of `greeting(..)`. We return that inner function, and assign its reference to the `hello` variable. Then we call `greeting(..)` a second time, creating a new inner function instance, with a new closure over a new `msg`, and return that reference to be assigned to `howdy`.
+Primero, se ejecuta la función externa `greeting (..)`, creando una instancia de la función interna `who(..)`; esa función se cierra sobre la variable `msg`, el parámetro del alcance externo de `greeting (..) `. Devolvemos esa función interna y asignamos su referencia a la variable `hello`. Luego llamamos a `greeting(..)` por segunda vez, creando una nueva instancia de función interna, con un nuevo cierre sobre un nuevo `msg`, y devolvemos esa referencia para que se asigne a` howdy`.
 
-When the `greeting(..)` function finishes running, normally we would expect all of its variables to be garbage collected (removed from memory). We'd expect each `msg` to go away, but they don't. The reason is closure. Since the inner function instances are still alive (assigned to `hello` and `howdy`, respectively), their closures are still preserving the `msg` variables.
+Cuando la función `greeting(..)` termine de ejecutarse, normalmente esperaríamos que todas sus variables vayan al recolectador de basura (eliminadas de la memoria). Esperaríamos que cada `msg` desapareciera, pero no lo hacen. El motivo es el closure. Dado que las instancias de funciones internas todavía están vivas (asignadas a `hello` y `howdy` respectivamente), sus closures aún conservan las variables `msg`.
 
-These closures are not a snapshot of the `msg` variable's value; they are a direct link and preservation of the variable itself. That means closure can actually observe (or make!) updates to these variables over time.
+Estos closures no son una instantánea del valor de la variable `msg`; son un enlace directo y preservación de la variable misma. Eso significa que el closures realmente puede observar (¡o hacer!) actualizaciones a estas variables a lo largo del tiempo.
 
 ```js
 function counter(step = 1) {
@@ -71,9 +71,9 @@ incBy3();       // 6
 incBy3();       // 9
 ```
 
-Each instance of the inner `increaseCount()` function is closed over both the `count` and `step` variables from its outer `counter(..)` function's scope. `step` remains the same over time, but `count` is updated on each invocation of that inner function. Since closure is over the variables and not just snapshots of the values, these updates are preserved.
+Cada instancia de la función interna `increaseCount()` se cierra sobre las variables '`count` y `step` desde el alcance de la función externa `counter(..)`. `step` permanece igual con el tiempo, pero `count` se actualiza en cada invocación de esa función interna. Como el closure se realiza sobre las variables y no solo sobre las instantáneas de los valores, estas actualizaciones se conservan.
 
-Closure is most common when working with asynchronous code, such as with callbacks. Consider:
+El closure es más común cuando se trabaja con código asincrónico, como con devoluciones de llamada. Considerar:
 
 ```js
 function getSomeData(url) {
@@ -86,9 +86,9 @@ getSomeData("https://some.url/wherever");
 // Response (from https://some.url/wherever): ..whatever..
 ```
 
-The inner function `onResponse(..)` is closed over `url`, and thus preserves and remembers it until the Ajax call returns and executes `onResponse(..)`. Even though `getSomeData(..)` finishes right away, the `url` parameter variable is kept alive in the closure for as long as needed.
+La función interna `onResponse(..)` se cierra sobre `url`, y así la conserva y recuerda hasta que la llamada Ajax regresa y ejecuta `onResponse(..)`. Aunque `getSomeData(..)` termine de inmediato, la variable de parámetro `url` se mantiene activa en el closure durante el tiempo que sea necesario.
 
-It's not necessary that the outer scope be a function -- it usually is, but not always -- just that there be at least one variable in an outer scope than an inner function accesses, and thus closes over.
+No es necesario que el alcance externo sea una función, generalmente lo es, pero no siempre, solo que haya al menos una variable en un alcance externo que una función interna acceda, y así se cierre.
 
 ```js
 for (let [idx,btn] of buttons.entries()) {
@@ -98,11 +98,11 @@ for (let [idx,btn] of buttons.entries()) {
 }
 ```
 
-Because this loop is using `let` declarations, each iteration gets new block-scoped (aka, local) `idx` and `btn` variables;  the loop also creates a new inner `onClick(..)` function each time. That inner function closes over `idx`, preserving it for as long as the click handler is set on the `btn`. So when each button is clicked, its handler can print its associated index value, because the handler remembers its respective `idx` variable.
+Debido a que este bucle está utilizando declaraciones `let`, cada iteración obtiene nuevas variables `idx` y `btn` con ámbito de bloque (también conocido como local); el bucle también crea una nueva función interna `onClick(..)` cada vez. Esa función interna se cierra sobre `idx`, conservándola mientras el controlador de clic esté configurado en `btn`. Entonces, cuando se hace clic en cada botón, su controlador puede imprimir su valor de índice asociado, porque el controlador recuerda su respectiva variable 'idx'.
 
-Remember: this closure is not over the value (like `1` or `3`), but over the variable `idx` itself.
+Recuerde: este closure no está por encima del valor (como `1` o` 3`), sino por encima de la variable `idx`.
 
-Closure is one of the most prevalent and important programming patterns in any language. But that's especially true of JS; it's hard to imagine doing anything useful without leveraging closure in one way or another.
+El closure es uno de los patrones de programación más frecuentes e importantes en cualquier lenguaje. Pero eso es especialmente cierto en JS; Es difícil imaginar hacer algo útil sin aprovechar el closure de una forma u otra.
 
 ## `this` Keyword
 

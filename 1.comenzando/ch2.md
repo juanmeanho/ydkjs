@@ -15,7 +15,7 @@ Sin embargo, no esperes que este capítulo sea una lectura rápida. Es largo y h
 
 | TIP: |
 | :--- |
-| Si aún te estás familiarizando con JS, te sugiero que reserves mucho tiempo extra para trabajar en este capítulo. Toma cada sección, reflexiona y explora el tema por un tiempo. Mira a través de los programas JS existentes y compara lo que ves en ellos con el código y las explicaciones (¡y opiniones!) presentadas aquí. Obtendráa mucho más del resto del libro y la serie con una base sólida de la *naturaleza* de JS. |
+| Si aún te estás familiarizando con JS, te sugiero que reserves mucho tiempo extra para trabajar en este capítulo. Toma cada sección, reflexiona y explora el tema por un tiempo. Mira a través de los programas JS existentes y compara lo que ves en ellos con el código y las explicaciones (¡y opiniones!) presentadas aquí. Obtendrás mucho más del resto del libro y la serie con una base sólida de la *naturaleza* de JS. |
 
 ## Archivos Como Programas
 
@@ -25,15 +25,15 @@ En JS, cada archivo independiente es su propio programa separado.
 
 La razón por la que esto importa se debe principalmente al manejo de errores. Dado que JS trata los archivos como programas, un archivo puede fallar (durante el análisis / compilación o ejecución) y eso no impedirá necesariamente que se procese el siguiente archivo. Obviamente, si su aplicación depende de cinco archivos .js, y uno de ellos falla, la aplicación general probablemente solo operará parcialmente, en el mejor de los casos. Es importante asegurarse de que cada archivo funcione correctamente y que, en la medida de lo posible, manejen las fallas en otros archivos de la manera más elegante posible.
 
-Puede sorprenderte considerar archivos .js separados como programas JS separados. Desde la perspectiva de su uso de una aplicación, seguramente parece un gran programa. Esto se debe a que la ejecución de la aplicación permite que estos *programas* individuales cooperen y actúen como un solo programa.
+Puede sorprenderte considerar archivos .js separados como programas JS separados. Desde la perspectiva de su uso en una aplicación, seguramente parece un gran programa. Esto se debe a que la ejecución de la aplicación permite que estos *programas* individuales cooperen y actúen como un solo programa.
 
 La única forma en que múltiples archivos .js independientes actúen como un solo programa es compartiendo su estado (y acceso a su funcionalidad pública) a través del "alcance global". Se mezclan en este espacio de nombres de alcance global, por lo que en tiempo de ejecución actúan como un todo.
 
-Desde ES6, JS también ha admitido un formato de módulo además del formato típico de programa JS independiente. Los módulos también están basados ​​en archivos. Si un archivo se carga mediante un mecanismo de carga de módulos, como una declaración `import` o una etiqueta `<script type=module>`, todo su código se trata como un solo módulo.
+Desde ES6, esta soportado en JS el formato de módulo además del formato típico de programa JS independiente. Los módulos también están basados ​​en archivos. Si un archivo se carga mediante un mecanismo de carga de módulos, como una declaración `import` o una etiqueta `<script type=module>`, todo su código se trata como un solo módulo.
 
 Aunque normalmente no pensarías en un módulo -- básicamente, una colección del estado y métodos públicos para operar en ese estado -- como un programa independiente, JS de hecho todavía trata cada módulo por separado. De forma similar a cómo el "alcance global" permite que los archivos independientes se mezclen en tiempo de ejecución, la importación de un módulo en otro permite la interoperación de tiempo de ejecución entre ellos.
 
-Independientemente de qué patrón de organización de código (y mecanismo de carga) se use para un archivo, independiente o módulo, aún debes considerar cada archivo como su propio (mini) programa, que luego puede cooperar con otros (mini) programas para realizar Las funciones de tu aplicación general.
+Independientemente de qué patrón de organización de código (y mecanismo de carga) se use para un archivo, independiente o módulo, aún debes considerar cada archivo como su propio (mini) programa, que luego puede cooperar con otros (mini) programas para realizar las funciones de tu aplicación general.
 
 ## Valores
 
@@ -48,7 +48,7 @@ console.log("My name is Kyle.");
 
 En este programa, el valor `"Mi nombre es Kyle"` es un literal de cadena primitivo; Las cadenas son colecciones ordenadas de caracteres, generalmente utilizadas para representar palabras y oraciones.
 
-Utilicé el carácter de comillas dobles `"` para *delimitar* (rodear, separar, definir) el valor de la cadena. Pero también podría haber utilizado el carácter de comillas simples `'` La elección de qué carácter de comillas usar es completamente estilística. Lo importante, en aras de la legibilidad del código y el mantenimiento, es elegir uno y usarlo de manera consistente a lo largo del programa.
+Utilicé el carácter de comillas dobles `"` para *delimitar* (rodear, separar, definir) el valor de la cadena. Pero también podría haber utilizado el carácter de comillas simples `'` , la elección de qué carácter de comillas usar es completamente estilística. Lo importante, en aras de la legibilidad del código y el mantenimiento, es elegir uno y usarlo de manera consistente a lo largo del programa.
 
 Otra opción para delimitar un literal de cadena es utilizar el carácter de retroceso (backtick) `` ` ``. Sin embargo, esta elección no es meramente estilística; También hay una diferencia de comportamiento. 
 
@@ -111,7 +111,7 @@ Por ejemplo:
 console.log(`My name is ${ name.first }.`);
 ```
 
-Aquí, `name` representa un objeto, y `first` representa el nombre de una ubicación de información en ese objeto (colección de valores). Otra opción de sintaxis que accede a la información en un objeto por su propiedad / clave utiliza los corchetes `[ ]`, como `name["first"]`.
+Aquí, `name` representa un objeto, y `first` representa el nombre de una ubicación de información en ese objeto (colección de valores). Otra opción de sintaxis que accede a la información en un objeto por su propiedad / clave utiliza los corchetes `[]`, como `name["first"]`.
 
 Además de las cadenas, los números y los valores booleanos, otros dos valores *primitivos* en los programas JS son `null` y `undefined`. Si bien existen diferencias entre ellos (algunos históricos y otros contemporáneos), en su mayor parte ambos valores sirven para indicar *vacío* (o ausencia) de un valor.
 
@@ -122,7 +122,7 @@ while (value != undefined) {
     console.log("Still got something!");
 }
 ```
-El valor primitivo final a tener en cuenta es `Symbol`, que es un valor de propósito especial que se comporta como un valor oculto no cuestionable. Los símbolos se usan casi exclusivamente como teclas especiales en los objetos.
+El valor primitivo final a tener en cuenta es `Symbol`, que es un valor de propósito especial que se comporta como un valor oculto no cuestionable. Los símbolos se usan casi exclusivamente como claves especiales en los objetos.
 
 ```js
 hitchhikersGuide[ Symbol("meaning of life") ];
@@ -144,7 +144,7 @@ typeof function foo(){};  // "function"
 
 | NOTA: |
 | :--- |
-| `typeof null` desafortunadamente devuelve `"object" `en lugar del esperado" `"null"`. Además, `typeof` devuelve` "function"` para funciones,pero no devuelve un `"array"` esperado para arrays. |
+| `typeof null` desafortunadamente devuelve `"object" `en lugar del esperado" `"null"`. Además, `typeof` devuelve` "function"` para funciones, pero no devuelve un `"array"` esperado para arrays. |
 
 
 ## Variables
@@ -197,7 +197,7 @@ Pero `var` sigue siendo útil porque comunica "esta variable será vista por un 
 
 | NOTA: |
 | :--- |
-| Es muy común sugerir que `var` debe evitarse a favor de `let` (o `const`!), generalmente debido a la confusión percibida sobre cómo ha funcionado el comportamiento de alcance de `var` desde el comienzo de JS. Creo que esto es un consejo demasiado restrictivo y, en última instancia, inútil. Se supone que no puede aprender y usar una función correctamente en combinación con otras funciones. ¡Creo que *puedes* y *debes* aprender cualquier función disponible, y usarla cuando sea apropiado! |
+| Es muy común sugerir que `var` debe evitarse a favor de `let` (o `const`!), generalmente debido a la confusión percibida sobre cómo ha funcionado el comportamiento de alcance de `var` desde el comienzo de JS. Creo que esto es un consejo demasiado restrictivo y, en última instancia, inútil. Esto asumiendo que seas incapaz de aprender a usar una característica correctamente en combinación con otras características. ¡Creo que *puedes* y *debes* aprender cualquier características disponible, y usarla cuando sea apropiado! |
 
 Un tercera forma de declaración es `const`. Es como `let` pero tiene una limitación adicional de que se le debe dar un valor en el momento en que se declara, y no se le puede reasignar un valor diferente más adelante.
 
@@ -327,9 +327,9 @@ Observe también que el nombre explícito de la función, el identificador `some
 ¿Deben las expresiones de funciones ser nombradas o anónimas? Las opiniones varían ampliamente sobre esto. La mayoría de los desarrolladores tienden a no preocuparse por el uso de funciones anónimas. Son más cortas e indudablemente más comunes en la amplia esfera del código JS.
 
 
-| MY OPINION: |
+| MI OPINION: |
 | :--- |
-| Si existe una función en tu programa, es porque tiene un propósito; de lo contrario, sácala! Si tiene un propósito, tiene un nombre natural que describe ese propósito. Si tiene un nombre, tu, el autor del código, debes incluir ese nombre en el código, para que el lector no tenga que inferir ese nombre al leer y ejecutar mentalmente el código fuente de esa función. Incluso un cuerpo de función trivial como `x * 2` tiene que leerse para inferir un nombre como "doble "o" multPor2 "; ese breve trabajo mental adicional es innecesario cuando solo puede tomarse un segundo para nombrar la función "doble" o "multPor2" *una vez*, ahorrando al lector ese trabajo mental repetido cada vez que se lea en el futuro.|
+| Si existe una función en tu programa, es porque tiene un propósito; de lo contrario, sácala! Si tiene un propósito, tiene un nombre natural que describe ese propósito. Si tiene un nombre, tú, el autor del código, debes incluir ese nombre en el código, para que el lector no tenga que inferir ese nombre al leer y ejecutar mentalmente el código fuente de esa función. Incluso un cuerpo de función trivial como `x * 2` tiene que leerse para inferir un nombre como "doble "o" multPor2 "; ese breve trabajo mental adicional es innecesario cuando solo puede tomarse un segundo para nombrar la función "doble" o "multPor2" *una vez*, ahorrando al lector ese trabajo mental repetido cada vez que lo lea en el futuro.|
 
 Lamentablemente, en algunos aspectos, hay muchas otras formas de definición de funciones en JS en 2019.
 
@@ -378,8 +378,6 @@ someOperation( x => x * 2 );
 
 Tenga en cuenta que las expresiones de función de flecha son **sintácticamente anónimas**, lo que significa que la sintaxis no proporciona una forma de asignar un identificador de nombre directo para la función. La expresión de función puede obtener un nombre inferido, pero solo si es una de las formas de asignación, no en la forma (¡más común!) de pasar como un argumento de llamada de función (como en la última línea del fragmento).
 
-Keep in mind that arrow function expressions are **syntactically anonymous**, meaning the syntax doesn't provide a way to provide a direct name identifier for the function. The function expression may get an inferred name, but only if it's one of the assignment forms, not in the (more common!) form of being passed as a function call argument (as in the last line of the snippet).
-
 Las funciones también se pueden especificar en definiciones de clase y definiciones literales de objeto. Normalmente se les conoce como "métodos" cuando están en estas formas, aunque en JS este término no tiene mucha diferencia observable sobre "función".
 
 ```js
@@ -400,7 +398,7 @@ var EntirelyDifferent = {
 ```
 ¡Uf! Esas son muchas formas diferentes de definir funciones.
 
-No hay atajos sencillos aquí; solo debes familiarizarte con todas las formas de funciones para poder reconocerlas en el código existente y usarlos adecuadamente en el código que escribas. ¡Estudíalos de cerca y practica!
+No hay atajos sencillos acá; solo debes familiarizarte con todas las formas de funciones para poder reconocerlas en el código existente y usarlos adecuadamente en el código que escribas. ¡Estudíalos de cerca y practica!
 
 ## Comparaciones
 
@@ -466,7 +464,7 @@ Considere:
 
 ¿Que está pasando aqui?
 
-Puede parecer razonable suponer que una verificación de igualdad considera la *naturaleza* o *contenido* del valor; después de todo, `42 === 42` considera el valor real de` 42` y lo compara. Pero cuando se trata de objetos, una comparación consciente del contenido generalmente se conoce como "igualdad estructural".
+Puede parecer razonable suponer que una verificación de igualdad considera la *naturaleza* o *contenido* del valor; después de todo, `42 === 42` considera el valor real de `42` y lo compara. Pero cuando se trata de objetos, una comparación consciente del contenido generalmente se conoce como "igualdad estructural".
 
 JS no define `===` como *igualdad estructural* para valores de objeto. En cambio, `===` usa *igualdad de identidad* para valores de objeto.
 
@@ -490,11 +488,11 @@ En este fragmento, `y === x` es verdadero porque ambas variables tienen una refe
 
 JS no proporciona un mecanismo para la comparación de igualdad estructural de valores de objeto, solo comparación de identidad de referencia. Para hacer una comparación de igualdad estructural, deberá implementar las comprobaciones usted mismo.
 
-Pero cuidado, es más complicado de lo que supones. Por ejemplo, ¿cómo podrías determinar si dos referencias de función son "estructuralmente equivalentes"? Incluso convertir en cadenas su codigo para compararlo no tomaría en cuenta cosas como los closures. ¡JS no proporciona una comparación de igualdad estructural porque es casi intratable manejar todos los casos!
+Pero cuidado, es más complicado de lo que supones. Por ejemplo, ¿cómo podrías determinar si dos referencias de función son "estructuralmente equivalentes"? Incluso convertir en cadenas tu codigo para compararlo no tomaría en cuenta cosas como los closures. ¡JS no proporciona una comparación de igualdad estructural porque es casi intratable manejar todos los casos!
 
 ### Comparaciones coercitivas
 
-Pocas funciones JS atraen más ira en la comunidad JS más amplia que el operador `==`, generalmente denominado operador de "igualdad suelta". La mayoría de todos los artículos y el discurso público sobre JS condenan a este operador como mal diseñado y peligroso / lleno de errores cuando se usa en programas JS. Incluso el creador del lenguaje, Brendan Eich, se ha lamentado de cómo fue diseñado, calificandolo como un gran error.
+Pocas funciones JS atraen más ira en la comunidad JS más amplia que el operador `==`, generalmente denominado operador de "igualdad suelta". La mayoría de todos los artículos y el discurso público sobre JS condenan a este operador como mal diseñado y peligroso / lleno de errores cuando se usa en programas JS. Incluso el creador del lenguaje, Brendan Eich, se ha lamentado de cómo fue diseñado, calificándolo como un gran error.
 
 Por lo que puedo decir, la mayor parte de esta frustración proviene de una lista bastante corta de casos confusos, pero un problema más profundo es la idea errónea extremadamente generalizada de que realiza sus comparaciones sin considerar los tipos de sus valores comparados.
 
@@ -511,11 +509,11 @@ Considere:
 
 En ambas comparaciones, los tipos de valores son diferentes, por lo que `==` hace que los valores no numéricos (`"42"` y `true`) se conviertan en números (`42` y `1`, respectivamente) antes de hacer las comparaciones.
 
-El solo hecho de conocer esta naturaleza de `==` te ayuda a evitar la mayoría de los casos problemáticos, como mantenerse alejado de problemas como `" "== 0` o `0 == false`.
+El solo hecho de conocer esta naturaleza de `==` te ayuda a evitar la mayoría de los casos problemáticos, como mantenerte alejado de problemas como `" "== 0` o `0 == false`.
 
 Puedes estar pensando, "¡Oh, bueno, siempre evitaré cualquier comparación de igualdad coercitiva (usando `===` en su lugar) para evitar esos casos curiosos"! Eh, lo siento, eso no es tan probable como cabría esperar.
 
-Hay muchas posibilidades de que utilices operadores de comparación relacional como `<`, `>` (e incluso `<=` y `> =`).
+Hay muchas posibilidades de que utilices operadores de comparación relacional como `<`, `>` (e incluso `<=` y `>=`).
 
 Al igual que `==`, estos operadores funcionarán como si fueran "estrictos" si los tipos que se comparan relacionalmente ya coinciden, pero permitirán primero la coerción (generalmente, a números) si los tipos difieren.
 
@@ -614,17 +612,17 @@ Dado que la función `Boolean(..)` siempre devuelve un valor de tipo boolean, el
 Simplemente no puede escapar de las coerciones en las comparaciones de JS. Abróchate el cinturón y aprende.
 
 
-## Organizaciòn del còdigo
+## Organización del código
 
-Dos patrones principales para organizar el código (datos y comportamiento)se utilizan ampliamente en todo el ecosistema JS: clases y módulos. Estos patrones no son mutuamente excluyentes; muchos programas pueden y usan ambos.
+Dos patrones principales para organizar el código (datos y comportamiento) se utilizan ampliamente en todo el ecosistema JS: clases y módulos. Estos patrones no son mutuamente excluyentes; muchos programas pueden y usan ambos.
 
-En algunos aspectos, estos patrones son muy diferentes. Pero curiosamente,de otras maneras, son solo lados diferentes de la misma moneda. Ser competente en JS requiere comprender ambos patrones y dónde son apropiados (¡y donde no!).
+En algunos aspectos, estos patrones son muy diferentes. Pero curiosamente, de otras maneras, son solo lados diferentes de la misma moneda. Ser competente en JS requiere comprender ambos patrones y dónde son apropiados (¡y donde no!).
 
 ### Clases
 
 Los términos "orientado a objetos", "orientado a clases" y "clases" están muy cargados de detalles y matices; no son universales en definición.
 
-Aquí usaremos una definición común y algo tradicional, la que probablemente sea familiar para aquellos con antecedentes en lenguajes "orientados a objetos" como C ++ y Java.
+Aquí usaremos una definición común y algo tradicional, la que probablemente sea familiar para aquellos con antecedentes en lenguajes "orientados a objetos" como C++ y Java.
 
 Una clase en un programa es una definición de un "tipo" de estructura de datos personalizada que incluye datos y comportamientos que operan en esos datos. Las clases definen cómo funciona dicha estructura de datos, pero las clases no son en sí mismas valores concretos. Para obtener un valor concreto que pueda usar en el programa, una clase debe ser *instanciada* (con la palabra clave `new`) una o más veces.
 
@@ -776,13 +774,13 @@ Observe que ambas instancias de clases hijas tienen un método `print()`, que fu
 
 El hecho de que tanto los métodos heredados como los reemplazados pueden tener el mismo nombre y coexistir se llama *polimorfismo*.
 
-La herencia es una herramienta poderosa para organizar datos / comportamiento en unidades lógicas separadas (clases), pero permite que la clase secundaria coopere con el padre al acceder / usar su comportamiento y datos.
+La herencia es una herramienta poderosa para organizar datos / comportamiento en unidades lógicas separadas (clases), pero permite que la clase hija coopere con el padre al acceder / usar su comportamiento y datos.
 
-### Modules
+### Modulos
 
-The module pattern has essentially the same goal as the class pattern, which is to group data and behavior together into logical units. Also like classes, modules can "include" or "access" the data and behaviors of other modules, for cooperation sake.
+El patrón de módulo tiene esencialmente el mismo objetivo que el patrón de clase, que es agrupar datos y comportamiento en unidades lógicas. También como las clases, los módulos pueden "incluir" o "acceder" a los datos y comportamientos de otros módulos, por el bien de la cooperación.
 
-But modules have some important differences from classes. Most notably, the syntax is entirely different.
+Pero los módulos tienen algunas diferencias importantes con respecto a las clases. En particular, la sintaxis es completamente diferente.
 
 #### Módulos Clásicos
 
@@ -852,7 +850,7 @@ Con `class`, la "API "de una instancia está implícita en la definición de la 
 | :--- |
 | Hay otras variaciones de esta forma de función de fábrica que son bastante comunes en JS, incluso en 2019; puede ejecutarse de esta manera en diferentes programas JS: AMD ("Definición de módulo asíncrono"), UMD ("Definición de módulo universal") y CommonJS (módulos clásicos de estilo Node.js). Sin embargo, las variaciones son menores. Todas estas formas se basan en los mismos principios básicos. |
 
-Considere también el uso (también conocido como "instanciación") de estas funciones de fábrica de módulos:
+Considere además el uso (también conocido como "instanciación") de estas funciones de fábrica de módulos:
 
 ```js
 var YDKJS = Book({
@@ -972,6 +970,6 @@ Si su módulo solo necesita una única instancia, puede omitir las capas adicion
 
 ## Antes de continuar
 
-Como se prometió en la parte superior de este capítulo, solo miramos una amplia superficie de las partes principales del lenguaje JS. Incluso con esta encuesta "breve" de JS, hay un montón de detalles en este documento que debe considerar cuidadosamente y asegurarse de que se sienta cómodo. Sugiero releer este capítulo, tal vez algunas veces.
+Como se prometió en la parte superior de este capítulo, solo miramos una amplia superficie de las partes principales del lenguaje JS. Incluso con este repaso "breve" de JS, hay un montón de detalles en este documento que debe considerar cuidadosamente y asegurarse de que se sienta cómodo. Sugiero releer este capítulo, tal vez algunas veces.
 
-En el próximo capítulo, vamos a profundizar en algunos aspectos importantes de cómo funciona JS. Asegúrese de tomarse su tiempo con el material de este capítulo antes de continuar.
+En el próximo capítulo, vamos a profundizar en algunos aspectos importantes de cómo funciona JS. Asegúrate de tomarte tu tiempo con el material de este capítulo antes de continuar.

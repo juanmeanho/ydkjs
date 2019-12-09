@@ -104,21 +104,21 @@ Recuerde: este closure no está por encima del valor (como `1` o` 3`), sino por 
 
 El closure es uno de los patrones de programación más frecuentes e importantes en cualquier lenguaje. Pero eso es especialmente cierto en JS; Es difícil imaginar hacer algo útil sin aprovechar el closure de una forma u otra.
 
-## `this` Keyword
+## La palabra clave `this`
 
-One of JS's most powerful mechanisms is also one of its most misunderstood: the `this` keyword. One common misconception is that a function's `this` refers to the function itself. Because of how `this` works in other languages, another misconception is that `this` points the instance that a method belongs to. Both are incorrect.
+Uno de los mecanismos más poderosos de JS es también uno de los más incomprendidos: la palabra clave `this`. Un error común es que el `this` de una función se refiere a la función misma. Debido a cómo `this` funciona en otros lenguajes, otro concepto erróneo es que `this` señala la instancia a la que pertenece un método. Ambos son incorrectos.
 
-As discussed previously, when a function is defined, it is *attached* to its enclosing scope via closure. Scope is the set of rules that controls how references to identifiers (variables) are determined.
+Como se discutió anteriormente, cuando se define una función, se *adjunta* su alcance de cierre a través del closure. El alcance es el conjunto de reglas que controla cómo se determinan las referencias a los identificadores (variables).
 
-But functions also have another characteristic besides their scope that influences what they can access. This characteristic is best described as an *execution context*, and it's exposed to the function via its `this` keyword.
+Pero las funciones también tienen otra característica además de su alcance que influye en lo que pueden acceder. Esta característica se describe mejor como un *contexto de ejecución*, y se expone a la función a través de su palabra clave `this`.
 
-Scope is static and contains a fixed set of variables available at the moment and location you define a function, but a function's execution *context* is dynamic, entirely dependent on **how it is called** (regardless of where it is defined or even called from).
+El alcance es estático y contiene un conjunto fijo de variables disponibles en el momento y la ubicación en que se define una función, pero la ejecución *contexto* de una función es dinámica, totalmente dependiente de **cómo se llama** (independientemente de dónde esté definida o incluso desde donde se ha llamado).
 
-It's important to realize: `this` is not a fixed characteristic of a function based on the function's definition, but rather a dynamic characteristic that's determined each time the function is called.
+Es importante darse cuenta: `this` no es una característica fija de una función basada en la definición de la función, sino más bien una característica dinámica que se determina cada vez que se llama a la función.
 
-One way to think about the *execution context* is that it's a tangible object whose properties are made available to a function while it executes. Compare that to scope, which can also be thought of as an *object*; except, the *scope object* is hidden inside the JS engine, it's always the same for that function, and its *properties* take the form of identifier variables available inside the function.
+Una forma de pensar sobre el *contexto de ejecución* es que es un objeto tangible cuyas propiedades están disponibles para una función mientras se ejecuta. Compare eso con el alcance, que también puede considerarse como un *objeto*; excepto que el *objeto de alcance* está oculto dentro del motor JS, siempre es el mismo para esa función y sus *propiedades* toman la forma de variables de identificación disponibles dentro de la función.
 
-Consider:
+Considere:
 
 ```js
 function classroom(teacher) {
@@ -132,24 +132,25 @@ function classroom(teacher) {
 var assignment = classroom("Kyle");
 ```
 
-The outer `classroom(..)` function makes no reference to a `this` keyword, so it's just like any other function we've seen so far. But the inner `study()` function does reference `this`, which makes it a `this`-aware function. In other words, it's a function that is dependent on its *execution context*.
+La función externa `classroom(..)` no hace referencia a la palabra clave `this`, por lo que es como cualquier otra función que hayamos visto hasta ahora. Pero la función interna `study()` hace referencia a `this`, lo que la convierte en una función consciente de `this`. En otras palabras, es una función que depende de su *contexto de ejecución*.
 
-| NOTE: |
+| NOTA: |
 | :--- |
-| `study()` is also closed over the `teacher` variable from its outer scope. |
+| `study()` también está cerrada sobre la variable `teacher` desde su alcance externo. |
 
-The inner `study()` function is returned from `classroom("Kyle")` and assigned to a variable called `assignment`. So how can `assignment()` (aka `study()`) be called?
+La función interna `study()` se devuelve desde `classroom("Kyle")` y se asigna a una variable llamada `assignment`. Entonces, ¿cómo se puede llamar a `assignment()` (también conocida como `study()`)?
+
 
 ```js
 assignment();
 // Kyle wants you to study undefined  -- Oops :(
 ```
 
-In this snippet, we call `assignment()` as a plain, normal function, without providing it any *execution context*.
+En este fragmento, llamamos a `assignment()` como una función normal, sin proporcionarle ningún *contexto de ejecución*.
 
-Since this program is not in strict mode (See Chapter 1, "Strictly Speaking"), context-aware functions that are called **without any context specified** default the context to the global object (`window` in the browser). As there is no global variable named `topic` (and thus no such property on the global object), `this.topic` resolves to `undefined`.
+Dado que este programa no está en modo estricto (consulte el Capítulo 1, "Hablando estrictamente"), las funciones conscientes del contexto que se llaman **sin ningún contexto especificado** predeterminan el contexto al objeto global (`window` en el navegador). Como no existe una variable global llamada `topic` (y, por lo tanto, no existe tal propiedad en el objeto global), `this.topic` se resuelve en `undefined`.
 
-Now consider:
+Ahora considere:
 
 ```js
 var homework = {
@@ -161,9 +162,9 @@ homework.assignment();
 // Kyle wants you to study JS
 ```
 
-A copy of the `assignment` function reference is set as a property on the `homework` object, and then it's called as `homework.assignment()`. That means the `this` for that function call will be the `homework` object. Hence, `this.topic` resolves to `"JS"`.
+Una copia de la referencia de función `assignment` se establece como una propiedad en el objeto `homework`, y luego se llama como `homework.assignment()`. Eso significa que el `this` para esa llamada de función será el objeto `homework`. Por lo tanto, `this.topic` se resuelve en `"JS" `.
 
-Lastly:
+Finalmente:
 
 ```js
 var otherHomework = {
@@ -174,23 +175,23 @@ assignment.call(otherHomework);
 // Kyle wants you to study Math
 ```
 
-A third way to invoke a function is with the `call(..)` method, which takes an object (`otherHomework` here) to use for setting the `this` reference for the function call. `this.topic` thus resolves to `"Math"`.
+Una tercera forma de invocar una función es con el método `call(..)`, que toma un objeto (`otherHomework` aquí) para configurar la referencia `this` para la llamada a la función. `this.topic` se resuelve así a `"Math"`.
 
-The same context-aware function invoked three different ways, gives different answers each time for what object `this` will reference.
+La misma función sensible al contexto invocada de tres maneras diferentes, da respuestas diferentes cada vez para qué se hace referencia al objeto `this`.
 
-The benefit of `this`-aware functions -- and their dynamic context -- is the ability to more flexibly re-use a single function with data from different objects. A function that closes over a scope can never reference a different scope or set of variables. But a function that has dynamic `this` context awareness can be quite helpful for certain tasks.
+El beneficio de las funciones conscientes de `this`, y su contexto dinámico, es la capacidad de reutilizar de manera más flexible una sola función con datos de diferentes objetos. Una función que se cierra sobre un ámbito nunca puede hacer referencia a un ámbito o conjunto de variables diferente. Pero una función que tenga conciencia dinámica de contexto `this` puede ser bastante útil para ciertas tareas.
 
-## Prototypes
+## Prototipos
 
-Where `this` is a characteristic of function execution, a prototype is a characteristic of an object, and specifically resolution of a property access.
+Donde `this` es una característica de la ejecución de funciones, un prototipo es una característica de un objeto, y específicamente la resolución de un acceso a la propiedad.
 
-Think about a prototype as a linkage between two objects; the linkage is hidden behind the scenes, though there are ways to expose and observe it. This prototype linkage occurs when an object is created; it's linked to another object that already exists.
+Piense en un prototipo como un enlace entre dos objetos; El vínculo está oculto detrás de escena, aunque hay formas de exponerlo y observarlo. Este enlace prototipo ocurre cuando se crea un objeto; está vinculado a otro objeto que ya existe.
 
-A series of objects linked together via prototypes is called the "prototype chain".
+Una serie de objetos unidos entre sí a través de prototipos se denomina "cadena de prototipos".
 
-The purpose of this prototype linkage (ie, from an object B to another object A) is so that accesses against B for properties/methods that B does not have, are *delegated* to A to handle. Delegation of property/method access allows two (or more!) objects to cooperate with each other to perform a task.
+El propósito de este enlace prototipo (es decir, de un objeto B a otro objeto A) es que los accesos contra B para propiedades/métodos que B no tiene, se *deleguen* a A para ser manejado. La delegación de acceso a propiedades/métodos permite que dos (¡o más!) Objetos cooperen entre sí para realizar una tarea.
 
-Consider defining an object as a normal literal:
+Considere definir un objeto como un literal normal:
 
 ```js
 var homework = {
@@ -198,19 +199,19 @@ var homework = {
 };
 ```
 
-The `homework` object only has a single property on it: `topic`. However, its default prototype linkage connects to the `Object.prototype` object, which has common built-in methods on it like `toString()` and `valueOf()`, among others.
+El objeto `homework` solo tiene una única propiedad: `topic`. Sin embargo, su enlace prototipo predeterminado se conecta con el objeto `Object.prototype`, que tiene métodos incorporados comunes como `toString()` y `valueOf()`, entre otros.
 
-We can observe this prototype linkage *delegation* from `homework` to `Object.prototype`:
+Podemos observar en este enlace prototipo una *delegación* desde `homework` a `Object.prototype`:
 
 ```js
 homework.toString();    // [object Object]
 ```
 
-`homework.toString()` works even though `homework` doesn't have a `toString()` method defined; the delegation invokes `Object.prototype.toString()` instead.
+`homework.toString()` funciona aunque `homework` no tiene definido un método `toString()`; la delegación invoca `Object.prototype.toString()` en su lugar.
 
-### Object Linkage
+### Enlace de objeto
 
-One way to create an object prototype linkage is to create the object using the `Object.create(..)` utility:
+Una forma de crear un enlace prototipo de objeto es crear el objeto usando la utilidad `Object.create(..)`:
 
 ```js
 var homework = {
@@ -222,15 +223,15 @@ var otherHomework = Object.create(homework);
 otherHomework.topic;        // "JS"
 ```
 
-`Object.create(..)` expects an argument to specify an object to link the newly created object to.
+`Object.create(..)` espera que un argumento especifique un objeto para vincular el objeto recién creado.
 
-| NOTE: |
+| NOTA: |
 | :--- |
-| `Object.create(null)` creates an object that is not prototype linked, so it's purely just a standalone object; in some circumstances, that may be preferable. |
+| `Object.create(null)` crea un objeto que no está vinculado a un prototipo, por lo que es simplemente un objeto independiente; en algunas circunstancias puede ser preferible. |
 
-Delegation through the prototype chain only applies for accesses to lookup the value in a property. If you assign to a property of an object, that will apply directly to the object regardless of where that object is prototype linked to.
+La delegación a través de la cadena de prototipos solo se aplica a los accesos para buscar el valor en una propiedad. Si asigna a una propiedad de un objeto, eso se aplicará directamente al objeto, independientemente de dónde esté vinculado ese prototipo.
 
-Consider:
+Considere:
 
 ```js
 homework.topic;
@@ -247,13 +248,13 @@ homework.topic;
 // "JS" -- not "Math"
 ```
 
-The assignment to `topic` creates a property of that name directly on `otherHomework`; there's no affect on the `topic` property on `homework`. The next statement then accesses `otherHomework.topic`, and we see the non-delegated answer from that new property: `"Math"`.
+La asignación a `topic` crea una propiedad de ese nombre directamente en `otherHomework`; no hay efecto en la propiedad `topic` en `homework`. La siguiente declaración accede a `otherHomework.topic`, y vemos la respuesta no delegada de esa nueva propiedad: `"Math"`.
 
-### "Class" Linkage
+### Enlace "Class"
 
-Another, frankly more convoluted, way of creating an object with a prototype linkage is using the "prototypal class" pattern, from before ES6 `class` was added to the language (see Chapter 2, "Classes").
+Otra forma, francamente más complicada, de crear un objeto con un enlace prototipo es utilizar el patrón "clase prototípica", antes de que se añadiera ES6 `clase` al lenguaje (ver Capítulo 2," Clases ").
 
-Consider:
+Considere:
 
 ```js
 function Classroom() {
@@ -270,15 +271,15 @@ mathClass.welcome();
 // Welcome, students!
 ```
 
-All functions by default reference an empty object at a property named `prototype`. Despite the confusing naming, this is **not** the function's *prototype* -- where the function is prototype linked to -- but rather the prototype object to *link to* when other objects are created by calling the function with `new`.
+Todas las funciones hacen referencia por defecto a un objeto vacío en una propiedad llamada `prototype`. A pesar de los nombres confusos, este **no** es el *prototipo* de la función, --donde la función está vinculada al prototipo--, sino más bien el objeto prototipo a *enlazar* cuando se crean otros objetos llamando a la función con `new `.
 
-We add a `welcome` property to that empty `Classroom.prototype` object, pointing at a `hello()` function.
+Agregamos una propiedad `welcome` a ese objeto vacío `Classroom.prototype`, apuntando a una función `hello()`.
 
-Then `new Classroom()` creates a new object (assigned to `mathClass`), and prototype links it to the existing `Classroom.prototype` object.
+Entonces `new Classroom()` crea un nuevo objeto (asignado a `mathClass`), y el prototipo lo vincula al objeto existente `Classroom.prototype`.
 
-Though `mathClass` does not have a `welcome()` property/function, it successfully delegates to `Classroom.prototype.welcome()`.
+Aunque `mathClass` no tiene una propiedad/función `welcome ()`, delega con éxito a `Classroom.prototype.welcome()`.
 
-This "prototypal class" pattern is now strongly discouraged, in favor of ES6's `class` (see Chapter 2, "Classes"); here's the same code expressed with `class`:
+Este patrón de "clase de prototipo" ahora se desaconseja fuertemente, a favor de `class` de ES6 (ver Capítulo 2, "Clases"); Aquí está el mismo código expresado con `class`:
 
 ```js
 class Classroom {
@@ -297,9 +298,11 @@ mathClass.welcome();
 // Welcome, students!
 ```
 
-Under the covers, the same prototype linkage is wired up, but this `class` syntax fits the class-oriented design pattern much more cleanly than "prototypal classes".
+Debajo de las cubiertas, el mismo enlace prototipo está conectado, pero esta sintaxis de `class` se ajusta al patrón de diseño orientado a la clase de manera mucho más limpia que las "clases de prototipo".
 
-### `this` Revisited
+### Repaso a `this`
+
+Una de las principales razones por las que `this` es compatible con el contexto dinámico basado en cómo se llama la función es para que el método invoque objetos que delegan a través de la cadena de prototipos siga manteniendo el esperado `this`.
 
 One of the main reasons `this` supports dynamic context based on how the function is called is so that method calls on objects which delegate through the prototype chain still maintain the expected `this`.
 
@@ -323,9 +326,12 @@ mathHomework.study();
 // Please study Math
 ```
 
-The two objects `jsHomework` and `mathHomework` each prototype link to the single `homework` object, which has the `study()` function. `jsHomework` and `mathHomework` are each given their own `topic` property.
+En los dos objetos `jsHomework` y `mathHomework` cada prototipo se vincula con el único objeto `homework`, que tiene la función `study()`. `jsHomework` y `mathHomework` tienen cada una su propia propiedad `topic`.
+
+`jsHomework.study()` delega a `homework.study()`, pero su `this` (en `this.topic`) para esa ejecución se resuelve en `jsHomework` debido a cómo se llama la función, por lo que `this.topic` es `"JS"`. De manera similar para `mathHomework.study()` delegando a `homework.study()` pero aún resolviendo `this` a `mathHomework`, y por lo tanto `this.topic` como `"Math" `.
 
 `jsHomework.study()` delegates to `homework.study()`, but its `this` (in `this.topic`) for that execution resolves to `jsHomework` because of how the function is called, so `this.topic` is `"JS"`. Similarly for `mathHomework.study()` delegating to `homework.study()` but still resolving `this` to `mathHomework`, and thus `this.topic` as `"Math"`.
+
 
 The above code snippet would be far less useful if `this` was resolved to `homework`. Yet, in many other languages, it would seem `this` would be `homework` because the `study()` method is indeed defined on `homework`.
 

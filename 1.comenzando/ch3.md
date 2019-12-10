@@ -47,7 +47,7 @@ howdy("Grant");
 
 Primero, se ejecuta la función externa `greeting (..)`, creando una instancia de la función interna `who(..)`; esa función se cierra sobre la variable `msg`, el parámetro del alcance externo de `greeting (..) `. Devolvemos esa función interna y asignamos su referencia a la variable `hello`. Luego llamamos a `greeting(..)` por segunda vez, creando una nueva instancia de función interna, con un nuevo cierre sobre un nuevo `msg`, y devolvemos esa referencia para que se asigne a` howdy`.
 
-Cuando la función `greeting(..)` termine de ejecutarse, normalmente esperaríamos que todas sus variables vayan al recolectador de basura (eliminadas de la memoria). Esperaríamos que cada `msg` desapareciera, pero no lo hacen. El motivo es el closure. Dado que las instancias de funciones internas todavía están vivas (asignadas a `hello` y `howdy` respectivamente), sus closures aún conservan las variables `msg`.
+Cuando la función `greeting(..)` termine de ejecutarse, normalmente esperaríamos que todas sus variables vayan al recolector de basura (eliminadas de la memoria). Esperaríamos que cada `msg` desapareciera, pero no lo hacen. El motivo es el closure. Dado que las instancias de funciones internas todavía están vivas (asignadas a `hello` y `howdy` respectivamente), sus closures aún conservan las variables `msg`.
 
 Estos closures no son una instantánea del valor de la variable `msg`; son un enlace directo y preservación de la variable misma. Eso significa que el closures realmente puede observar (¡o hacer!) actualizaciones a estas variables a lo largo del tiempo.
 
@@ -71,9 +71,11 @@ incBy3();       // 6
 incBy3();       // 9
 ```
 
-Cada instancia de la función interna `increaseCount()` se cierra sobre las variables '`count` y `step` desde el alcance de la función externa `counter(..)`. `step` permanece igual con el tiempo, pero `count` se actualiza en cada invocación de esa función interna. Como el closure se realiza sobre las variables y no solo sobre las instantáneas de los valores, estas actualizaciones se conservan.
+Cada instancia de la función interna `increaseCount()` se cierra sobre las variables `count` y `step` desde el alcance de la función externa `counter(..)`. `step` permanece igual con el tiempo, pero `count` se actualiza en cada invocación de esa función interna. Como el closure se realiza sobre las variables y no solo sobre las instantáneas de los valores, estas actualizaciones se conservan.
 
-El closure es más común cuando se trabaja con código asincrónico, como con devoluciones de llamada. Considerar:
+El closure es más común cuando se trabaja con código asincrónico, como con devoluciones de llamada. 
+
+Considere:
 
 ```js
 function getSomeData(url) {
@@ -185,7 +187,7 @@ El beneficio de las funciones conscientes de `this`, y su contexto dinámico, es
 
 Donde `this` es una característica de la ejecución de funciones, un prototipo es una característica de un objeto, y específicamente la resolución de un acceso a la propiedad.
 
-Piense en un prototipo como un enlace entre dos objetos; El vínculo está oculto detrás de escena, aunque hay formas de exponerlo y observarlo. Este enlace prototipo ocurre cuando se crea un objeto; está vinculado a otro objeto que ya existe.
+Piense en un prototipo como un enlace entre dos objetos; El vínculo está oculto tras bastidores, aunque hay formas de exponerlo y observarlo. Este enlace prototipo ocurre cuando se crea un objeto; está vinculado a otro objeto que ya existe.
 
 Una serie de objetos unidos entre sí a través de prototipos se denomina "cadena de prototipos".
 
@@ -304,9 +306,7 @@ Debajo de las cubiertas, el mismo enlace prototipo está conectado, pero esta si
 
 Una de las principales razones por las que `this` es compatible con el contexto dinámico basado en cómo se llama la función es para que el método invoque objetos que delegan a través de la cadena de prototipos siga manteniendo el esperado `this`.
 
-One of the main reasons `this` supports dynamic context based on how the function is called is so that method calls on objects which delegate through the prototype chain still maintain the expected `this`.
-
-Consider:
+Considere:
 
 ```js
 var homework = {
@@ -342,7 +342,7 @@ El patrón iterador ha existido durante décadas, y sugiere un enfoque "estandar
 
 Imagine una estructura de datos que representa una consulta de base de datos relacional `SELECT`, que generalmente organiza los resultados en filas. Si esta consulta tuviera solo una o un par de filas, podría manejar todo el conjunto de resultados a la vez, y asignar cada fila a una variable local, y realizar cualquier operación en esos datos que fuera apropiada.
 
-Pero si la consulta tiene 100 o 1000 (¡o más!) Filas, necesitará un procesamiento iterativo para manejar estos datos (generalmente, un bucle).
+Pero si la consulta tiene 100 o 1000 (¡o más!) filas, necesitará un procesamiento iterativo para manejar estos datos (generalmente, un bucle).
 
 El patrón iterador define una estructura de datos llamada "iterador" que tiene una referencia a una fuente de datos subyacente (como las filas de resultados de la consulta), que expone un método como `next()`. Llamar a `next()` devuelve la siguiente pieza de datos (es decir, un "registro" o "fila" de una consulta de base de datos).
 
@@ -387,8 +387,7 @@ Un arreglo spread:
 // an array element position.
 var vals = [ ...it ];
 ```
-
-A function call spread:
+Una llamada de función spread
 
 ```js
 // spread an iterator into a function,
@@ -494,10 +493,10 @@ Además de utilizar iterables integrados, también puedes asegurarte de que tus 
 
 ## Preguntando Por Qué
 
-El objetivo de este capítulo es que hay mucho más para JS tras bastidores de lo que es obvio al mirar la superficie.
+El objetivo de este capítulo es que hay mucho más de JS tras bastidores de lo que es obvio al mirar la superficie.
 
-A medida que comienzas a aprender y a conocer JS más de cerca, una de las habilidades más importantes que puedea practicar y reforzar es la curiosidad y el arte de preguntar "¿por qué?" cuando encuentras algo en el lenguaje.
+A medida que comienzas a aprender y a conocer JS más de cerca, una de las habilidades más importantes que puedes practicar y reforzar es la curiosidad y el arte de preguntar "¿por qué?" cuando encuentras algo en el lenguaje.
 
-Aunque este capítulo ha profundizado en algunos de los temas, muchos detalles se han descuidado por completo. Hay mucho más que aprender aquí, y el camino hacia eso comienza con las preguntas *correctas* del código.
+Aunque este capítulo ha profundizado en algunos de los temas, muchos detalles se han descuidado por completo. Hay mucho más que aprender, y el camino hacia eso comienza con las preguntas *correctas* del código.
 
 En el capítulo final de este libro, veremos brevemente cómo abordar el resto de la serie de libros *You Don't Know JS Yet*. Además, no te pierdas el Apéndice A, que tiene un código de práctica para revisar algunos de los principales temas tratados en este libro.

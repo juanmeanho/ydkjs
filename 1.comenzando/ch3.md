@@ -1,5 +1,5 @@
 # Aún no conoces JS: Comenzando - 2da Edición
-# Chapter 3: Explorando más profundo
+# Capítulo 3: Explorando más profundo
 
 | NOTA DEL AUTOR: |
 | :--- |

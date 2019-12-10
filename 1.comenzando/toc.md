@@ -1,38 +1,38 @@
-# You Don't Know JS Yet: Get Started - 2nd Edition
+# Aún no conoces JS: Comenzando - 2da Edición
 
-## Table of Contents
+## Tabla de Contenidos
 
 * Prefacio
-* Chapter 1: What Is JavaScript?
-    * Name
-    * Many Faces
-    * Specification
-    * Backwards & Forwards
-    * What's In an Interpretation?
-    * Strictly Speaking
-    * Defined
-* Chapter 2: Getting To Know JS
-    * Files As Programs
-    * Values
+* Capítulo 1: Qué es JavaScript?
+    * Nombre
+    * Muchas Caras
+    * Especificación
+    * Hacia atras & Hacia adelante
+    * ¿Qué hay en una interpretación?
+    * Estrictamente Hablando
+    * Definido
+* Capítulo 2: Conociendo a JS
+    * Archivos Como Programas
+    * Valores
     * Variables
-    * Functions
-    * Comparisons
-    * Code Organization
-    * Before You Go On
-* Chapter 3: Exploring Deeper
+    * Funciones
+    * Comparaciones
+    * Organización del código
+    * Antes de continuar
+* Capítulo 3: Explorando más profundo
     * Closure
-    * `this` Keyword
-    * Prototypes
-    * Iteration
-    * Asking Why
-* Chapter 4: The Rest
-    * Pillar 1: Scope and Closure
-    * Pillar 2: Prototypes
-    * Pillar 3: Types and Coercion
-    * In Order
-    * With The Grain
-* Appendix A: Practice, Practice, Practice!
-    * Practicing Comparisons
-    * Practicing Closure
-    * Practicing Prototypes
-    * Suggested Solutions
+    * La palabra clave `this`
+    * Prototipos
+    * Iteración
+    * Preguntando Por Qué
+* Capítulo 4: El Resto
+    * Pillar 1: Alcance y Closure
+    * Pillar 2: Prototipos
+    * Pillar 3: Tipos y Coercion
+    * En Orden
+    * Con la corriente
+* Apéndice A: Práctica, Práctica, Práctica!
+    * Practicando Comparaciones
+    * Practicando Closures
+    * Practicando Prototipos
+    * Soluciones Sugeridas

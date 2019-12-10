@@ -1,5 +1,5 @@
-# You Don't Know JS Yet: Get Started - 2nd Edition
-# Appendix A: Practice, Practice, Practice!
+# Aún no conoces JS: Comenzando - 2da Edición
+# Apéndice A: Práctica, Práctica, Práctica!
 
 | NOTE: |
 | :--- |

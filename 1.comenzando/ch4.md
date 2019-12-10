@@ -9,7 +9,7 @@ Este libro analiza lo que debes tener en cuenta al *comenzar* con JS. El objetiv
 
 El resto de los libros de esta serie es donde desempacaremos todo el resto del lenguaje, con mucho más detalle de lo que podríamos haber hecho en unos breves capítulos aquí.
 
-Sin embargo, recuerda tomarte tu tiempo. En lugar de apresurarte hacia el próximo libro en un intento de repasar todos los libros de manera conveniente, pase un tiempo repasando el material de este libro. Pase más tiempo mirando el código en sus proyectos actuales y comparando lo que ve con lo que se ha discutido aquí.
+Sin embargo, recuerda tomarte tu tiempo. En lugar de apresurarte hacia el próximo libro en un intento de repasar todos los libros de manera conveniente, pase un tiempo repasando el material de este libro. Pasa más tiempo mirando el código en tus proyectos actuales y comparando lo que ves con lo que se ha discutido aquí.
 
 Cuando estés listo, este capítulo final proporciona una breve vista previa y una hoja de ruta de lo que puede esperar del resto de la serie de libros, y cómo sugiero que continúe. Además, no omita el Apéndice A, "¡Practique, practique, practique!"
 
@@ -65,7 +65,7 @@ La gran mayoría de los desarrolladores tienen ideas erróneas sobre cómo funci
 
 Estoy de acuerdo en que los desarrolladores de JS deberían aprender más sobre los tipos, y deberían aprender más sobre cómo JS gestiona las conversiones de tipos. ¡También estoy de acuerdo en que las herramientas con reconocimiento de tipos pueden ayudar a los desarrolladores, suponiendo que hayan adquirido y utilizado este conocimiento en primer lugar!
 
-Pero no estoy de acuerdo en absoluto en que la conclusión inevitable de esto es decidir que el mecanismo de tipos de JS es malo y que necesitamos encubrir los tipos de JS con soluciones fuera del lenguaje. No tenemos que seguir la forma de "escritura estática" para ser inteligentes y sólidos con los tipos en nuestros programas. Hay otras opciones, si solo estás dispuesto a ir *con la corriente* de la multitud y *con la corriente* de JS (de nuevo, más sobre eso a continuación).
+Pero no estoy de acuerdo en absoluto en que la conclusión inevitable de esto es decidir que el mecanismo de tipos de JS es malo y que necesitamos encubrir los tipos de JS con soluciones fuera del lenguaje. No tenemos que seguir la forma de "escritura estática" para ser inteligentes y sólidos con los tipos en nuestros programas. Hay otras opciones, si solo estás dispuesto a ir *contra la corriente* de la multitud y *con la corriente* de JS (de nuevo, más sobre eso a continuación).
 
 Podría decirse que este pilar es más importante que los otros dos, en el sentido de que ningún programa de JS hará nada útil si no aprovecha adecuadamente los tipos de valor de JS, así como también los valores se convierten (coaccionan) entre tipos.
 
@@ -85,11 +85,11 @@ Mi sugerencia para la mayoría de los lectores es, esta es la mejor manera de co
 
 1. Comience con una base sólida de JS con *Comenzando* (este libro).
 
-2. En *Scope & Closures*, aprenda el primer pilar de JS: alcance léxico, cómo eso apoya el closure y cómo el patrón de módulo organiza el código.
+2. En *Scope & Closures*, aprenda el primer pilar de JS: alcance léxico, cómo eso apoya al closure y cómo el patrón de módulo organiza el código.
 
-3. En *Objetos y clases*, concéntrese en el segundo pilar de JS: cómo funciona `this` de JS, cómo los prototipos de objetos admiten la delegación y cómo los prototipos habilitan el mecanismo `class` para la organización del código al estilo OO.
+3. En *Objetos y Clases*, concéntrese en el segundo pilar de JS: cómo funciona `this` de JS, cómo los prototipos de objetos admiten la delegación y cómo los prototipos habilitan el mecanismo `class` para la organización del código al estilo OO.
 
-4. En *Tipos y gramática*, aborde el tercer y último pilar de JS: tipos y coerción de tipos, así como la sintaxis y la gramática de JS definen cómo escribimos nuestro código.
+4. En *Tipos y Gramática*, aborde el tercer y último pilar de JS: tipos y coerción de tipos, así como la sintaxis y la gramática de JS definen cómo escribimos nuestro código.
 
 5. Con los **tres pilares** firmemente en su lugar, luego en *Sync & Async* puedes explorar cómo usamos el control de flujo para modelar el cambio de estado en nuestros programas, tanto sincrónicamente (de inmediato) como asincrónicamente (con el tiempo).
 
@@ -107,7 +107,7 @@ El libro final de la serie, *ES.Next & Beyond*, en algunos aspectos está solo. 
 
 Una nota final sobre cómo continuar su viaje de aprendizaje con JS y su camino a través del resto de esta serie de libros: tenga en cuenta la *corriente* -- recuerde varias referencias a la *corriente* anteriormente en este capítulo.
 
-Primero, considere la *corriente* de cómo la mayoría de las personas se acerca y usa JS. Probablemente ya haya notado que estos libros cortan esa *corriente* en muchos aspectos. En YDKJSY, respeto al lector lo suficiente como para explicar todas las partes de JS, no solo algunas partes populares seleccionadas. Creo que ambos son capaces y merecedores de ese conocimiento.
+Primero, considere la *corriente* a cómo la mayoría de las personas se acerca y usa JS. Probablemente ya haya notado que estos libros cortan esa *corriente* en muchos aspectos. En YDKJSY, respeto al lector lo suficiente como para explicar todas las partes de JS, no solo algunas partes populares seleccionadas. Creo que ambos son capaces y merecedores de ese conocimiento.
 
 Pero eso no es lo que encontrará en muchos otros materiales. También significa que cuanto más siga y se adhiera a la guía de estos libros, que piense detenidamente y analice por sí mismo lo que es mejor en su código, más se destacará. Eso puede ser algo bueno y malo. Si alguna vez quieres salir de la multitud, ¡tendrás que separarte de cómo lo hace la multitud!
 
@@ -131,6 +131,6 @@ Finalmente, quizás la *corriente* más importante para reconocer es cómo los p
 
 Tendrás que cambiar estas cosas poco a poco, con el tiempo. Trabaja para llegar a un consenso con tus colegas desarrolladores sobre por qué es importante volver a visitar y volver a considerar un enfoque. Pero hágalo con solo un pequeño tema a la vez, y deje que las comparaciones de código antes y después hagan la mayor parte de la conversación. Reúna a todos los miembros del equipo para debatir y presione para tomar decisiones basadas en el análisis y la evidencia del código en lugar de la inercia de "nuestros desarrolladores senior siempre lo han hecho de esta manera".
 
-Ese es el consejo más importante con el que puedo dejarte. Siempre busca mejores formas de usar lo que JS nos da para crear códigos más legibles. ¡Todos los que trabajen en su código, incluido su yo futuro, se lo agradecerán!
+Ese es el consejo más importante con el que puedo dejarte. Siempre busca mejores formas de usar lo que JS nos da para crear códigos más legibles. ¡Todos los que trabajen en tu código, incluido tu yo futuro, te lo agradecerán!
 
 Antes de pasar al siguiente libro de la serie, *Scope & Closures*, revisa y practica los fragmentos en el Apéndice A, "¡Practica, practica, practica!" ¿Mencioné que deberías ir a practicar? No hay mejor manera de aprender código que escribirlo.

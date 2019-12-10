@@ -330,36 +330,33 @@ En los dos objetos `jsHomework` y `mathHomework` cada prototipo se vincula con e
 
 `jsHomework.study()` delega a `homework.study()`, pero su `this` (en `this.topic`) para esa ejecución se resuelve en `jsHomework` debido a cómo se llama la función, por lo que `this.topic` es `"JS"`. De manera similar para `mathHomework.study()` delegando a `homework.study()` pero aún resolviendo `this` a `mathHomework`, y por lo tanto `this.topic` como `"Math" `.
 
-`jsHomework.study()` delegates to `homework.study()`, but its `this` (in `this.topic`) for that execution resolves to `jsHomework` because of how the function is called, so `this.topic` is `"JS"`. Similarly for `mathHomework.study()` delegating to `homework.study()` but still resolving `this` to `mathHomework`, and thus `this.topic` as `"Math"`.
+El fragmento de código anterior sería mucho menos útil si `this` se resolviera como `homework`. Sin embargo, en muchos otros lenguajes, parecería que `this` sería `homework` porque el método `study()` está definido en `homework()`.
 
+A diferencia de muchos otros lenguajes, el hecho de que el `this` de JS sea dinámico es un componente crítico para permitir la delegación de prototipos, y de hecho `class`, funciona como se espera.
 
-The above code snippet would be far less useful if `this` was resolved to `homework`. Yet, in many other languages, it would seem `this` would be `homework` because the `study()` method is indeed defined on `homework`.
+## Iteración
 
-Unlike many other languages, JS's `this` being dynamic is a critical component of allowing prototype delegation, and indeed `class`, to work as expected!
+Dado que los programas se crean esencialmente para procesar datos (y tomar decisiones sobre esos datos), los patrones utilizados para recorrer los datos tienen un gran impacto en la legibilidad del programa.
 
-## Iteration
+El patrón iterador ha existido durante décadas, y sugiere un enfoque "estandarizado" para consumir datos de una fuente *fragmento* a la vez. La idea es que es más común y útil iterar la fuente de datos: manejar progresivamente la recopilación de datos procesando la primera parte, luego la siguiente, y así sucesivamente, en lugar de manejar todo el conjunto de una vez.
 
-Since programs are essentially built to process data (and make decisions on that data), the patterns used to step through the data has a big impact on the program's readability.
+Imagine una estructura de datos que representa una consulta de base de datos relacional `SELECT`, que generalmente organiza los resultados en filas. Si esta consulta tuviera solo una o un par de filas, podría manejar todo el conjunto de resultados a la vez, y asignar cada fila a una variable local, y realizar cualquier operación en esos datos que fuera apropiada.
 
-The iterator pattern has been around for decades, and suggests a "standardized" approach to consuming data from a source one *chunk* at a time. The idea is that it's more common and helpful iterate the data source -- to progressively handle the collection of data by processing the first part, then the next, and so on, rather than handling the entire set all at once.
+Pero si la consulta tiene 100 o 1000 (¡o más!) Filas, necesitará un procesamiento iterativo para manejar estos datos (generalmente, un bucle).
 
-Imagine a data structure that represents a relational database `SELECT` query, which typically organizes the results as rows. If this query had only one or a couple of rows, you could handle the entire result set at once, and assign each row to a local variable, and perform whatever operations on that data that were appropriate.
+El patrón iterador define una estructura de datos llamada "iterador" que tiene una referencia a una fuente de datos subyacente (como las filas de resultados de la consulta), que expone un método como `next()`. Llamar a `next()` devuelve la siguiente pieza de datos (es decir, un "registro" o "fila" de una consulta de base de datos).
 
-But if the query has 100 or 1000 (or more!) rows, you'll need iterative processing to deal with this data (typically, a loop).
+No siempre sabe cuántos datos necesitará recorrer, por lo que el patrón generalmente indica la finalización mediante algún valor especial o excepción una vez que recorre todo el conjunto y *pasa el final*.
 
-The iterator pattern defines a data structure called an "iterator" that has a reference to an underlying data source (like the query result rows), which exposes a method like `next()`. Calling `next()` returns the next piece of data (ie, a "record" or "row" from a database query).
+La importancia del patrón iterador radica en adherirse a una forma *estándar* de procesamiento de datos de forma iterativa, lo que crea un código más limpio y fácil de entender, en lugar de que cada estructura / fuente de datos defina su propia forma personalizada de manejar sus datos.
 
-You don't always know how many pieces of data that you will need to iterate through, so the pattern typically indicates completion by some special value or exception once you iterate through the entire set and *go past the end*.
+Después de muchos años de varios esfuerzos de la comunidad JS en torno a técnicas de iteración mutuamente acordadas, ES6 estandarizó un protocolo específico para el patrón iterador directamente en el lenguaje. El protocolo define un método `next()` cuyo retorno es un objeto llamado *resultado iterador*; el objeto tiene propiedades `value` y `done`, donde `done` es un valor booleano que es `false` hasta que se complete la iteración sobre la fuente de datos subyacente.
 
-The importance of the iterator pattern is in adhering to a *standard* way of processing data iteratively, which creates cleaner and easier to understand code, as opposed to having every data structure/source define its own custom way of handling its data.
+### Iteradores consumidores
 
-After many years of various JS community efforts around mutually-agreed-upon iteration techniques, ES6 standardized a specific protocol for the iterator pattern directly in the language. The protocol defines a `next()` method whose return is an object called an *iterator result*; the object has `value` and `done` properties, where `done` is a boolean that is `false` until the iteration over the underlying data source is complete.
+Con el protocolo de iteración ES6 implementado, es factible consumir un origen de datos un valor a la vez, verificando después de cada llamada a `next()` para que `done` sea `true` y detener la iteración. Pero este enfoque es bastante manual, por lo que ES6 también incluyó varios mecanismos (sintaxis y API) para el consumo estandarizado de estos iteradores.
 
-### Consuming Iterators
-
-With the ES6 iteration protocol in place, it's workable to consume a data source one value at a time, checking after each `next()` call for `done` to be `true` to stop the iteration. But this approach is rather manual, so ES6 also included several mechanisms (syntax and APIs) for standardized consumption of these iterators.
-
-One such mechanism is the `for..of` loop:
+Uno de estos mecanismos es el bucle `for..of`:
 
 ```js
 // given an iterator of some data source:
@@ -376,13 +373,13 @@ for (let val of it) {
 
 | NOTE: |
 | :--- |
-| We'll omit the manual loop equivalent here, but it's definitely less readable than the `for..of` loop! |
+| Omitiremos el equivalente del bucle manual aquí, ¡pero definitivamente es menos legible que el bucle `for..of`! |
 
-Another mechanism that's often used for consuming iterators is the `...` operator. This operator actually has two symmetrical forms: *spread* and *rest* (or *gather*, as I prefer). The *spread* form is an iterator-consumer.
+Otro mecanismo que se usa a menudo para consumir iteradores es el operador `...`. Este operador en realidad tiene dos formas simétricas: *spread* y *rest* (o *collect*, como prefiero). La forma *spread* es un consumidor iterador.
 
-To *spread* an iterator, you have to have *something* to spread it into. There are two possibilities in JS: an array or an argument list for a function call.
+Para *difundir* (spread) un iterador, debe tener *algo* para distribuir. Hay dos posibilidades en JS: un arreglo o una lista de argumentos para una llamada de función.
 
-An array spread:
+Un arreglo spread:
 
 ```js
 // spread an iterator into an array,
@@ -400,19 +397,21 @@ A function call spread:
 doSomethingUseful( ...it );
 ```
 
-In both cases, the iterator-spread form of `...` follows the iterator-consumption protocol (the same as the `for..of` loop) to retrieve all available values from an iterator and place (aka, spread) them into the receiving context (array, argument list).
+En ambos casos, la forma de propagar-iterar de `...` sigue el protocolo de consumo de iterador (igual que el bucle `for..of`) para recuperar todos los valores disponibles de un iterador y colocarlos (también conocido como propagación) en el contexto receptor (arreglo, lista de argumentos).
 
 ### Iterables
 
-The iterator-consumption protocol is technically defined for consuming *iterables*; an iterable is a value that can be iterated over.
+El protocolo de consumo de iterador se define técnicamente para consumir *iterables*; un iterable es un valor que se puede repetir.
 
-The protocol automatically creates an iterator instance from an iterable, and consumes *just that iterator instance* to its completion. This means a single iterable could be consumed more than once; each time, a new iterator instance would be created and used.
+El protocolo crea automáticamente una instancia del iterador a partir de un iterable, y consume *solo esa instancia de iterador* hasta su finalización. Esto significa que un solo iterable podría consumirse más de una vez; cada vez, se crearía y usaría una nueva instancia de iterador.
+
+Entonces, ¿dónde encontramos iterables?
+
+ES6 definió la estructura de tipos de datos/colecciones básicos en JS como iterables. Esto incluye cadenas, matrices, mapas, conjuntos y otros.
 
 So where do we find iterables?
 
-ES6 defined the basic data structure/collection types in JS as iterables. This includes strings, arrays, maps, sets, and others.
-
-Consider:
+Considere:
 
 ```js
 // an array is an interable
@@ -426,13 +425,12 @@ for (let val of arr) {
 // Array value: 30
 ```
 
-Since arrays are iterables, we can shallow-copy an array using iterator consumption via the `...` spread operator:
+Dado que los arreglos son iterables, podemos copiar superficialmente un arreglo utilizando el consumo del iterador a través del operador de propagación `...`:
 
 ```js
 var arrCopy = [ ...arr ];
 ```
-
-We can also iterate the characters in a string one at a time:
+También podemos iterar los caracteres en una cadena uno a la vez:
 
 ```js
 var greeting = "Hello world!";
@@ -443,9 +441,9 @@ chars;
 //   "w", "o", "r", "l", "d", "!" ]
 ```
 
-A `Map` data structure uses objects as keys, associating a value (of any type) with that object. Maps have a different default iteration than seen above, in that the iteration is not just over the map's values but instead its *entries* -- an *entry* is a tuple (2-element array) including both a key and a value.
+Una estructura de datos `Map` usa objetos como claves, asociando un valor (de cualquier tipo) con ese objeto. Los mapas tienen una iteración predeterminada diferente a la que se ve arriba, ya que la iteración no solo supera los valores del mapa, sino que sus *entradas*:  -- una *entrada* es una tupla (arreglo de 2 elementos) que incluye tanto una clave como un valor.
 
-Consider:
+Considere:
 
 ```js
 // given two DOM elements, `btn1` and `btn2`
@@ -461,9 +459,9 @@ for (let [btn,btnName] of buttonNames) {
 }
 ```
 
-In the `for..of` loop over the default map iteration, we use the `[btn,btnName]` syntax (called "array destructuring") to break down each consumed tuple into the respective key/value pairs (`btn1` / `"Button 1"` and `btn2` / `"Button 2"`).
+En el bucle `for..of` sobre la iteración de mapa predeterminada, usamos la sintaxis `[btn, btnName]` (llamada "desestructuración de arreglos") para dividir cada tupla consumida en los pares clave/valor respectivos (`btn1` / `"Button 1"` y `btn2` / `"Button 2"`).
 
-Each of the built-in iterables in JS expose a default iteration, one which likely matches your intution. But you can also choose a more specific iteration if necessary. For example, if we want to consume only the values of the above `buttonNames` map, we can call `values()` to get a values-only iterator:
+Cada uno de los iterables integrados en JS expone una iteración predeterminada, una que probablemente coincida con tu intuición. Pero también puedes elegir una iteración más específica si es necesario. Por ejemplo, si queremos consumir solo los valores del mapa anterior `buttonNames`, podemos llamar a `values​​()` para obtener un iterador de solo valores:
 
 ```js
 for (let btnName of buttonNames.values()) {
@@ -473,7 +471,7 @@ for (let btnName of buttonNames.values()) {
 // Button 2
 ```
 
-Or if we want the index *and* value in an array iteration, we can make an entries iterator with the `entries()` method:
+O si queremos el índice *y* el valor de un arreglo en una iteración, podemos hacer un iterador de entradas con el método `entries()`:
 
 ```js
 var arr = [ 10, 20, 30 ];
@@ -486,20 +484,20 @@ for (let [idx,val] of arr.entries()) {
 // [2]: 30
 ```
 
-For the most part, all built-in iterables in JS have three iterator forms available: keys-only (`keys()`), values-only (`values()`), and entries (`entries()`).
+En su mayor parte, todos los iterables integrados en JS tienen tres formas de iterar disponibles: solo claves (`keys()`), solo valores (`values()`) y entradas (`entries()`).
 
-| NOTE: |
+| NOTA: |
 | :--- |
-| You may have noticed a nuanced shift that occured in this discussion. We started by talking about consuming **iterators**, but then switched to talking about iterating over **iterables**. The iteration-consumption protocol expects an *iterable*, but the reason we can provide a direct *iterator* is, an iterator is just an iterable of itself! In other words, when JS tries to create an iterator instance **from something that's already an iterator**, it just returns the iterator. |
+| Es posible que hayas notado que ocurrió un cambio matizado en esta discusión. Comenzamos hablando de consumir **iteradores**, pero luego pasamos a hablar sobre iterar sobre **iterables**. El protocolo de consumo de iteración espera un *iterable*, pero la razón por la que podemos proporcionar un *iterador* directo es que un iterador es solo un iterable de sí mismo. En otras palabras, cuando JS intenta crear una instancia de iterador **a partir de algo que ya es un iterador**, simplemente devuelve el iterador. |
 
-Beyond just using built-in iterables, you can also ensure your own data structures adhere to the iteration protocol; doing so means you opt into the ability to consume your data with `for..of` loops and the `...` operator. "Standardizing" on this protocol means code that is overall more readily recognizable and readable.
+Además de utilizar iterables integrados, también puedes asegurarte de que tus propias estructuras de datos se adhieran al protocolo de iteración; hacerlo significa que optas por la capacidad de consumir tus datos con bucles `for..of` y el operador `...`. "Estandarizar" en este protocolo significa código que en general es más fácilmente reconocible y legible.
 
-## Asking Why
+## Preguntando Por Qué
 
-The intended take-away from this chapter is that there's a lot more to JS under the hood than is obvious from glancing at the surface.
+El objetivo de este capítulo es que hay mucho más para JS tras bastidores de lo que es obvio al mirar la superficie.
 
-As you are *getting started* learning and knowing JS more closely, one of the most important skills you can practice and bolster is curiosity, and the art of asking "why?" when you encounter something in the language.
+A medida que comienzas a aprender y a conocer JS más de cerca, una de las habilidades más importantes que puedea practicar y reforzar es la curiosidad y el arte de preguntar "¿por qué?" cuando encuentras algo en el lenguaje.
 
-Even though this chapter has gone deeper on some of the topics, many details have been entirely skimmed over. There's much more to learn here, and the path to that starts with you asking the *right* questions of the code.
+Aunque este capítulo ha profundizado en algunos de los temas, muchos detalles se han descuidado por completo. Hay mucho más que aprender aquí, y el camino hacia eso comienza con las preguntas *correctas* del código.
 
-In the final chapter of this book, we're going to briefly look at how to approach the rest of the *You Don't Know JS Yet* book series. Also, don't miss Appendix A, which has some practice code to review some of the main topics covered in this book.
+En el capítulo final de este libro, veremos brevemente cómo abordar el resto de la serie de libros *You Don't Know JS Yet*. Además, no te pierdas el Apéndice A, que tiene un código de práctica para revisar algunos de los principales temas tratados en este libro.

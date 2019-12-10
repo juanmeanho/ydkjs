@@ -26,9 +26,9 @@
     * Iteración
     * Preguntando Por Qué
 * Capítulo 4: El Resto
-    * Pillar 1: Alcance y Closure
-    * Pillar 2: Prototipos
-    * Pillar 3: Tipos y Coercion
+    * Pilar 1: Alcance y Closure
+    * Pilar 2: Prototipos
+    * Pilar 3: Tipos y Coercion
     * En Orden
     * Con la corriente
 * Apéndice A: Práctica, Práctica, Práctica!

@@ -6,8 +6,8 @@
 * [Prefacio de La Serie](../prefacio.md) por Kyle Simpson
 
 * [Prefacio](prefacio.md) (por [Brian Holt](https://twitter.com/holtbt))
-* [Chapter 1: Qué es JavaScript?](ch1.md)
-* [Chapter 2: Conociendo a JS](ch2.md)
-* [Chapter 3: Explorando más profundo](ch3.md)
-* [Chapter 4: El resto](ch4.md)
-* [Appendix A: Practica, Practica, Practica!](apA.md)
+* [Capítulo 1: Qué es JavaScript?](ch1.md)
+* [Capítulo 2: Conociendo a JS](ch2.md)
+* [Capítulo 3: Explorando más profundo](ch3.md)
+* [Capítulo 4: El resto](ch4.md)
+* [Apéndice A: Práctica, Práctica, Práctica!](apA.md)

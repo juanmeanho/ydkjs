@@ -1,17 +1,19 @@
 # Aún no conoces JS: Comenzando - 2da Edición
 # Apéndice A: Práctica, Práctica, Práctica!
 
-| NOTE: |
+| NOTA DEL AUTOR: |
 | :--- |
-| Work in progress |
+| Trabajo en progreso |
 
-In this appendix, we'll explore some exercises and their suggested solutions. These are just to *get you started* with practice over the concepts from the book.
+En este apéndice, exploraremos algunos ejercicios y sus soluciones sugeridas. Estos son solo para *comenzar* con la práctica sobre los conceptos del libro.
 
-## Practicing Comparisons
+## Practicando Comparaciones
 
-Let's practice working with value types and comparisons where coercion will need to be involved.
+En este apéndice, exploraremos algunos ejercicios y sus soluciones sugeridas. Estos son solo para *comenzar* con la práctica sobre los conceptos del libro.
 
-`scheduleMeeting(..)` should take a start time (in 24hr format as a string "hh:mm") and a meeting duration (number of minutes). It should return `true` if the meeting falls entirely within the work day (according to the times specified in `dayStart` and `dayEnd`); return `false` if the meeting violates the work day bounds.
+Practiquemos trabajar con tipos de valores y comparaciones donde la coerción tendrá que estar involucrada.
+
+`scheduleMeeting(..)` debe tomar una hora de inicio (en formato de 24 horas como una cadena "hh:mm") y una duración de la reunión (número de minutos). Debería devolver `verdadero` si la reunión se realiza completamente dentro del día laboral (de acuerdo con los tiempos especificados en `dayStart` y `dayEnd`); devolver `falso` si la reunión viola los límites del día laboral.
 
 ```js
 const dayStart = "07:30";
@@ -32,11 +34,11 @@ scheduleMeeting("18:00",15);    // false
 
 Try to solve this yourself first. Consider the usage of equality and relational comparison operators, and how coercion impacts this code. Once you have code that works, *compare* your solution(s) to the code in "Suggested Solutions" at the end of this appendix.
 
-## Practicing Closure
+## Practicando Closures
 
-Now let's practice with closure.
+Ahora practiquemos con closure.
 
-The `range(..)` function takes a number as its first argument, representing the first number in a desired range of numbers. The second argument is also a number representing the end of the desired range (inclusive). If the second argument is omitted, then another function should be returned that expects that argument.
+La función `range(..)` toma un número como primer argumento, representando el primer número en un rango deseado de números. El segundo argumento también es un número que representa el final del rango deseado (inclusive). Si se omite el segundo argumento, se debe devolver otra función que espere ese argumento.
 
 ```js
 function range(start,end) {
@@ -57,19 +59,19 @@ start3(0);     // []
 start4(6);     // [4,5,6]
 ```
 
-Try to solve this yourself first.
+Intenta resolver esto tú mismo primero.
 
-Once you have code that works, *compare* your solution(s) to the code in "Suggested Solutions" at the end of this appendix.
+Una vez que tenga un código que funcione, *compare* sus soluciones con el código en "Soluciones sugeridas" al final de este apéndice.
 
-## Practicing Prototypes
+## Practicando Prototipos
 
-Let's work on `this` and objects linked via prototype.
+Trabajemos en `this` y en los objetos vinculados mediante un prototipo.
 
-Define a slot machine with 3 reels that can individually `spin()`, and then `display()` the current contents of all the reels.
+Defina una máquina tragamonedas con 3 carretes que puedan `spin()` (girar) individualmente y luego `display()` (mostrar) el contenido actual de todos los carretes.
 
-The basic behavior of a single reel is defined in the `reel` object below. But the slot machine needs individual reels -- objects that delegate to `reel`, and which each have a `position` property.
+El comportamiento básico de un solo carrete se define en el objeto `reel` a continuación. Pero la máquina tragamonedas necesita carretes individuales, objetos que delegan en 'carrete' y que tienen una propiedad de 'posición'.
 
-A reel only *knows how* to `display()` its current slot symbol, but a slot machine typically shows 3 symbols per reel: the current slot (`position`), one slot above (`position - 1`), and one slot below (`position + 1`). So displaying the slot machine should end up displaying a 3 x 3 grid of slot symbols.
+Un carrete solo *sabe cómo* `display()` (mostrar) su símbolo de ranura actual, pero una máquina tragamonedas generalmente muestra 3 símbolos por carrete: la ranura actual (`position`), una ranura arriba (`position - 1`), y una ranura debajo (`position + 1`). Entonces, mostrar la máquina tragamonedas debería terminar mostrando una cuadrícula de símbolos de tragamonedas 3 x 3.
 
 ```js
 function randMax(max) {
@@ -122,23 +124,23 @@ slotMachine.display();
 // ☺ | ♦ | ★
 ```
 
-Try to solve this yourself first.
+Intenta resolver esto tú mismo primero.
 
-Hints:
+Consejos:
 
-1. use the `%` modulo operator for wrapping `position` as you access symbols circularly around a reel.
+1. use el operador de módulo `%` para ajustar la `position` a medida que accede a los símbolos de forma circular alrededor de un carrete.
 
-2. use `Object.create(..)` to create an object and prototype-link it to another object. Once linked, delegation allows the objects to share `this` context during method invocation.
+2. use `Object.create(..)` para crear un objeto y prototipo-vinculado a otro objeto. Una vez vinculado, la delegación permite que los objetos compartan este contexto durante la invocación del método.
 
-3. instead of modifying the reel object directly to show each of the three positions, you can use another temporary object (`Object.create(..)` again) with its own `position`, to delegate from.
+3. en lugar de modificar el objeto del carrete directamente para mostrar cada una de las tres posiciones, puede usar otro objeto temporal (`Object.create(..)` nuevamente) con su propia `position`, para delegar.
 
-Once you have code that works, *compare* your solution(s) to the code in "Suggested Solutions" at the end of this appendix.
+Una vez que tenga un código que funcione, *compare* sus soluciones con el código en "Soluciones sugeridas" al final de este apéndice.
 
-## Suggested Solutions
+## Solucions sugeridas
 
-Keep in mind that these suggested solutions are just that: suggestions. There's many different ways to solve these practice exercises. Compare your approach to what you see here, and consider the pros and cons of each.
+Tenga en cuenta que estas soluciones sugeridas son solo eso: sugerencias. Hay muchas formas diferentes de resolver estos ejercicios de práctica. Compare su enfoque con lo que ve aquí, y considere los pros y los contras de cada uno.
 
-Suggested solution for "Comparisons" practice:
+Solución sugerida para la práctica de "Comparaciones":
 
 ```js
 const dayStart = "07:30";
@@ -198,8 +200,7 @@ scheduleMeeting("17:00",45);    // true
 scheduleMeeting("17:30",30);    // false
 scheduleMeeting("18:00",15);    // false
 ```
-
-Suggested solution for "Closure" practice:
+Solución sugerida para la práctica de "Closure":
 
 ```js
 function range(start,end) {
@@ -240,8 +241,7 @@ start3(0);     // []
 
 start4(6);     // [4,5,6]
 ```
-
-Suggested solution for "Prototypes" practice:
+Solución sugerida para la práctica de "Prototipos":
 
 ```js
 function randMax(max) {
@@ -309,4 +309,4 @@ slotMachine.display();
 // ☺ | ♦ | ★
 ```
 
-That's it for this book. But now it's time to look for real projects to practice these ideas on. Just keep coding, because that's the best way to learn!
+Eso es todo por este libro. Pero ahora es el momento de buscar proyectos reales para practicar estas ideas. ¡Solo sigue codificando, porque esa es la mejor manera de aprender!

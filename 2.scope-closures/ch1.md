@@ -1,13 +1,13 @@
 # Aún no conoces JS: Alcance & Closures - 2da Edición
 
-# Capítulo 1: Como es Compilado el Alcance?
+# Capítulo 1: ¿Como se Compila el Alcance?
 
 
 | NOTA DEL AUTOR: |
 | :--- |
 | Trabajo en progreso |
 
-Una base clave de los lenguajes de programación es almacenar valores en variables y recuperar esos valores más adelante. De hecho, este proceso es la forma principal en que modelamos el programa *estado*. Un programa sin *estado* es un programa bastante poco interesante, por lo que este tema es el núcleo de lo que significa escribir programas.
+Una base clave de los lenguajes de programación es almacenar valores en variables y recuperar esos valores más adelante. De hecho, este proceso es la forma principal en que modelamos el *estado* de un programa. Un programa sin *estado* es un programa bastante poco interesante, por lo que este tema es el núcleo de lo que significa escribir programas.
 
 Pero para entender cómo funcionan las variables, primero debemos preguntarnos: ¿dónde *viven* las variables? En otras palabras, ¿cómo el motor JS organiza y accede a las variables de tu programa?
 
@@ -15,7 +15,7 @@ Estas preguntas implican la necesidad de un conjunto bien definido de reglas par
 
 ## Acerca de este libro
 
-Si ya terminó *Comenzando* (el primer libro de esta serie), ¡está en el lugar correcto! Si no, antes de continuar, le animo a que *comience* allí para obtener una mejor base.
+Si ya terminaste *Comenzando* (el primer libro de esta serie), ¡estás en el lugar correcto! Si no, antes de continuar, te animo a que *comiences* desde allí para obtener una mejor base.
 
 Nuestro enfoque en este segundo libro es el primer pilar (¡de tres!) En el lenguaje JS: el sistema de alcance y sus closures de funciones, y cómo estos mecanismos permiten el patrón de diseño de módulo.
 
@@ -53,13 +53,13 @@ Un programa generalmente es procesado por un compilador en tres etapas básicas:
 
 El motor JS es mucho más complejo que *solo* esas tres etapas. En el proceso de análisis y generación de código, hay pasos para optimizar el rendimiento de la ejecución, incluido el colapso de elementos redundantes, etc. De hecho, el código incluso se puede volver a compilar y volver a optimizar durante la progresión de la ejecución.
 
-Entonces, acá estoy pintando solo con trazos amplios. Pero verás en breve por qué *estos* detalles que *cubrimos*, incluso a un nivel alto, son relevantes.
+Entonces, acá solo estoy pintando con trazos amplios. Pero verás en breve por qué *estos* detalles que *cubrimos*, incluso a un nivel alto, son relevantes.
 
 Los motores JS no tienen el lujo de tener mucho tiempo para optimizar, porque la compilación JS no ocurre en un paso de compilación antes de tiempo, como ocurre con otros lenguajes. Por lo general, debe suceder en meros microsegundos (¡o menos!) Justo antes de que se ejecute el código. Para garantizar el rendimiento más rápido bajo estas restricciones, los motores JS utilizan todo tipo de trucos (como JIT, que compila de forma diferida e incluso una recompilación en caliente, etc.) que están más allá del "alcance" de nuestra discusión aquí.
 
 ### Requerido: Dos fases
 
-Para decirlo de la manera más simple posible, un programa JS se procesa en (al menos) dos fases: parsing/compilación primero, luego ejecución.
+Para decirlo de la manera más simple posible, un programa JS se procesa en (al menos) dos fases: parsing (análisis)/compilación primero, luego ejecución.
 
 El desglose de una fase de parsing/compilación separada de la fase de ejecución posterior es un hecho observable, no una teoría u opinión. Mientras que la especificación JS no requiere "compilación" explícitamente, requiere un comportamiento que es esencialmente práctico en una cadencia de compilación y ejecución.
 
@@ -74,9 +74,9 @@ greeting = ."Hi";
 // SyntaxError: unexpected token .
 ```
 
-Este programa no produce ningún resultado (no se imprime `"Hello"`), sino que arroja un `SyntaxError` sobre el token inesperado `.` justo antes de la cadena `"Hi"`. Dado que el error de sintaxis ocurre después de la instrucción bien formada `console.log(..)`, si JS ejecutaba de arriba a abajo línea por línea, uno esperaría que se imprimiera el mensaje de `"Hello"` antes de que se lanzara el error de sintaxis . Eso no pasa. De hecho, la única forma en que el motor JS podría conocer el error de sintaxis en la tercera línea, antes de ejecutar la primera y la segunda, es porque el motor JS analiza primero todo este programa antes de ejecutarlo.
+Este programa no produce ningún resultado (no se imprime `"Hello"`), sino que arroja un `SyntaxError` sobre el token inesperado `.` justo antes de la cadena `"Hi"`. Dado que el error de sintaxis ocurre después de la instrucción bien formada `console.log(..)`, si JS se ejecutara de arriba hacía abajo línea por línea, uno esperaría que se imprimiera el mensaje de `"Hello"` antes de que se lanzara el error de sintaxis . Eso no pasa. De hecho, la única forma en que el motor JS podría conocer el error de sintaxis en la tercera línea, antes de ejecutar la primera y la segunda, es porque el motor JS analiza primero todo este programa antes de ejecutarlo.
 
-AHora, considere:
+Ahora, considere:
 
 ```js
 console.log("Howdy");
@@ -89,9 +89,7 @@ function saySomething(greeting,greeting) {
 }
 ```
 
-El mensaje `"Howdy"` no se imprime, a pesar de ser una declaración bien formada. En cambio, al igual que el fragmento anterior, el `SyntaxError` aquí se lanza antes de que se ejecute el programa. En este caso, es porque el modo estricto (habilitado solo para la función `saySomething(..)`) prohíbe, entre muchas otras cosas, que las funciones tengan nombres de parámetros duplicados; esto siempre se ha permitido en modo no estricto. Esto no es un error de sintaxis en el sentido de ser una cadena de tokens con formato incorrecto (como el `."Hi"` anterior), pero la especificación requiere que se lance como un "error temprano" para los programas en modo estricto.
-
-The `"Howdy"` message is not printed, despite being a well-formed statement. Instead, just like the previous snippet, the `SyntaxError` here is thrown before the program is executed. In this case, it's because strict-mode (opted in for only the `saySomething(..)` function in this program) forbids, among many other things, functions to have duplicate parameter names; this has always been allowed in non-strict mode. This is not a syntax error in the sense of being a malformed string of tokens (like `."Hi"` above), but is required by the specification to be thrown as an "early error" for strict-mode programs.
+El mensaje `"Howdy"` no se imprime, a pesar de ser una declaración bien formada. En cambio, al igual que el fragmento anterior, el `SyntaxError` se lanza antes de que se ejecute el programa. En este caso, es porque el modo estricto (habilitado solo para la función `saySomething(..)` prohíbe, entre muchas otras cosas, que las funciones tengan nombres de parámetros duplicados; esto siempre se ha permitido en modo no estricto. Esto no es un error de sintaxis en el sentido de ser una cadena de tokens con formato incorrecto (como el `."Hi"` anterior), pero la especificación requiere que se lance como un "error temprano" para los programas en modo estricto.
 
 ¿Cómo sabe el motor JS que el parámetro `greeting` se ha duplicado? ¿Cómo sabe que la función `saySomething(..)` está incluso en modo estricto mientras procesa la lista de parámetros (el pragma `"use strict"` aparece solo en el cuerpo de la función)? Nuevamente, la única respuesta razonable a estas preguntas es que el código debe analizarse primero antes de la ejecución.
 
@@ -113,9 +111,9 @@ saySomething();
 
 El `ReferenceError` mencionado aparece en la línea con la instrucción `greeting = "Howdy"`. Lo que se indica es que la variable `greeting` para esa declaración es la de la línea siguiente, `let greeting = "Hi"`, en lugar de la declaración anterior `var greeting = "Hello"`.
 
-La única forma en que el motor JS podría saber, en la línea donde se produce el error, que la *siguiente declaración* declararía una variable de ámbito de bloque del mismo nombre (`saludo`), lo que crea el conflicto de acceso a la variable demasiado pronto, mientras se encuentra en su llamado "TDZ", Temporal Dead Zone (ver Capítulo 3) - es si el motor JS ya había procesado este código en una pasada anterior, y ya configuró todos los ámbitos y sus asociaciones variables. Este procesamiento de ámbitos y declaraciones solo se puede realizar con precisión al analizar el programa antes de la ejecución, y se llama "elevación" (hoisting) (consulte el Capítulo 3).
+La única forma en que el motor JS podría saber, en la línea donde se produce el error, que la *siguiente declaración* declararía una variable de ámbito de bloque del mismo nombre (`greeting`), lo que crea el conflicto de acceso a la variable demasiado pronto, mientras se encuentra en su llamado "TDZ", Temporal Dead Zone (ver Capítulo 3) - es si el motor JS ya había procesado este código en una pasada anterior, y ya configuró todos los ámbitos y sus asociaciones variables. Este procesamiento de ámbitos y declaraciones solo se puede realizar con precisión al analizar el programa antes de la ejecución, y se llama "elevación" (hoisting) (consulte el Capítulo 3).
 
-| WARNING: |
+| ADVERTENCIA: |
 | :--- |
 | A menudo se afirma que las declaraciones `let` y `const` no se izan, como una explicación de la ocurrencia del comportamiento "TDZ" (Capítulo 3) que se acaba de ilustrar. Esto no es exacto. Si no se izaran este tipo de declaraciones, entonces la asignación `greeting = "Howdy "` estaría simplemente apuntando a la variable `var greeting` desde el alcance externo (función), sin necesidad de arrojar un error; el `greeting` con alcance de bloque no *existiría* todavía. ¡Pero el error TDZ en sí mismo demuestra que el `greeting` de alcance de bloque debe haber sido elevado a la parte superior de ese alcance de bloque! |
 
@@ -123,9 +121,9 @@ Esperemos que ahora esté convencido de que los programas JS se analizan antes d
 
 Esta es una pregunta interesante para reflexionar. ¿Podría JS analizar un programa, pero luego ejecutar ese programa *interpretando* el AST nodo por nodo **sin** compilar el programa en el camino? Sí, eso es *posible*, pero es extremadamente improbable, ya que sería muy ineficiente en términos de rendimiento. Es difícil imaginar un escenario en el que un motor JS de calidad de producción haga todo el esfuerzo de analizar un programa en un AST, pero luego no convierta (también conocido como "compilar") ese AST en la representación (binaria) más eficiente para el motor y luego ejecutarlo.
 
-Muchos han intentado rebuscarse con esta terminología, ya que hay muchos matices para alimentar las interjecciones "bueno, en realidad ...". Pero en espíritu y en la práctica, lo que el motor JS está haciendo al procesar programas JS es **una compilación mucho más parecida** que diferente.
+Muchos han intentado rebuscarse con esta terminología, ya que hay muchos matices para alimentar las interjecciones "bueno, en realidad...". Pero en espíritu y en la práctica, lo que el motor JS está haciendo al procesar programas JS es **una compilación mucho más parecida** que diferente.
 
-La clasificación de JS como un lenguaje compilado no se trata de un modelo de distribución para sus representaciones ejecutables binarias (o de código de bytes), sino de mantener una clara distinción en nuestras mentes sobre la fase donde se procesa y analiza el código de JS, que indiscutiblemente ocurre de manera observable *antes* que el código comienza a ejecutarse. Necesitamos modelos mentales adecuados para la forma en que el motor JS trata nuestro código si queremos entender a JS de manera efectiva.
+La clasificación de JS como un lenguaje compilado no trata de un modelo de distribución para sus representaciones ejecutables binarias (o de código de bytes), sino de mantener una clara distinción en nuestras mentes sobre la fase donde se procesa y analiza el código de JS, que indiscutiblemente ocurre de manera observable *antes* que el código comienza a ejecutarse. Necesitamos modelos mentales adecuados para la forma en que el motor JS trata nuestro código si queremos entender a JS de manera efectiva.
 
 ## Habla el Compilador
 
@@ -259,7 +257,7 @@ with (badIdea) {
 
 El alcance global no se modificó aquí, pero `badIdea` se convirtió en un alcance en tiempo de ejecución en lugar de tiempo de compilación. Nuevamente, esta es una idea terrible, por razones de rendimiento y legibilidad. No lo hagas.
 
-A toda costa, evita `eval(..)` (al menos, `eval(..)` creando declaraciones) y `with`. Como se mencionó, ninguno de estos trucos está disponible en modo estricto, por lo que si solo usa el modo estricto, ¡debería hacerlo! - Entonces se va la tentación.
+A toda costa, evita `eval(..)` (al menos, `eval(..)` creando declaraciones) y `with`. Como se mencionó, ninguno de estos trucos está disponible en modo estricto, por lo que si solo usa el modo estricto, ¡deberías hacerlo! - Entonces se va la tentación.
 
 ## Alcance léxico
 

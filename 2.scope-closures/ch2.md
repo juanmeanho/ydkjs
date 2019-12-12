@@ -1,7 +1,7 @@
 # Aún no sabes JS: Alcance & Closures - 2da Edición
 # Capítulo 2: Entendiendo el Alcance Léxico
 
-En el Capítulo 1, exploramos cómo se determina el alcance en la compilación de código, un modelo llamado "alcance léxico".
+En el Capítulo 1, exploramos cómo se determina el alcance en la compilación del código, un modelo llamado "alcance léxico".
 
 Antes de llegar a los detalles de cómo usar el alcance léxico en nuestros programas, debemos asegurarnos de tener una buena base conceptual sobre cómo funciona el alcance. Este capítulo ilustrará el *alcance* con varias metáforas. El objetivo aquí es *pensar* sobre cómo el motor JS maneja su programa de manera que coincida más estrechamente con el funcionamiento real del motor JS.
 
@@ -71,7 +71,7 @@ El cubo VERDE está completamente anidado dentro del cubo AZUL, y de manera simi
 
 Las referencias (no declaraciones) a variables/identificadores se pueden hacer desde el alcance actual o desde cualquier alcance por encima/fuera del alcance actual, pero nunca a los ámbitos inferiores/anidados. Entonces, una expresión en el cubo ROJO solo tiene acceso a canicas ROJAS, no AZUL o VERDE. Una expresión en el cubo AZUL puede hacer referencia a canicas AZULES o ROJAS, no VERDES. Y una expresión en el cubo VERDE tiene acceso a las canicas ROJA, AZUL y VERDE.
 
-Podemos conceptualizar el proceso de determinación de estos no-declarados colores de mármol durante el tiempo de ejecución como una búsqueda. Dado que la referencia variable `students` en la declaración de bucle `for` en la línea 9 no es una declaración, no tiene color. Por lo tanto, le preguntamos al segmento de alcance actual (AZUL) si tiene una canica que coincida con ese nombre. Como no lo hace, la búsqueda continúa con el siguiente ámbito externo / de contención (RED). El cubo ROJO tiene una canica con el nombre `estudiantes`, por lo que la variable `estudiantes` de la declaración de bucle se determina que es una canica ROJA.
+Podemos conceptualizar el proceso de determinación de estos no-declarados colores de mármol durante el tiempo de ejecución como una búsqueda. Dado que la referencia variable `students` en la declaración de bucle `for` en la línea 9 no es una declaración, no tiene color. Por lo tanto, le preguntamos al segmento de alcance actual (AZUL) si tiene una canica que coincida con ese nombre. Como no lo hace, la búsqueda continúa con el siguiente ámbito externo / de contención (RED). El cubo ROJO tiene una canica con el nombre `students`, por lo que la variable `students` de la declaración de bucle se determina que es una canica ROJA.
 
 El `if(student.id == studentID)` en la línea 10 se determina de manera similar para hacer referencia a una canica VERDE llamada `student` y a una canica AZUL` studentID`.
 
@@ -89,7 +89,7 @@ Los puntos clave de las canicas y los cubos (¡y las burbujas!):
 
 ## Una conversación entre amigos
 
-Otra metáfora útil para el proceso de análisis de variables y los ámbitos de los que provienen es imaginar varias conversaciones que se llevan a cabo dentro del motor a medida que se procesa el código y luego se ejecuta. Podemos "escuchar" en estas conversaciones para obtener una mejor base conceptual sobre cómo funcionan los ámbitos.
+Otra metáfora útil para el proceso de análisis de variables y los ámbitos de los que provienen es imaginar varias conversaciones que se llevan a cabo dentro del motor a medida que se procesa el código y luego se ejecuta. Podemos "escuchar" estas conversaciones para obtener una mejor base conceptual sobre cómo funcionan los ámbitos.
 
 Ahora conozcamos a los miembros del motor JS que tendrán conversaciones mientras procesan ese programa:
 
@@ -131,13 +131,13 @@ Normalmente pensamos en eso como una declaración única, pero no es así como l
 
 Lo primero que *Compilador* hará con este programa es realizar lexing para dividirlo en tokens, que luego se analizará en un árbol (AST).
 
-Una vez que *Compilador* llega a la generación de código, hay más detalles a considerar de lo que puede ser obvio. Una suposición razonable sería que *Compilador* producirá código para la primera instrucción, como por ejemplo: "Asignar memoria para una variable, etiquetarla como `students`, luego pegar una referencia al arreglo en esa variable". Pero hay más que eso.
+Una vez que *Compilador* llega a la generación de código, hay más detalles a considerar de lo que puede parecer obvio. Una suposición razonable sería que *Compilador* producirá código para la primera instrucción, como por ejemplo: "Asignar memoria para una variable, etiquetarla como `students`, luego pegar una referencia al arreglo en esa variable". Pero hay más que eso.
 
 Así es como *Compilador* manejará esa declaración:
 
 1. Al encontrar `var students`, *Compilador* le preguntará a *Scope Manager* para ver si ya existe una variable llamada `students` para ese segmento de alcance en particular. Si es así, *Compilador* ignoraría esta declaración y seguiría adelante. De lo contrario, *Compilador* producirá un código que (en el momento de la ejecución) le pide a *Scope Manager* que cree una nueva variable llamada `students` en ese segmento de alcance.
 
-2. *Compilador* luego produce código para *Motor* para luego ejecutarlo, para manejar la asignación `students = []`. El código que ejecuta *Motor* primero preguntará a *Scope Manager* si hay una variable llamada `students` accesible en el segmento de alcance actual. Si no, *Motor* sigue buscando en otra parte (ver "Ámbito anidado" a continuación). Una vez que *Motor* encuentra una variable, le asigna la referencia del arreglo `[..]`.
+2. *Compilador* luego produce código para *Motor*, para luego ejecutarlo y manejar la asignación `students = []`. El código que ejecuta *Motor* primero preguntará a *Scope Manager* si hay una variable llamada `students` accesible en el segmento de alcance actual. Si no, *Motor* sigue buscando en otra parte (ver "Ámbito anidado" a continuación). Una vez que *Motor* encuentra una variable, le asigna la referencia del arreglo `[..]`.
 
 En forma conversacional, la primera fase de compilación del programa podría desarrollarse entre *Compilador* y *Scope Manager* de esta manera:
 
@@ -147,11 +147,9 @@ En forma conversacional, la primera fase de compilación del programa podría de
 
 > ***Compilador***: Hola *Scope Manager*, encontré una declaración formal para un identificador llamado `getStudentName`, ¿alguna vez escuchaste de él?
 
-> ***Compiler***: Hey *Scope Manager*, I found a formal declaration for an identifier called `getStudentName`, ever heard of it?
+> ***(Global) Scope Manager***: No, pero acabo de crearlo para ti.
 
-> ***(Global) Scope Manager***: Nope, but I just created it for you.
-
-> ***Compiler***: Hey *Scope Manager*, `getStudentName` points to a function, so we need a new scope bucket.
+> ***Compilador***: Hola *Scope Manager*, `getStudentName` apunta a una función, por lo que necesitamos un nuevo segmento de alcance.
 
 > ***(Function) Scope Manager***: Lo tengo, aquí está.
 
@@ -173,7 +171,7 @@ Más tarde, cuando se trata de la ejecución del programa, la conversación cont
 
 > ***(Global) Scope Manager***: Sí, aquí tienes.
 
-> ***Motor***: Hola *Scope Manager*, encontré una referencia *Objetivo* para `estudiantes`, ¿alguna vez escuchaste de ella?
+> ***Motor***: Hola *Scope Manager*, encontré una referencia *Objetivo* para `students`, ¿alguna vez escuchaste de ella?
 
 > ***(Global) Scope Manager***: Sí, se declaró formalmente para este alcance, y ya se ha inicializado como `undefined`, por lo que está listo para asignarlo. Aqui tienes.
 
@@ -185,13 +183,13 @@ Más tarde, cuando se trata de la ejecución del programa, la conversación cont
 
 > ***(Global) Scope Manager***: Sí, se declaró formalmente para este alcance. Aqui tienes.
 
-> ***Engine***: Genial, el valor en `getStudentName` es una función, así que lo voy a ejecutar.
+> ***Motor***: Genial, el valor en `getStudentName` es una función, así que lo voy a ejecutar.
 
 > ***Motor***: Hola *Scope Manager*, ahora necesitamos instanciar el alcance de la función.
 
 > ...
 
-Esta conversación es otro intercambio de preguntas y respuestas, donde *Motor* primero le pide al *Scope Manager* actual que busque el identificador `getStudentName` izado para asociar la función con él. *Motor* luego procede a preguntar *Scope Manager* sobre la referencia *objetivo* para `students`, y así sucesivamente.
+Esta conversación es otro intercambio de preguntas y respuestas, donde *Motor* primero le pide al *Scope Manager* actual que busque el identificador `getStudentName` izado para asociar la función con él. *Motor* luego procede a preguntar a *Scope Manager* sobre la referencia *objetivo* para `students`, y así sucesivamente.
 
 Para revisar y resumir cómo se procesa una declaración como `var students = [..]`, en dos pasos distintos:
 
@@ -205,9 +203,9 @@ Cuando llega el momento de ejecutar la función `getStudentName()`, *Motor* soli
 
 El alcance de la función para `getStudentName(..)` está anidado dentro del alcance global. El alcance del bloque del bucle `for` está anidado de manera similar dentro del alcance de esa función. Los ámbitos se pueden anidar léxicamente a cualquier profundidad arbitraria según lo defina el programa.
 
-Cada ámbito obtiene su propia instancia *Scope Manager* cada vez que se ejecuta ese ámbito (una o más veces). Cada ámbito tiene automáticamente todos sus identificadores registrados (esto se denomina "elevación (hoisting) de variables"; consulte el Capítulo 5).
+Cada ámbito obtiene su propia instancia de *Scope Manager* cada vez que se ejecuta ese ámbito (una o más veces). Cada ámbito tiene automáticamente todos sus identificadores registrados (esto se denomina "elevación (hoisting) de variables"; consulte el Capítulo 5).
 
-Al comienzo de un ámbito, si algún identificador proviene de una declaración de `función`, esa variable se inicializa automáticamente a su referencia de función asociada. Y si algún identificador proviene de una declaración `var` (en oposición a `let` / `const`), esa variable se inicializa automáticamente a `undefined` para que pueda usarse; de lo contrario, la variable permanece sin inicializar (es decir, en su "TDZ", consulte el Capítulo 3) y no puede utilizarse hasta que se ejecute su declaración e inicialización.
+Al comienzo de un ámbito, si algún identificador proviene de una declaración de `function`, esa variable se inicializa automáticamente a su referencia de función asociada. Y si algún identificador proviene de una declaración `var` (en oposición a `let` / `const`), esa variable se inicializa automáticamente a `undefined` para que pueda usarse; de lo contrario, la variable permanece sin inicializar (es decir, en su "TDZ", consulte el Capítulo 3) y no puede utilizarse hasta que se ejecute su declaración e inicialización.
 
 En la declaración `for (let student of students) {` la declaración `students` es una referencia *fuente* que debe buscarse. Pero, ¿cómo se manejará esa búsqueda, ya que el alcance de la función no encontrará dicho identificador?
 
@@ -234,7 +232,7 @@ Si la variable es una *fuente*, una búsqueda de identificador no resuelta se co
 
 | ADVERTENCIA: |
 | :--- |
-| El mensaje de error para una condición de variable no declarada, en la mayoría de los entornos JS, probablemente diga "Error de referencia: XYZ no está definido". La frase "no definido" parece casi idéntica al término "indefinido", en lo que respecta al idioma inglés. Pero estos dos son muy diferentes en JS, y este mensaje de error desafortunadamente crea una probable confusión. "No definido" realmente significa "no declarado", o más bien "undeclared", como en una variable que nunca se declaró formalmente en ningún ámbito *léxicamente disponible*. Por el contrario, "indefinido" significa que se encontró una variable (declarada), pero la variable de lo contrario no tiene ningún valor en este momento, por lo que su valor predeterminado es "indefinido". Sí, este desastre terminológico es confuso y terriblemente desafortunado. |
+| El mensaje de error para una condición de variable no declarada, en la mayoría de los entornos JS, probablemente diga "Error de referencia: XYZ no está definido". La frase "no definido" parece casi idéntica al término "indefinido" (undefined), en lo que respecta al idioma inglés. Pero estos dos son muy diferentes en JS, y este mensaje de error desafortunadamente crea una probable confusión. "No definido" realmente significa "no declarado", o más bien "undeclared", como en una variable que nunca se declaró formalmente en ningún ámbito *léxicamente disponible*. Por el contrario, "indefinido" significa que se encontró una variable (declarada), pero la variable de lo contrario no tiene ningún valor en este momento, por lo que su valor predeterminado es "indefinido". Sí, este desastre terminológico es confuso y terriblemente desafortunado. |
 
 Sin embargo, si la variable es un *objetivo* y el modo estricto no está en vigor, se produce un comportamiento heredado confuso y sorprendente. ¡El resultado extremadamente desafortunado es que el *Scope Manager* del alcance global solo creará una **variable global accidental** para cumplir con esa asignación objetivo!
 

@@ -1,4 +1,4 @@
-# Aún no conoces JS: Comenzando - 2da Edición
+# Aún no sabes JS: Comenzando - 2da Edición
 # Apéndice A: Práctica, Práctica, Práctica!
 
 | NOTA DEL AUTOR: |

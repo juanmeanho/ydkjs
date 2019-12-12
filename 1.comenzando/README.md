@@ -1,4 +1,4 @@
-# Aún no conoces JS: Comenzando - 2da Edición
+# Aún no sabes JS: Comenzando - 2da Edición
 
 
 [Tabla de Contenidos](toc.md)

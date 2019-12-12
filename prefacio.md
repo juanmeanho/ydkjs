@@ -1,8 +1,8 @@
-# Aún no conoces JS - 2da Edición
+# Aún no sabes JS - 2da Edición
 
 # Prefacio
 
-Bienvenido a la segunda edición de la muy aclamada serie de libros "*No conoces JS*" (**YDKJS**): "***Aún**  no conoces JS*" (**YDKJSY**).
+Bienvenido a la segunda edición de la muy aclamada serie de libros "*No sabes JS*" (**YDKJS**)(You Don't Know JS): "***Aún***  no sabes JS" (You Don't Know JS Yet) (**YDKJSY**).
 
 Si has leido alguno de los libros de la primera edición, puedes esperar un enfoque renovado en estos nuevos libros, con una gran cobertura de lo que ha cambiado en JS en los ultimos cinco años. Pero lo que espero y creo que aún tendrás, es el mismo compromiso de respetar JS y profundizar en lo que realmente lo hace funcionar.
 
@@ -36,7 +36,7 @@ No estoy tratando de insultarte con críticas sobre tu actual falta de conocimie
 
 En serio, todas esas fueron reacciones reales al título original de la serie antes de que la gente incluso leyera los libros. Y no tienen base.
 
-El punto principal del título "Aún no conoces JS" es señalar que la mayoría de los desarrolladores de JS no se toman el tiempo para comprender realmente cómo funciona el código que escriben. Saben que funciona, que produce un resultado deseado. Pero tampoco entienden exactamente cómo, o peor, tienen un modelo mental inexacto para la forma en que eso falla en un escrutinio más cercano.
+El punto principal del título "Aún no sabes JS" es señalar que la mayoría de los desarrolladores de JS no se toman el tiempo para comprender realmente cómo funciona el código que escriben. Saben que funciona, que produce un resultado deseado. Pero tampoco entienden exactamente cómo, o peor, tienen un modelo mental inexacto para la forma en que eso falla en un escrutinio más cercano.
 
 Presento un desafío amable pero serio para tí lector, deja de lado las suposiciones que tienes sobre JS y abórdalo con ojos nuevos y una curiosidad vigorizada que te lleve a preguntarte por qué a cada línea de código que escribes. ¿Por qué haces lo que haces? ¿Por qué es una forma mejor o más apropiada que la otra media docena de formas en que podrías haberlo logrado? ¿Por qué todos los "niños populares" dicen hacer 'X' con su código, pero resulta que 'Y' podría ser una mejor opción?
 

@@ -1,4 +1,4 @@
-# Aún no conoces JS: Alcance & Closures - 2da Edición
+# Aún no sabes JS: Alcance & Closures - 2da Edición
 # Capítulo 1: ¿Como se Determina el Alcance?
 
 

@@ -1,4 +1,4 @@
-# Aún no conoces JS: Alcance & Closures - 2da Edición
+# Aún no sabes JS: Alcance & Closures - 2da Edición
 # Capítulo 2: Entendiendo el Alcance Léxico
 
 En el Capítulo 1, exploramos cómo se determina el alcance en la compilación de código, un modelo llamado "alcance léxico".

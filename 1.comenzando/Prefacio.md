@@ -1,4 +1,4 @@
-# Aún no conoces JS: Comenzando - 2da Edición
+# Aún no sabes JS: Comenzando - 2da Edición
 # Prefacio
 
 La primera vez que vi un tweet que anunciaba la campaña de crowdfunding para la serie de libros original * You Don't Know JS *, pensé para mí mismo que quienquiera que sea este Kyle Simpson puede doblarse. ¡Por supuesto que sé JavaScript! En ese momento, había estado trabajando en JavaScript durante algunos años con algunos de los nombres más importantes de la tecnología, por lo que me sentí justificado al mirar de frente a esta afirmación radical.

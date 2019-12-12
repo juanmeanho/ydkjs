@@ -1,7 +1,7 @@
-# Aún no conoces JS: Comenzando - 2da Edición
+# Aún no sabes JS: Comenzando - 2da Edición
 # Capítulo 1: Qué *Es* JavaScript?
 
-Aún no conoces a JavaScript. Yo tampoco, no del todo. Ninguno de nosotros lo hace. ¡Ese es el objetivo de esta serie de libros!
+Aún no sabes a JavaScript. Yo tampoco, no del todo. Ninguno de nosotros lo hace. ¡Ese es el objetivo de esta serie de libros!
 
 Pero aquí es donde comienzas ese *viaje* de conocer un poco mejor el lenguaje. Enfatizo la palabra viaje porque *saber JavaScript* no es un destino, es una dirección. No importa cuánto tiempo pases con el lenguaje,siempre podrás encontrar algo más para aprender y comprender un poco mejor.
 

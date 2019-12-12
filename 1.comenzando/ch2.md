@@ -1,4 +1,4 @@
-# Aún no conoces JS: Comenzando - 2da Edición
+# Aún no sabes JS: Comenzando - 2da Edición
 # Capítulo 2: Conociendo a JS
 
 | NOTA DEL AUTOR: |

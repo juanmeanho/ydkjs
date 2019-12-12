@@ -1,6 +1,5 @@
 # Aún no conoces JS: Alcance & Closures - 2da Edición
-
-# Capítulo 1: ¿Como se Compila el Alcance?
+# Capítulo 1: ¿Como se Determina el Alcance?
 
 
 | NOTA DEL AUTOR: |

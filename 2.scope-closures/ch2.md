@@ -1,19 +1,19 @@
-# You Don't Know JS Yet: Scope & Closures - 2nd Edition
-# Chapter 2: Understanding Lexical Scope
+# Aún no conoces JS: Alcance & Closures - 2da Edición
+# Capítulo 2: Entendiendo el Alcance Léxico
 
-In Chapter 1, we explored how scope is determined at code compilation, a model called "lexical scope".
+En el Capítulo 1, exploramos cómo se determina el alcance en la compilación de código, un modelo llamado "alcance léxico".
 
-Before we get to the nuts and bolts of how using lexical scope in our programs, we should make sure we have a good conceptual foundation for how scope works. This chapter will illustrate *scope* with several metaphors. The goal here is to *think* about how your program is handled by the JS engine in ways that more closely match how the JS engine actually works.
+Antes de llegar a los detalles de cómo usar el alcance léxico en nuestros programas, debemos asegurarnos de tener una buena base conceptual sobre cómo funciona el alcance. Este capítulo ilustrará el *alcance* con varias metáforas. El objetivo aquí es *pensar* sobre cómo el motor JS maneja su programa de manera que coincida más estrechamente con el funcionamiento real del motor JS.
 
-## Buckets, and Bubbles, and Marbles... Oh My!
+## Cubos, burbujas y canicas ... ¡Oh Dios mío!
 
-One metaphor I've found effective in understanding scope is sorting colored marbles into buckets of their matching color.
+Una metáfora que he encontrado efectiva para comprender el alcance es clasificar las canicas de colores en cubos de su color correspondiente.
 
-Imagine you come across a pile of marbles, and notice that all the marbles are colored red, blue, or green. To sort all the marbles, let's drop the red ones into a red bucket, green into a green bucket, and blue into a blue bucket. After sorting, when you later need a green marble, you already know the green bucket is where to go to get it.
+Imagine que se encuentra con una pila de canicas y nota que todas las canicas son de color rojo, azul o verde. Para clasificar todas las canicas, dejemos las rojas en una cubeta roja, las verdes en una cubeta verde y las azules en una cubeta azul. Después de la clasificación, cuando más tarde necesite una canica verde, ya sabe que el cubo verde es a dónde debe ir para obtenerlo.
 
-In this metaphor, the marbles are the variables in our program. The buckets are scopes (functions and blocks), which we just conceptually assign individual colors for our discussion purposes. The color of each marble is thus determined by which *color* scope we find the marble originally created in.
+En esta metáfora, las canicas son las variables en nuestro programa. Los cubos son ámbitos (funciones y bloques), a los que simplemente asignamos conceptualmente colores individuales para nuestros propósitos de discusión. El color de cada canica queda así determinado por el alcance *color* en el que encontramos la canica originalmente creada.
 
-Let's annotate the program example from Chapter 1 with scope color labels:
+Anotemos el ejemplo del programa del Capítulo 1 con etiquetas de color de alcance:
 
 ```js
 // outer/global scope: RED
@@ -42,66 +42,66 @@ console.log(nextStudent);
 // Suzy
 ```
 
-We've designated 3 scope colors with code comments: RED (outermost global scope), BLUE (scope of function `getStudentName(..)`), and GREEN (scope of/inside the `for` loop). But it still may be difficult to recognize the boundaries of these scope buckets when looking at a code listing.
+Hemos designado 3 colores de alcance con comentarios de código: ROJO (alcance global más externo), AZUL (alcance de la función `getStudentName(..)`) y VERDE (alcance del/dentro-del bucle `for`). Pero aún puede ser difícil reconocer los límites de estos segmentos de alcance cuando se mira una lista de códigos.
 
-Figure 2 tries to make the scope boundaries easier to visualize by drawing colored bubbles around each scope:
+La Figura 2 intenta hacer que los límites del alcance sean más fáciles de visualizar dibujando burbujas de colores alrededor de cada alcance:
 
 <figure>
     <img src="fig2.png" width="500" alt="Nested Scope Bubbles" align="center">
-    <figcaption><em>Fig. 2: Nested Scope Bubbles</em></figcaption>
+    <figcaption><em>Fig. 2: Burbujas de alcance anidadas</em></figcaption>
 </figure>
 
-1. **Bubble 1** (RED) encompasses the global scope, which has three identifiers/variables: `students` (line 1), `getStudentName` (line 8), and `nextStudent` (line 16).
+1. **Burbuja 1** (ROJO) abarca el alcance global, que tiene tres identificadores/variables: `students` (línea 1), `getStudentName` (línea 8) y `nextStudent` (línea 16).
 
-2. **Bubble 2** (BLUE) encompasses the scope of the function `getStudentName(..)` (line 8), which has just one identifier/variable: the parameter `studentID` (line 8).
+2. **Burbuja 2** (AZUL) abarca el alcance de la función `getStudentName(..)` (línea 8), que tiene un solo identificador/variable: el parámetro `studentID` (línea 8).
 
-3. **Bubble 3** (GREEN) encompasses the scope of the `for`-loop (line 9), which has just one identifier/variable: `student` (line 9).
+3. **Burbuja 3** (VERDE) abarca el alcance del bucle `for` (línea 9), que tiene un solo identificador/variable: `student` (línea 9).
 
-Scope bubbles are determined during compilation based on where the functions / blocks of scope are written, the nesting inside each other, etc. Each scope bubble is entirely contained within its parent scope bubble -- a scope is never partially in two different outer scopes.
+Las burbujas de alcance se determinan durante la compilación en función de dónde se escriben las funciones/bloques de alcance, el anidamiento entre sí, etc. Cada burbuja de alcance está completamente contenida dentro de su burbuja de alcance principal: un alcance nunca está parcialmente en dos ámbitos externos diferentes.
 
-Each marble (variable/identifier) is colored based on which bubble (bucket) it's declared in, not the color of the scope it may be accessed from (e.g., `students` on line 9 and `studentID` on line 10).
+Cada canica (variable/identificador) se colorea en función de la burbuja (cubo) en la que se declara, no del color del alcance desde el que se puede acceder (por ejemplo, `students` en la línea 9 y `studentID` en la línea 10).
 
-| NOTE: |
+| NOTA: |
 | :--- |
-| Remember we asserted in Chapter 1 that `id`, `name`, and `log` are all properties, not variables; in other words, they're not marbles in buckets, so they don't get colored based on any the rules we're discussing in this book. To understand how such property accesses are handled, see Book 3 *Objects & Classes*. |
+| Recuerde que afirmamos en el Capítulo 1 que `id`,`name`, y `log` son todas propiedades, no variables; en otras palabras, no son canicas en cubos, por lo que no se colorean según las reglas que discutimos en este libro. Para comprender cómo se manejan dichos accesos de propiedad, consulte el Libro 3 *Objetos y clases*. |
 
-As the JS engine processes a program (during compilation), and finds a declaration for a variable, it essentially asks, "which *color* scope (bubble, bucket) am I currently in?" The variable is designated as that same *color*, meaning it belongs to that bucket/bubble.
+A medida que el motor JS procesa un programa (durante la compilación) y encuentra una declaración para una variable, esencialmente pregunta: "¿en qué *color* alcance (burbuja, cubo) estoy actualmente?" La variable se designa como el mismo *color*, lo que significa que pertenece a ese cubo/burbuja.
 
-The GREEN bucket is wholly nested inside of the BLUE bucket, and similarly the BLUE bucket is wholly nested inside the RED bucket. Scopes can nest inside each other as shown, to any depth of nesting as your program needs.
+El cubo VERDE está completamente anidado dentro del cubo AZUL, y de manera similar el cubo AZUL está completamente anidado dentro del cubo ROJO. Los ámbitos pueden anidarse uno dentro del otro como se muestra, hasta cualquier profundidad de anidamiento que necesite su programa.
 
-References (non-declarations) to variables/identifiers can be made from either the current scope, or any scope above/outside the current scope, but never to lower/nested scopes. So an expression in the RED bucket only has access to RED marbles, not BLUE or GREEN. An expression in the BLUE bucket can reference either BLUE or RED marbles, not GREEN. And an expression in the GREEN bucket has access to RED, BLUE, and GREEN marbles.
+Las referencias (no declaraciones) a variables/identificadores se pueden hacer desde el alcance actual o desde cualquier alcance por encima/fuera del alcance actual, pero nunca a los ámbitos inferiores/anidados. Entonces, una expresión en el cubo ROJO solo tiene acceso a canicas ROJAS, no AZUL o VERDE. Una expresión en el cubo AZUL puede hacer referencia a canicas AZULES o ROJAS, no VERDES. Y una expresión en el cubo VERDE tiene acceso a las canicas ROJA, AZUL y VERDE.
 
-We can conceptualize the process of determining these non-declaration marble colors during runtime as a lookup. Since the `students` variable reference in the `for`-loop statement on line 9 is not a declaration, it has no color. So we ask the current scope bucket (BLUE) if it has a marble matching that name. Since it doesn't, the lookup continues with the next outer/containing scope (RED). The RED bucket has a marble of the name `students`, so the loop-statement's `students` variable is determined to be a RED marble.
+Podemos conceptualizar el proceso de determinación de estos no-declarados colores de mármol durante el tiempo de ejecución como una búsqueda. Dado que la referencia variable `students` en la declaración de bucle `for` en la línea 9 no es una declaración, no tiene color. Por lo tanto, le preguntamos al segmento de alcance actual (AZUL) si tiene una canica que coincida con ese nombre. Como no lo hace, la búsqueda continúa con el siguiente ámbito externo / de contención (RED). El cubo ROJO tiene una canica con el nombre `estudiantes`, por lo que la variable `estudiantes` de la declaración de bucle se determina que es una canica ROJA.
 
-The `if (student.id == studentID)` on line 10 is similarly determined to reference a GREEN marble named `student` and a BLUE marble `studentID`.
+El `if(student.id == studentID)` en la línea 10 se determina de manera similar para hacer referencia a una canica VERDE llamada `student` y a una canica AZUL` studentID`.
 
-| NOTE: |
+| NOTA: |
 | :--- |
-| The JS engine doesn't generally determine these marble colors during run-time; the "lookup" here is a rhetorical device to help you understand the concepts. During compilation, most or all variable references will be from already-known scope buckets, so their color is determined at that, and stored with each marble reference to avoid unnecessary lookups as the program runs. More on this in the next chapter. |
+| El motor JS generalmente no determina estos colores de mármol durante el tiempo de ejecución; La "idea" aquí es encontrar una manera retórica para ayudarte a comprender los conceptos. Durante la compilación, la mayoría o todas las referencias a variables serán de segmentos de alcance ya conocidos, por lo que su color se determina así y se almacena con cada referencia de color para evitar búsquedas innecesarias a medida que se ejecuta el programa. Más sobre esto en el próximo capítulo. |
 
-The key take-aways from marbles & buckets (and bubbles!):
+Los puntos clave de las canicas y los cubos (¡y las burbujas!):
 
-* Variables are declared in certain scopes, which can be thought of as colored marbles in matching-color buckets.
+* Las variables se declaran en ciertos ámbitos, que se pueden considerar como canicas de colores en cubos de colores coincidentes.
 
-* Any reference to a variable of that same name in that scope, or any deeper nested scope, will be a marble of that same color -- unless an intervening scope "shadows" the variable declaration; see Chapter 3 "Shadowing.
+* Cualquier referencia a una variable del mismo nombre en ese alcance, o cualquier alcance anidado más profundo, será una canica del mismo color, a menos que un alcance intermedio "sombree" la declaración de la variable; ver el Capítulo 3 "Sombreado".
 
-* The determination of colored buckets, and the marbles they contain, happens during compilation. This information is used for variable (marble color) "lookups" during code execution.
+* La determinación de los cubos de colores, y las canicas que contienen, ocurre durante la compilación. Esta información se utiliza para "búsquedas" de variables (color mármol) durante la ejecución del código.
 
-## A Conversation Among Friends
+## Una conversación entre amigos
 
-Another useful metaphor for the process of analyzing variables and the scopes they come from is to imagine various conversations that go on inside the engine as code is processed and then executed. We can "listen in" on these conversations to get a better conceptual foundation for how scopes work.
+Otra metáfora útil para el proceso de análisis de variables y los ámbitos de los que provienen es imaginar varias conversaciones que se llevan a cabo dentro del motor a medida que se procesa el código y luego se ejecuta. Podemos "escuchar" en estas conversaciones para obtener una mejor base conceptual sobre cómo funcionan los ámbitos.
 
-Let's now meet the members of the JS engine that will have conversations as they process that program:
+Ahora conozcamos a los miembros del motor JS que tendrán conversaciones mientras procesan ese programa:
 
-1. *Engine*: responsible for start-to-finish compilation and execution of our JavaScript program.
+1. *Motor*: responsable de la compilación y ejecución de principio a fin de nuestro programa JavaScript.
 
-2. *Compiler*: one of *Engine*'s friends; handles all the dirty work of parsing and code-generation (see previous section).
+2. *Compilador*: uno de los amigos del *Motor*; maneja todo el trabajo sucio de análisis y generación de código (ver sección anterior).
 
-3. *Scope Manager*: another friend of *Engine*; collects and maintains a look-up list of all the declared variables/identifiers, and enforces a set of rules as to how these are accessible to currently executing code.
+3. *Scope Manager* (Manejador de alcance): otro amigo del *Motor*; recopila y mantiene una lista de búsqueda de todas las variables / identificadores declarados, y aplica un conjunto de reglas sobre cómo son accesibles para el código que se está ejecutando actualmente.
 
-For you to *fully understand* how JavaScript works, you need to begin to *think* like *Engine* (and friends) think, ask the questions they ask, and answer their questions likewise.
+Para que usted *entienda completamente* cómo funciona JavaScript, debe comenzar a *pensar* como *Motor* (y como sus amigos) piensan, hacen las preguntas que hacen y responden sus preguntas de la misma manera.
 
-To explore these conversations, recall again our running program example:
+Para explorar estas conversaciones, recuerde nuevamente nuestro ejemplo de programa en ejecución:
 
 ```js
 var students = [
@@ -125,25 +125,27 @@ console.log(nextStudent);
 // Suzy
 ```
 
-Let's examine how JS is going to process that program, specifically starting with the first statement. The array and its contents are just basic JS value literals (and thus unaffected by any scoping concerns), so our focus here will be on the `var students = [ .. ]` declaration and initialization-assignment parts.
+Examinemos cómo JS va a procesar ese programa, comenzando específicamente con la primera declaración. El arreglo y su contenido son solo literales de valores JS básicos (y, por lo tanto, no se ven afectados por ninguna inquietud de alcance), por lo que nuestro enfoque aquí estará en la declaración `var students = [..]` y las partes de inicialización-asignación.
 
-We typically think of that as a single statement, but that's not how our friend *Engine* sees it. In fact, *Engine* sees two distinct operations, one which *Compiler* will handle during compilation, and the other which *Engine* will handle during execution.
+Normalmente pensamos en eso como una declaración única, pero no es así como lo ve nuestro amigo *Motor*. De hecho, *Motor* ve dos operaciones distintas, una que *Compilador* manejará durante la compilación y la otra que *Motor* manejará durante la ejecución.
 
-The first thing *Compiler* will do with this program is perform lexing to break it down into tokens, which it will then parse into a tree (AST).
+Lo primero que *Compilador* hará con este programa es realizar lexing para dividirlo en tokens, que luego se analizará en un árbol (AST).
 
-Once *Compiler* gets to code-generation, there's more detail to consider than may be obvious. A reasonable assumption would be that *Compiler* will produce code for the first statement such as: "Allocate memory for a variable, label it `students`, then stick a reference to the array into that variable." But there's more to it.
+Una vez que *Compilador* llega a la generación de código, hay más detalles a considerar de lo que puede ser obvio. Una suposición razonable sería que *Compilador* producirá código para la primera instrucción, como por ejemplo: "Asignar memoria para una variable, etiquetarla como `students`, luego pegar una referencia al arreglo en esa variable". Pero hay más que eso.
 
-Here's how *Compiler* will handle that statement:
+Así es como *Compilador* manejará esa declaración:
 
-1. Encountering `var students`, *Compiler* will ask *Scope Manager* to see if a variable named `students` already exists for that particular scope bucket. If so, *Compiler* would ignore this declaration and move on. Otherwise, *Compiler* will produce code that (at execution time) asks *Scope Manager* to create a new variable called `students` in that scope bucket.
+1. Al encontrar `var students`, *Compilador* le preguntará a *Scope Manager* para ver si ya existe una variable llamada `students` para ese segmento de alcance en particular. Si es así, *Compilador* ignoraría esta declaración y seguiría adelante. De lo contrario, *Compilador* producirá un código que (en el momento de la ejecución) le pide a *Scope Manager* que cree una nueva variable llamada `students` en ese segmento de alcance.
 
-2. *Compiler* then produces code for *Engine* to later execute, to handle the `students = []` assignment. The code *Engine* runs will first ask *Scope Manager* if there is a variable called `students` accessible in the current scope bucket. If not, *Engine* keeps looking elsewhere (see "Nested Scope" below). Once *Engine* finds a variable, it assigns the reference of the `[ .. ]` array to it.
+2. *Compilador* luego produce código para *Motor* para luego ejecutarlo, para manejar la asignación `students = []`. El código que ejecuta *Motor* primero preguntará a *Scope Manager* si hay una variable llamada `students` accesible en el segmento de alcance actual. Si no, *Motor* sigue buscando en otra parte (ver "Ámbito anidado" a continuación). Una vez que *Motor* encuentra una variable, le asigna la referencia del arreglo `[..]`.
 
-In conversational form, the first-phase of compilation for the program might play out between *Compiler* and *Scope Manager* like this:
+En forma conversacional, la primera fase de compilación del programa podría desarrollarse entre *Compilador* y *Scope Manager* de esta manera:
 
-> ***Compiler***: Hey *Scope Manager* (of the global scope), I found a formal declaration for an identifier called `students`, ever heard of it?
+> ***Compilador***: Hola *Scope Manager* (del alcance global), encontré una declaración formal para un identificador llamado `students`, ¿alguna vez oyeron hablar de él?
 
-> ***(Global) Scope Manager***: Nope, haven't heard of it, so I've just now created it for you.
+> ***(Global) Scope Manager***: No, no he oído hablar de él, así que ahora lo he creado para ti.
+
+> ***Compilador***: Hola *Scope Manager*, encontré una declaración formal para un identificador llamado `getStudentName`, ¿alguna vez escuchaste de él?
 
 > ***Compiler***: Hey *Scope Manager*, I found a formal declaration for an identifier called `getStudentName`, ever heard of it?
 
@@ -151,89 +153,90 @@ In conversational form, the first-phase of compilation for the program might pla
 
 > ***Compiler***: Hey *Scope Manager*, `getStudentName` points to a function, so we need a new scope bucket.
 
-> ***(Function) Scope Manager***: Got it, here it is.
+> ***(Function) Scope Manager***: Lo tengo, aquí está.
 
-> ***Compiler***: Hey *Scope Manager* (of the function), I found a formal parameter declaration for `studentID`, ever heard of it?
+> ***Compilador***: Hola *Scope Manager* (de la función), encontré una declaración de parámetro formal para `studentID`, ¿alguna vez has oído hablar de ella?
 
-> ***(Function) Scope Manager***: Nope, but now it's registered in this scope.
+> ***(Function) Scope Manager***: No, pero ahora está registrado en este ámbito.
 
-> ***Compiler***: Hey *Scope Manager* (of the function), I found a `for`-loop that will need its own scope bucket.
-
-> ...
-
-The conversation is a question-and-answer exchange, where **Compiler** asks the current *Scope Manager* if an encountered identifier declaration has already been encountered? If "no", *Scope Manager* creates that variable in that scope. If the answer were "yes", then it would effectively be skipped over since there's nothing more for that *Scope Manager* to do.
-
-*Compiler* also signals when it runs across functions or block scopes, so that a new scope bucket and *Scope Manager* can be instantiated.
-
-Later, when it comes to execution of the program, the conversation will proceed between *Engine* and *Scope Manager*, and might play out like this:
-
-> ***Engine***: Hey *Scope Manager* (of the global scope), before we begin, can you lookup the identifier `getStudentName` so I can assign this function to it?
-
-> ***(Global) Scope Manager***: Yep, here you go.
-
-> ***Engine***: Hey *Scope Manager*, I found a *target* reference for `students`, ever heard of it?
-
-> ***(Global) Scope Manager***: Yes, it was formally declared for this scope, and it's already been initialized to `undefined`, so it's ready to assign to. Here you go.
-
-> ***Engine***: Hey *Scope Manager* (of the global scope), I found a *target* reference for `nextStudent`, ever heard of it?
-
-> ***(Global) Scope Manager***: Yes, it was formally declared for this scope, and it's already been initialized to `undefined`, so it's ready to assign to. Here you go.
-
-> ***Engine***: Hey *Scope Manager* (of the global scope), I found a *source* reference for `getStudentName`, ever heard of it?
-
-> ***(Global) Scope Manager***: Yes, it was formally declared for this scope. Here you go.
-
-> ***Engine***: Great, the value in `getStudentName` is a function, so I'm going to execute it.
-
-> ***Engine***: Hey *Scope Manager*, now we need to instantiate the function's scope.
+> ***Compilador***: Hola *Scope Manager* (de la función), encontré un bucle `for` que necesitará su propio segmento de alcance.
 
 > ...
 
-This conversation is another question-and-answer exchange, where *Engine* first asks the current *Scope Manager* to lookup the hoisted `getStudentName` identifier, so as to associate the function with it. *Engine* then proceeds to ask *Scope Manager* about the *target* reference for `students`, and so on.
+La conversación es un intercambio de preguntas y respuestas, donde **Compilador** pregunta al actual *Scope Manager* si ya se ha encontrado una declaración de un identificador. Si "no", *Scope Manager* crea esa variable en ese ámbito. Si la respuesta fuera "sí", entonces se omitiría de manera efectiva ya que no hay nada más que ese *Scope Manager* pueda hacer.
 
-To review and summarize how a statement like `var students = [ .. ]` is processed, in two distinct steps:
+*Compilador* también señala cuando se ejecuta a través de funciones o ámbitos de bloque, de modo que se puede crear una instancia de un nuevo segmento de alcance y *Scope Manager*.
 
-1. *Compiler* sets up the declaration of the scope variable (since it wasn't previously declared in the current scope).
+Más tarde, cuando se trata de la ejecución del programa, la conversación continuará entre *Motor* y *Scope Manager*, y podría desarrollarse así:
 
-2. While *Engine* is executing, since the declaration has an initialization assignment, *Engine* asks *Scope Manager* to look up the variable, and assigns to it once found.
+> ***Motor***: Hola *Scope Manager* (del alcance global), antes de comenzar, ¿puedes buscar el identificador `getStudentName` para que pueda asignarle esta función?
 
-## Nested Scope
+> ***(Global) Scope Manager***: Sí, aquí tienes.
 
-When it comes time to execute the `getStudentName()` function, *Engine* asks for a *Scope Manager* instance for that function's scope, and it will then proceed to lookup the parameter (`studentID`) to assign the `73` argument value to, and so on.
+> ***Motor***: Hola *Scope Manager*, encontré una referencia *Objetivo* para `estudiantes`, ¿alguna vez escuchaste de ella?
 
-The function scope for `getStudentName(..)` is nested inside the global scope. The block scope of the `for`-loop is similarly nested inside that function scope. Scopes can be lexically nested to any arbitrary depth as the program defines.
+> ***(Global) Scope Manager***: Sí, se declaró formalmente para este alcance, y ya se ha inicializado como `undefined`, por lo que está listo para asignarlo. Aqui tienes.
 
-Each scope gets its own *Scope Manager* instance each time that scope is executed (one or more times). Each scope automatically has all its identifiers registered (this is called "variable hoisting"; see Chapter 5).
+> ***Motor***: Hola *Scope Manager* (del alcance global), encontré una referencia *objetivo* para `nextStudent`, ¿alguna vez escuchaste de ella?
 
-At the beginning of a scope, if any identifier came from a `function` declaration, that variable is automatically initialized to its associated function reference. And if any identifier came from a `var` declaration (as opposed to `let` / `const`), that variable is automatically initialized to `undefined` so that it can be used; otherwise, the variable remains uninitialized (aka, in its "TDZ", see Chapter 3) and cannot be used until its declaration-and-initialization are executed.
+> ***(Global) Scope Manager***: Sí, se declaró formalmente para este alcance, y ya se ha inicializado como `undefined`, por lo que está listo para asignarlo. Aqui tienes.
 
-In the `for (let student of students) {` statement, `students` is a *source* reference that must be looked up. But how will that lookup be handled, since the scope of the function will not find such an identifier.
+> ***Motor***: Hola *Scope Manager* (del alcance global), encontré una referencia *fuente* para `getStudentName`, ¿alguna vez escuchaste de ella?
 
-To understand that, let's imagine that bit of conversation playing out like this:
+> ***(Global) Scope Manager***: Sí, se declaró formalmente para este alcance. Aqui tienes.
 
-> ***Engine***: Hey *Scope Manager* (for the function), I have a *source* reference for `students`, ever heard of it?
+> ***Engine***: Genial, el valor en `getStudentName` es una función, así que lo voy a ejecutar.
 
-> ***(Function) Scope Manager***: Nope, never heard of it. Try the next outer scope.
-
-> ***Engine***: Hey *Scope Manager* (for the global scope), I have a *source* reference for `students`, ever heard of it?
-
-> ***(Global) Scope Manager***: Yep, it was formally declared, here you go.
+> ***Motor***: Hola *Scope Manager*, ahora necesitamos instanciar el alcance de la función.
 
 > ...
 
-One of the most important aspects of lexical scope is that any time an identifier reference cannot be found in the current scope, the next outer scope in the nesting is consulted; that process is repeated until an answer is found or there are no more scopes to consult.
+Esta conversación es otro intercambio de preguntas y respuestas, donde *Motor* primero le pide al *Scope Manager* actual que busque el identificador `getStudentName` izado para asociar la función con él. *Motor* luego procede a preguntar *Scope Manager* sobre la referencia *objetivo* para `students`, y así sucesivamente.
 
-### Lookup Failures
+Para revisar y resumir cómo se procesa una declaración como `var students = [..]`, en dos pasos distintos:
 
-When *Engine* exhausts all *lexically available* scopes and still cannot resolve the lookup of an identifier, an error condition then exists. However, depending on the mode of the program (strict-mode or not) and the role of the variable (i.e., *target* vs. *scope*; see Chapter 1), this error condition will be handled differently.
+1. *Compilador* configura la declaración de la variable de alcance (ya que no se declaró previamente en el alcance actual).
 
-If the variable is a *source*, an unresolved identifier lookup is considered an undeclared (unknown, missing) variable, which results in a `ReferenceError` being thrown. Also, if the variable is a *target*, and the code at that point is running in strict-mode, the variable is considered undeclared and throws a `ReferenceError`.
+2. Mientras *Motor* está ejecutando, dado que la declaración tiene una asignación de inicialización, *Motor* le pide a *Scope Manager* que busque la variable y la asigna una vez que se encuentra.
 
-| WARNING: |
+## Alcance anidado
+
+Cuando llega el momento de ejecutar la función `getStudentName()`, *Motor* solicita una instancia de *Scope Manager* para el alcance de esa función, y luego procederá a buscar el parámetro (`studentID`) para asignar el `73` valor de argumento para, y así sucesivamente.
+
+El alcance de la función para `getStudentName(..)` está anidado dentro del alcance global. El alcance del bloque del bucle `for` está anidado de manera similar dentro del alcance de esa función. Los ámbitos se pueden anidar léxicamente a cualquier profundidad arbitraria según lo defina el programa.
+
+Cada ámbito obtiene su propia instancia *Scope Manager* cada vez que se ejecuta ese ámbito (una o más veces). Cada ámbito tiene automáticamente todos sus identificadores registrados (esto se denomina "elevación (hoisting) de variables"; consulte el Capítulo 5).
+
+Al comienzo de un ámbito, si algún identificador proviene de una declaración de `función`, esa variable se inicializa automáticamente a su referencia de función asociada. Y si algún identificador proviene de una declaración `var` (en oposición a `let` / `const`), esa variable se inicializa automáticamente a `undefined` para que pueda usarse; de lo contrario, la variable permanece sin inicializar (es decir, en su "TDZ", consulte el Capítulo 3) y no puede utilizarse hasta que se ejecute su declaración e inicialización.
+
+En la declaración `for (let student of students) {` la declaración `students` es una referencia *fuente* que debe buscarse. Pero, ¿cómo se manejará esa búsqueda, ya que el alcance de la función no encontrará dicho identificador?
+
+Para entender eso, imaginemos que esa conversación se desarrolla así:
+
+> ***Motor***: Hola *Scope Manager* (para la función), tengo una referencia *fuente* para `students`, ¿alguna vez has oído hablar de ella?
+
+> ***(Función) Scope Manager***: No, nunca he oído hablar de él. Prueba el siguiente alcance externo.
+
+> ***Motor***: Hola *Scope Manager* (para el alcance global), tengo una referencia *fuente* para `students`, ¿alguna vez has oído hablar de él?
+
+> ***(Global) Scope Manager***: Sí, se declaró formalmente, aquí tienes.
+
+> ...
+
+Uno de los aspectos más importantes del alcance léxico es que cada vez que no se puede encontrar una referencia de identificador en el alcance actual, se consulta el siguiente alcance externo en el anidamiento; ese proceso se repite hasta que se encuentra una respuesta o no hay más ámbitos para consultar.
+
+### Fallos de Búsqueda
+
+Cuando *Motor* agota todos los ámbitos *disponibles léxicamente* y aún no puede resolver la búsqueda de un identificador, entonces existe una condición de error. Sin embargo, dependiendo del modo del programa (modo estricto o no) y el rol de la variable (es decir, *objetivo* vs. *alcance*; ver Capítulo 1), esta condición de error se manejará de manera diferente.
+
+Si la variable es una *fuente*, una búsqueda de identificador no resuelta se considera una variable no declarada (desconocida, faltante), lo que resulta en un `ReferenceError`. Además, si la variable es un *objetivo*, y el código en ese punto se ejecuta en modo estricto, la variable se considera no declarada y arroja un `ReferenceError`.
+
+
+| ADVERTENCIA: |
 | :--- |
-| The error message for an undeclared variable condition, in most JS environments, will likely say, "Reference Error: XYZ is not defined". The phrase "not defined" seems almost identical to the term "undefined", as far as the English language goes. But these two are very different in JS, and this error message unfortunately creates a likely confusion. "Not defined" really means "not declared", or rather "undeclared", as in a variable that was never formally declared in any *lexically available* scope. By contrast, "undefined" means a variable was found (declared), but the variable otherwise has no value in it at the moment, so it defaults to the `undefined` value. Yes, this terminology mess is confusing and terribly unfortunate. |
+| El mensaje de error para una condición de variable no declarada, en la mayoría de los entornos JS, probablemente diga "Error de referencia: XYZ no está definido". La frase "no definido" parece casi idéntica al término "indefinido", en lo que respecta al idioma inglés. Pero estos dos son muy diferentes en JS, y este mensaje de error desafortunadamente crea una probable confusión. "No definido" realmente significa "no declarado", o más bien "undeclared", como en una variable que nunca se declaró formalmente en ningún ámbito *léxicamente disponible*. Por el contrario, "indefinido" significa que se encontró una variable (declarada), pero la variable de lo contrario no tiene ningún valor en este momento, por lo que su valor predeterminado es "indefinido". Sí, este desastre terminológico es confuso y terriblemente desafortunado. |
 
-However, if the variable is a *target* and strict-mode is not in effect, a confusing and surprising legacy behavior occurs. The extremely unfortunate outcome is that the global scope's *Scope Manager* will just create an **accidental global variable** to fulfill that target assignment!
+Sin embargo, si la variable es un *objetivo* y el modo estricto no está en vigor, se produce un comportamiento heredado confuso y sorprendente. ¡El resultado extremadamente desafortunado es que el *Scope Manager* del alcance global solo creará una **variable global accidental** para cumplir con esa asignación objetivo!
 
 ```js
 function getStudentName() {
@@ -247,24 +250,24 @@ console.log(nextStudent);
 // "Suzy" -- oops, an accidental-global variable!
 ```
 
-Yuck.
+Puaf.
 
-This sort of accident (almost certain to lead to bugs eventually) is a great example of the protections of strict-mode, and why it's such a bad idea not to use it. Never rely on accidental global variables like that. Always use strict-mode, and always formally declare your variables. You'll then get a helpful `ReferenceError` if you ever mistakenly try to assign to a not-declared variable.
+Este tipo de accidente (casi seguro que conducirá a errores eventualmente) es un gran ejemplo de las protecciones del modo estricto, y por qué es una mala idea no usarlo. Nunca confíes en variables globales accidentales como esa. Siempre use el modo estricto y siempre declare formalmente sus variables. Luego obtendrá un útil `ReferenceError` si alguna vez intenta por error asignarlo a una variable no declarada.
 
-### Building On Metaphors
+### Construyendo sobre metáforas
 
-To visualize nested scope resolution, yet another useful metaphor may be an office building:
+Para visualizar la resolución de alcance anidado, otra metáfora útil puede ser un edificio de oficinas:
 
 <img src="fig1.png" width="250">
 
-The building represents our program's nested scope rule set. The first floor of the building represents the currently executing scope. The top level of the building is the global scope.
+El edificio representa el conjunto de reglas de alcance anidado de nuestro programa. El primer piso del edificio representa el alcance actualmente en ejecución. El nivel superior del edificio es el alcance global.
 
-You resolve a *target* or *source* variable reference by first looking on the current floor, and if you don't find it, taking the elevator to the next floor, looking there, then the next, and so on. Once you get to the top floor (the global scope), you either find what you're looking for, or you don't. But you have to stop regardless.
+Usted resuelve una referencia a una variable *objetivo* o *fuente* primero mirando en el piso actual, y si no lo encuentra, tome el elevador al siguiente piso, mire allí, luego al siguiente, y así sucesivamente. Una vez que llegue al piso superior (el alcance global), encontrará lo que está buscando o no. Pero tienes que parar de todos modos.
 
-## Continue The Conversation
+## Continuar la conversación
 
-By this point, hopefully you feel more solid on what scope is and how the JS engine determines it while compiling your code.
+En este punto, es de esperar que se sienta más sólido sobre qué es el alcance y cómo lo determina el motor JS al compilar su código.
 
-Before *continuing*, go find some code in one of your projects and run through the conversations. If you find yourself confused or tripped up, spend time reviewing this material.
+Antes de *continuar*, busque algún código en uno de sus proyectos y repita las conversaciones. Si se siente confundido o tropezado, dedique tiempo a revisar este material.
 
-As we move forward, we want to look in much more detail at how we use lexical scope in our programs.
+A medida que avanzamos, queremos ver con mucho más detalle cómo usamos el alcance léxico en nuestros programas.

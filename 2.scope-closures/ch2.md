@@ -71,13 +71,13 @@ El cubo VERDE está completamente anidado dentro del cubo AZUL, y de manera simi
 
 Las referencias (no declaraciones) a variables/identificadores se pueden hacer desde el alcance actual o desde cualquier alcance por encima/fuera del alcance actual, pero nunca a los ámbitos inferiores/anidados. Entonces, una expresión en el cubo ROJO solo tiene acceso a canicas ROJAS, no AZUL o VERDE. Una expresión en el cubo AZUL puede hacer referencia a canicas AZULES o ROJAS, no VERDES. Y una expresión en el cubo VERDE tiene acceso a las canicas ROJA, AZUL y VERDE.
 
-Podemos conceptualizar el proceso de determinación de estos no-declarados colores de mármol durante el tiempo de ejecución como una búsqueda. Dado que la referencia variable `students` en la declaración de bucle `for` en la línea 9 no es una declaración, no tiene color. Por lo tanto, le preguntamos al segmento de alcance actual (AZUL) si tiene una canica que coincida con ese nombre. Como no lo hace, la búsqueda continúa con el siguiente ámbito externo / de contención (RED). El cubo ROJO tiene una canica con el nombre `students`, por lo que la variable `students` de la declaración de bucle se determina que es una canica ROJA.
+Podemos conceptualizar el proceso de determinación de estos no-declarados colores de canicas durante el tiempo de ejecución como una búsqueda. Dado que la referencia variable `students` en la declaración de bucle `for` en la línea 9 no es una declaración, no tiene color. Por lo tanto, le preguntamos al segmento de alcance actual (AZUL) si tiene una canica que coincida con ese nombre. Como no lo hace, la búsqueda continúa con el siguiente ámbito externo / de contención (RED). El cubo ROJO tiene una canica con el nombre `students`, por lo que la variable `students` de la declaración de bucle se determina que es una canica ROJA.
 
 El `if(student.id == studentID)` en la línea 10 se determina de manera similar para hacer referencia a una canica VERDE llamada `student` y a una canica AZUL` studentID`.
 
 | NOTA: |
 | :--- |
-| El motor JS generalmente no determina estos colores de mármol durante el tiempo de ejecución; La "idea" aquí es encontrar una manera retórica para ayudarte a comprender los conceptos. Durante la compilación, la mayoría o todas las referencias a variables serán de segmentos de alcance ya conocidos, por lo que su color se determina así y se almacena con cada referencia de color para evitar búsquedas innecesarias a medida que se ejecuta el programa. Más sobre esto en el próximo capítulo. |
+| El motor JS generalmente no determina estos colores de canicas durante el tiempo de ejecución; La "idea" aquí es encontrar una manera retórica para ayudarte a comprender los conceptos. Durante la compilación, la mayoría o todas las referencias a variables serán de segmentos de alcance ya conocidos, por lo que su color se determina así y se almacena con cada referencia de color para evitar búsquedas innecesarias a medida que se ejecuta el programa. Más sobre esto en el próximo capítulo. |
 
 Los puntos clave de las canicas y los cubos (¡y las burbujas!):
 
@@ -85,7 +85,7 @@ Los puntos clave de las canicas y los cubos (¡y las burbujas!):
 
 * Cualquier referencia a una variable del mismo nombre en ese alcance, o cualquier alcance anidado más profundo, será una canica del mismo color, a menos que un alcance intermedio "sombree" la declaración de la variable; ver el Capítulo 3 "Sombreado".
 
-* La determinación de los cubos de colores, y las canicas que contienen, ocurre durante la compilación. Esta información se utiliza para "búsquedas" de variables (color mármol) durante la ejecución del código.
+* La determinación de los cubos de colores, y las canicas que contienen, ocurre durante la compilación. Esta información se utiliza para "búsquedas" de variables (canicas de color) durante la ejecución del código.
 
 ## Una conversación entre amigos
 

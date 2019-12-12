@@ -1,23 +1,23 @@
-# You Don't Know JS Yet: Scope & Closures - 2nd Edition
-# Chapter 3: Working With Scope
+# Aún no sabes JS: Alcance & Closures - 2da Edición
+# Capítulo 2: Trabajando con el Alcance
 
-| NOTE: |
+| NOTA DEL AUTOR: |
 | :--- |
-| Work in progress |
+| Trabajo en progreso |
 
-Through Chapters 1 and 2, we defined *lexical scope* as the set of rules (determined at compile time) for how the identifiers/variables in a program are organized into units of scope (functions, blocks), as well as how lookups of these identifiers works during run-time.
+A través de los Capítulos 1 y 2, definimos *alcance léxico* como el conjunto de reglas (determinadas en tiempo de compilación) de cómo se organizan los identificadores / variables de un programa en unidades de alcance (funciones, bloques), así como cómo las búsquedas de estos identificadores funcionan durante el tiempo de ejecución.
 
-For conceptual understanding, lexical scope was illustrated with several metaphors: marbles & buckets (bubbles!), conversations, and a tall office building.
+Para la comprensión conceptual, el alcance léxico se ilustró con varias metáforas: canicas y cubos (¡burbujas!), conversaciones y un alto edificio de oficinas.
 
-Now it's time to sift through a bunch of nuts and bolts of working with lexical scope in our programs. There's a lot more to scope than you probably think. This is one of those chapters that really hammers home just how much we all *don't know* about scope.
+Ahora es el momento de examinar un montón de detalles sobre cómo trabajar con alcance léxico en nuestros programas. Hay mucho más alcance de lo que probablemente piensas. Este es uno de esos capítulos que realmente nos recuerda cuánto *no sabemos* sobre el alcance.
 
 | TIP: |
 | :--- |
-| This chapter is very long and detailed. Make sure to take your time working through it, and practice the concepts and code frequently. Don't rush! |
+| Este capítulo es muy largo y detallado. Asegúrate de tomarte su tiempo para trabajar y practicar los conceptos y el código con frecuencia. ¡No te apresures! |
 
-## Nested Scopes, Revisited
+## Ámbitos anidados, revisados
 
-Again, recall our running example program:
+Nuevamente, recuerde nuestro programa de ejemplo en ejecución:
 
 ```js
 var students = [
@@ -41,17 +41,19 @@ console.log(nextStudent);
 // Suzy
 ```
 
-What color is the `students` variable reference in the `for`-loop?
+¿De qué color es la referencia a la variable `students` en el bucle `for`?
 
-In Chapter 2, we described the run-time access of a variable as a "lookup", where the *Engine* has to start by asking the current scope's *Scope Manager* if it knows about an identifier/variable, and proceeding upward/outward back through the chain of nested scopes (toward the global scope) until found, if ever. The lookup stops as soon as the first matching named declaration in a scope bucket is found.
+En el Capítulo 2, describimos el acceso en tiempo de ejecución de una variable como una "búsqueda", donde el *Motor* tiene que comenzar preguntando al *Scope Manager* del alcance actual si sabe acerca de un identificador / variable, y continuando hacia arriba / hacia afuera a través de la cadena de ámbitos anidados (hacia el ámbito global) hasta encontrarlos, si es que los hay. La búsqueda se detiene tan pronto como se encuentra la primera declaración con nombre coincidente en un segmento de ámbito.
 
-The lookup process thus determines that `students` is a RED marble. And `studentID` in the `if`-statement is determined to be a BLUE marble.
+El proceso de búsqueda determina, por lo tanto, que `students` es una canica roja. Y `studentID` en la declaración `if` se determina que es una canica AZUL.
 
-### "Lookup" Is (Mostly) Conceptual
+### La "Búsqueda" es (principalmente) conceptual
 
-This description of the run-time lookup process works for conceptual understanding, but it's not generally how things work in practice.
+Esta descripción del proceso de búsqueda en tiempo de ejecución funciona para la comprensión conceptual, pero generalmente no es cómo funcionan las cosas en la práctica.
 
-The color of a marble (what bucket it comes from) -- the meta information of what scope a variable originates from -- is *usually* known during the initial compilation processing. Because of how lexical scope works, a marble's color will not change based on anything that can happen during run-time.
+El color de una canica (de qué cubo proviene), la metainformación de qué alcance se origina una variable, es *generalmente* conocido durante el proceso de compilación inicial. Debido a cómo funciona el alcance léxico, el color de una canica no cambiará según lo que pueda suceder durante el tiempo de ejecución.
+
+Dado que el color de la canica se conoce por compilación, y es inmutable, esta información probablemente se almacenará con (o al menos accesible desde) la entrada de cada variable en el AST; esa información luego se usa para generar las instrucciones ejecutables que constituyen el tiempo de ejecución del programa. En otras palabras, *Motor* (del Capítulo 2) no necesita buscar y determinar de qué segmento de alcance proviene una variable. ¡Esa información ya se conoce!
 
 Since the marble's color is known from compilation, and it's immutable, this information will likely be stored with (or at least accessible from) each variable's entry in the AST; that information is then used in generating the executable instructions that constitute the program's run-time. In other words, *Engine* (from Chapter 2) doesn't need to lookup and figure out which scope bucket a variable comes from. That information is already known!
 

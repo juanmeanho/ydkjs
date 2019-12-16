@@ -53,31 +53,29 @@ Esta descripción del proceso de búsqueda en tiempo de ejecución funciona para
 
 El color de una canica (de qué cubo proviene), la metainformación de qué alcance se origina una variable, es *generalmente* conocido durante el proceso de compilación inicial. Debido a cómo funciona el alcance léxico, el color de una canica no cambiará según lo que pueda suceder durante el tiempo de ejecución.
 
-Dado que el color de la canica se conoce por compilación, y es inmutable, esta información probablemente se almacenará con (o al menos accesible desde) la entrada de cada variable en el AST; esa información luego se usa para generar las instrucciones ejecutables que constituyen el tiempo de ejecución del programa. En otras palabras, *Motor* (del Capítulo 2) no necesita buscar y determinar de qué segmento de alcance proviene una variable. ¡Esa información ya se conoce!
+Dado que el color de la canica se conoce desde la compilación, y es inmutable, esta información probablemente se almacenará con (o al menos accesible desde) la entrada de cada variable en el AST; esa información luego se usa para generar las instrucciones ejecutables que constituyen el tiempo de ejecución del programa. En otras palabras, *Motor* (del Capítulo 2) no necesita buscar y determinar de qué segmento de alcance proviene una variable. ¡Esa información ya se conoce!
 
-Since the marble's color is known from compilation, and it's immutable, this information will likely be stored with (or at least accessible from) each variable's entry in the AST; that information is then used in generating the executable instructions that constitute the program's run-time. In other words, *Engine* (from Chapter 2) doesn't need to lookup and figure out which scope bucket a variable comes from. That information is already known!
+Evitar la necesidad de una búsqueda en tiempo de ejecución es un beneficio clave de optimización para el alcance léxico. El alcance se fija en tiempo de autor / tiempo de compilación y no se ve afectado por las condiciones de tiempo de ejecución, por lo que no es necesaria una búsqueda en tiempo de ejecución. El tiempo de ejecución funciona de manera más eficaz sin perder tiempo en estas búsquedas.
 
-Avoiding the need for a run-time lookup is a key optimization benefit for lexical scope. Scope is fixed at author-time/compile-time, and unaffected by run-time conditions, so no run-time lookup is necessary. Run-time is operates more performantly without spending time on these lookups.
+Pero dije "... generalmente conocido ..." justo ahora con respecto a la determinación del color de una canica durante la compilación. ¿En qué caso *no* se conocería durante la compilación?
 
-But I said "...usually known..." just now with respect to a marble's color determination during compilation. In what case would it *not* be known during compilation?
+Considere una referencia a una variable que no se declara en los ámbitos léxicamente disponibles en el archivo actual; consulte *Comenzando*, Capítulo 1, que afirma que cada archivo es su propio programa separado desde la perspectiva de la compilación JS. Si no se encuentra ninguna declaración, eso no es *necesariamente* un error. Otro archivo (programa) en tiempo de ejecución puede declarar esa variable en el ámbito global compartido. Por lo tanto, la determinación final de si la variable alguna vez se declaró apropiadamente en algún segmento disponible puede necesitar ser diferida al tiempo de ejecución.
 
-Consider a reference to a variable that isn't declared in any lexically available scopes in the current file -- see *Get Started*, Chapter 1, which asserts that each file is its own separate program from the perspective of JS compilation. If no declaration is found, that's not *necessarily* an error. Another file (program) in the run-time may indeed declare that variable in the shared global scope. So the ultimate determination of whether the variable was ever appropriately declared in some available bucket may need to be deferred to the run-time.
+Cualquier referencia a una variable en nuestro programa que inicialmente *no está declarada* se deja como una canica incolora durante la compilación de ese archivo; este color no se puede determinar hasta que se hayan compilado otros archivos relevantes y comience el tiempo de ejecución de la aplicación.
 
-The take-away? Any reference to a variable in our program that's initially *undeclared* is left as an uncolored marble during that file's compilation; this color cannot be determined until other relevant file(s) have been compiled and the application run-time begins.
+Respecto a eso, algún tipo de "búsqueda" en tiempo de ejecución para la variable necesitaría resolver el color de esta canica incolora. Si la variable finalmente se descubrió en el segmento de alcance global, se aplica el color del alcance global. Pero esta búsqueda diferida en tiempo de ejecución solo sería necesaria una vez como máximo, ya que nada más durante el tiempo de ejecución podría cambiar el color de esa canica.
 
-In that respect, some sort of run-time "lookup" for the variable would need to resolve the color of this uncolored marble. If the variable was eventually discovered in the global scope bucket, the color of the global scope thus applies. But this run-time deferred lookup would only be needed once at most, since nothing else during run-time could later change that marble's color.
-
-| NOTE: |
+| NOTA: |
 | :--- |
-| Chapter 2 "Lookup Failures" covers what happens if a marble remains uncolored as its reference is executed. |
+| El Capítulo 2 "Fallos de búsqueda" cubre lo que sucede si una canica permanece incolora mientras se ejecuta su referencia. |
 
-### Shadowing
+### Sombreado
 
-Our running example for these chapters uses different variable names across the scope boundaries. Since they all have unique names, in a way it wouldn't matter if all of them were just in one bucket (like RED).
+Nuestro ejemplo corriente para estos capítulos usa diferentes nombres de variables a través de los límites del alcance. Como todos tienen nombres únicos, de alguna manera no importaría si todos estuvieran en un solo cubo (como RED).
 
-Where having different lexical scope buckets starts to matter more is when you have two or more variables, each in different scopes, with the same lexical names. In such a case, it's very relevant how the different scope buckets are laid out.
+Donde tener diferentes grupos de ámbitos léxicos comienza a importar más es cuando tiene dos o más variables, cada una en diferentes ámbitos, con los mismos nombres léxicos. En tal caso, es muy relevante cómo se presentan los diferentes segmentos de alcance.
 
-Consider:
+Considere:
 
 ```js
 var studentName = "Suzy";
@@ -97,11 +95,14 @@ console.log(studentName);
 // Suzy
 ```
 
+
 | TIP: |
 | :--- |
-| Before you move on, take some time to analyze this code using the various techniques/metaphors we've covered in the book. In particular, make sure to identify the marble/bubble colors in this snippet. It's good practice! |
+| Antes de continuar, tómese un tiempo para analizar este código utilizando las diversas técnicas / metáforas que hemos cubierto en el libro. En particular, asegúrese de identificar los colores de canicas / burbuja en este fragmento. ¡Es una buena práctica! |
 
-The `studentName` variable on line 1 (the `var studentName = ..` statement) creates a RED marble. The same named variable is declared as a BLUE marble on line 3, the parameter in the `printStudent(..)` function definition.
+La variable `studentName` en la línea 1 (la instrucción` var studentName = ..`) crea una canica ROJA. La misma variable nombrada se declara como una canica AZUL en la línea 3, el parámetro en la definición de función `printStudent(..)`.
+
+Entonces, la pregunta es, ¿de qué color se hace referencia a la canica en la declaración `studentName = studentName.toUpperCase()`, y de hecho en la siguiente declaración, `console.log(studentName)`? Las 3 referencias `studentName` aquí serán AZULES. ¿Por qué?
 
 So the question is, what color marble is being referenced in the `studentName = studentName.toUpperCase()` statement, and indeed the next statement, `console.log(studentName)`? All 3 `studentName` references here will be BLUE. Why?
 
